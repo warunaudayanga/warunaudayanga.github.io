@@ -1,0 +1,21 @@
+:root {
+    --header: 60px;
+
+    --primaryHue: 207;
+    --accentHue: 45;
+
+    --primary: hsl(var(--primaryHue), 90%, 40%);
+    --primary-dark: hsl(var(--primaryHue), 90%, 30%);
+    --primary-darker: hsl(var(--primaryHue), 83%, 25%);
+    --primary-shadow: hsl(var(--primaryHue), 92%, 80%);
+
+    --secondary: hsl(var(--primaryHue), 80%, 25%);
+    --secondary-dark: hsl(var(--primaryHue), 80%, 18%);
+    --secondary-darker: hsl(var(--primaryHue), 73%, 12%);
+    --secondary-shadow: hsl(var(--primaryHue), 82%, 60%);
+
+    --accent: hsl(var(--accentHue), 97%, 84%);
+    --accent-dark: hsl(var(--accentHue), 97%, 74%);
+    --accent-darker: hsl(var(--accentHue), 90%, 70%);
+    --accent-shadow: hsl(var(--accentHue), 97%, 90%);
+}

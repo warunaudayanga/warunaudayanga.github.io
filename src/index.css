@@ -1,0 +1,192 @@
+@layer tailwind-base, primereact, tailwind-utilities;
+
+@import "./variables.css";
+@import 'primereact/resources/themes/lara-light-blue/theme.css' layer(primereact);
+
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+* {
+    font-family: 'Google Sans', serif;
+}
+
+.fredoka-one {
+    font-family: 'Fredoka One', serif;
+}
+
+.google-sans {
+    font-family: 'Google Sans', serif;
+}
+
+
+.p-button {
+    &:not(.p-button-secondary):not(.p-button-success):not(.p-button-danger):not(.p-button-info):not(.p-button-help):not(.p-button-contrast):not(.p-button-warning) {
+        background-color: var(--primary);
+        border-color: var(--primary);
+
+        &:not(:disabled):hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        &:not(:disabled):active {
+            background-color: var(--primary-darker);
+            border-color: var(--primary-darker);
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px var(--primary-shadow), 0 0 0 4px var(--primary-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+        }
+    }
+}
+
+.page-section {
+    min-height: calc(100vh - var(--header));
+    margin-bottom: 60px;
+    padding: 20px;
+}
+
+.route {
+    position: relative;
+    top: -80px;
+}
+
+.bg-primary {
+    background-color: var(--primary);
+}
+
+.bg-primary-dark {
+    background-color: var(--primary-dark);
+}
+
+.bg-primary-darker {
+    background-color: var(--primary-darker);
+}
+
+.bg-secondary {
+    background-color: var(--secondary);
+}
+
+.bg-secondary-dark {
+    background-color: var(--secondary-dark);
+}
+
+.bg-secondary-darker {
+    background-color: var(--secondary-darker);
+}
+
+.bg-accent {
+    background-color: var(--accent);
+}
+
+.bg-accent-dark {
+    background-color: var(--accent-dark);
+}
+
+.bg-accent-darker {
+    background-color: var(--accent-darker);
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-primary-dark {
+    color: var(--primary-dark);
+}
+
+.text-primary-darker {
+    color: var(--primary-darker);
+}
+
+.text-secondary {
+    color: var(--secondary);
+}
+
+.text-secondary-dark {
+    color: var(--secondary-dark);
+}
+
+.text-secondary-darker {
+    color: var(--secondary-darker);
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.text-accent-dark {
+    color: var(--accent-dark);
+}
+
+.text-accent-darker {
+    color: var(--accent-darker);
+}
+
+.border-primary {
+    border-color: var(--primary);
+}
+
+.border-primary-dark {
+    border-color: var(--primary-dark);
+}
+
+.border-primary-darker {
+    border-color: var(--primary-darker);
+}
+
+.border-secondary {
+    border-color: var(--secondary);
+}
+
+.border-secondary-dark {
+    border-color: var(--secondary-dark);
+}
+
+.border-secondary-darker {
+    border-color: var(--secondary-darker);
+}
+
+.border-accent {
+    border-color: var(--accent);
+}
+
+.border-accent-dark {
+    border-color: var(--accent-dark);
+}
+
+.border-accent-darker {
+    border-color: var(--accent-darker);
+}
+
+.glass {
+    position: relative;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px) saturate(100%) contrast(85%) brightness(130%);
+    background-color: rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.p-scrollpanel-bar-x {
+    display: none;
+}
+
+.btn-small, .form-control-small {
+    height: 2.3rem !important;
+    min-width: 5rem;
+    justify-content: center;
+}

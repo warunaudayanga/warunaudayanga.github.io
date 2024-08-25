@@ -1,0 +1,80 @@
+.art-wrapper {
+    --primary-shade-1:  hsl(163, 80%, 19%);
+    --primary-shade-2:  hsl(163, 77%, 23%);
+    --primary-shade-3:  hsl(163, 79%, 20%);
+    --primary-shade-4:  hsl(163, 79%, 18%);
+    --primary-shade-5:  hsl(163, 80%, 19%);
+    --primary-shade-6:  hsl(163, 79%, 21%);
+    --primary-shade-7:  hsl(163, 80%, 18%);
+    --primary-shade-8:  hsl(163, 80%, 19%);
+    --primary-shade-9:  hsl(163, 77%, 23%);
+    --primary-shade-10: hsl(163, 77%, 23%);
+    --primary-shade-11: hsl(163, 79%, 20%);
+    --primary-shade-12: hsl(163, 75%, 28%);
+    --accent-color: hsl(45, 97%, 84%);
+
+    position: relative;
+    overflow: hidden;
+    background-color: var(--primary-shade-12);
+
+    svg {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .primary-shade-1 {
+            fill: var(--primary-shade-1);
+        }
+
+        .primary-shade-2 {
+            fill: var(--primary-shade-2);
+        }
+
+        .primary-shade-3 {
+            fill: var(--primary-shade-3);
+        }
+
+        .primary-shade-4 {
+            fill: var(--primary-shade-4);
+        }
+
+        .primary-shade-5 {
+            fill: var(--primary-shade-5);
+        }
+
+        .primary-shade-6 {
+            fill: var(--primary-shade-6);
+        }
+
+        .primary-shade-7 {
+            fill: var(--primary-shade-7);
+        }
+
+        .primary-shade-8 {
+            fill: var(--primary-shade-8);
+        }
+
+        .primary-shade-9 {
+            fill: var(--primary-shade-9);
+        }
+
+        .primary-shade-10 {
+            fill: var(--primary-shade-10);
+        }
+
+        .primary-shade-11 {
+            fill: var(--primary-shade-11);
+        }
+
+        .primary-shade-12 {
+            fill: var(--primary-shade-12);
+        }
+
+        .accent-color {
+            fill: var(--accent-color) !important;
+        }
+    }
+}
+

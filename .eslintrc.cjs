@@ -1,6 +1,6 @@
 module.exports = {
     root: true,
-    env: {browser: true, es2020: true},
+    env: { browser: true, es2020: true },
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/strict-type-checked',
@@ -22,7 +22,7 @@ module.exports = {
     rules: {
         'react-refresh/only-export-components': [
             'warn',
-            {allowConstantExport: true},
+            { allowConstantExport: true },
         ],
         "prettier/prettier": [
             "error",
@@ -42,11 +42,16 @@ module.exports = {
         "react-hooks/exhaustive-deps": "off",
         "@typescript-eslint/consistent-indexed-object-style": "off",
         "@typescript-eslint/explicit-function-return-type": "error",
+
         "@typescript-eslint/no-confusing-void-expression": "off",
+        "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-unnecessary-type-assertion": "off",
         "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/non-nullable-type-assertion-style": "off",
         "@typescript-eslint/prefer-nullish-coalescing": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/unbound-method": "off",
         "@typescript-eslint/use-unknown-in-catch-callback-variable": "off",
         "array-bracket-newline": "off",
         "array-bracket-spacing": "error",
