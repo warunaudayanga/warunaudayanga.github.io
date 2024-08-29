@@ -5,12 +5,10 @@ import { PrimeReactProvider } from "primereact/api";
 import { combineProviders } from "../utils/";
 import AuthProvider from "./AuthProvider.tsx";
 import DialogProvider from "./DialogProvider.tsx";
-import ToastProvider from "./ToastProvider.tsx";
 
 const providers: ((props: { children: ReactNode }) => ReactNode)[] = [
     AuthProvider,
     AppProvider,
-    ToastProvider,
     DialogProvider,
     PrimeReactProvider,
 ];

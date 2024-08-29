@@ -3,10 +3,13 @@
 import { JSX } from "react";
 import { Card } from "primereact/card";
 import { useAuth, useDialog } from "../../hooks";
-import { Button } from "primereact/button";
 import { ProjectViewDialog } from "../dialogs";
 import gamehub from "../../assets/projects/gamehub/gamehub.png";
 import { ProjectDocument } from "../../interfaces";
+import Button from "./Button.tsx";
+import { FaPen } from "react-icons/fa6";
+import { FaTimes } from "react-icons/fa";
+import { Id, toast } from "react-toastify";
 
 const ProjectCard = (): JSX.Element => {
     const { user } = useAuth();
@@ -132,14 +135,19 @@ const ProjectCard = (): JSX.Element => {
         }
     };
 
+    const notify = (): Id => toast.success("Wow so easy!");
+
     return (
         <div className="w-1/2 odd:pr-4 even:pl-4 pb-8">
-            <Card pt={{ content: { className: "p-0" }, body: { className: "p-8" } }} className="shadow-lg relative">
+            <Card
+                pt={{ content: { className: "p-0" }, body: { className: "p-8" } }}
+                className="bg-white shadow-lg relative"
+            >
                 {/* <input type="file" onChange={handleUpload} />*/}
                 {user && (
                     <div className="flex gap-2 absolute top-[-10px] right-[-10px]">
-                        <Button icon="pi pi-pencil" rounded className="w-7 h-7"></Button>
-                        <Button icon="pi pi-times" rounded className="w-7 h-7" severity="danger"></Button>
+                        <Button icon={<FaPen />} rounded className="w-7 h-7"></Button>
+                        <Button icon={<FaTimes />} rounded className="w-7 h-7" color="danger"></Button>
                     </div>
                 )}
                 <div className="flex flex-col gap-3 mb-5">
@@ -148,10 +156,12 @@ const ProjectCard = (): JSX.Element => {
                 <div className="text-xl font-bold">Game Hub</div>
                 <p className="mb-3">Lorem ipsum dolor sit amet</p>
                 <div className="flex gap-8">
-                    <Button className="btn-small flex-grow justify-center" onClick={handleView}>
+                    <Button className="flex-grow justify-center" onClick={handleView}>
                         View
                     </Button>
-                    <Button className="btn-small flex-grow justify-center">Open</Button>
+                    <Button className="flex-grow justify-center" onClick={notify}>
+                        Open
+                    </Button>
                 </div>
             </Card>
         </div>

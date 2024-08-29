@@ -2,8 +2,7 @@
 import { JSX, PropsWithChildren, useCallback, useState } from "react";
 import { DialogContext } from "../context";
 import { ConfirmDialogOptions, DialogComponent, DialogOptions, DialogRef } from "../interfaces";
-import { ConfirmDialogButtons, Dialog } from "../components";
-import { Button } from "primereact/button";
+import { Button, ConfirmDialogButtons, Dialog } from "../components";
 
 interface DialogItem<T = any, D = unknown> {
     id: number;

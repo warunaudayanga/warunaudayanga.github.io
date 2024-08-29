@@ -4,3 +4,5 @@ export { default as Section } from "./Section";
 export { default as StackIcon } from "./StackIcon";
 export { default as ProjectCard } from "./ProjectCard";
 export { default as Spinner } from "./Spinner";
+export { default as Button } from "./Button";
+export { default as FormControl } from "./FormControl";

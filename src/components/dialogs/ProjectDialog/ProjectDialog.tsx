@@ -1,18 +1,22 @@
-import { JSX, useState } from "react";
+import { JSX, useRef, useState } from "react";
 import { ProjectDocument, ProjectDto, PropsWithCloseAndData } from "../../../interfaces";
 import { DialogButtonSection } from "../../layout";
-import { Button } from "primereact/button";
 import DialogBodySection from "../../layout/Dialog/DialogBodySection.tsx";
-import FormControl from "../../FormControl.tsx";
+import FormControl from "../../other/FormControl.tsx";
 import { useForm } from "react-hook-form";
-import useToast from "../../../hooks/use-toast.ts";
-import { Spinner } from "../../other";
+import { Button, Spinner } from "../../other";
+import FileUpload from "../../other/FileUpload.tsx";
 
 const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, ProjectDto>): JSX.Element => {
     const [isSubmitting, setSubmitting] = useState(false);
-    const { successToast, errorToast } = useToast();
+    const form = useRef<HTMLFormElement>(null);
 
-    const defaultValues: ProjectDto = { name: data?.name ?? "", status: data?.status ?? "draft" };
+    const defaultValues: ProjectDto = {
+        name: data?.name || "",
+        cover: undefined,
+        info: data?.info || "",
+        status: data?.status || "draft",
+    };
 
     const {
         control,
@@ -24,10 +28,10 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
         try {
             setSubmitting(true);
             await Promise.resolve();
-            successToast("Logged in successfully");
+            // toast.success("Logged in successfully");
             close(projectDto as ProjectDocument);
         } catch (error) {
-            errorToast((error as Error).message);
+            // toast.success("Logged in successfully");
         } finally {
             setSubmitting(false);
         }
@@ -36,9 +40,11 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
     return (
         <>
             <DialogBodySection full={true}>
-                <form onSubmit={onSubmit} className="flex flex-col items-center gap-3">
-                    <FormControl control={control} size="small" name="name" title="Name" required error={errors.name} />
-                    <FormControl control={control} size="small" name="info" title="Info" required error={errors.name} />
+                <form ref={form} onSubmit={onSubmit} className="flex flex-col gap-6">
+                    <FormControl control={control} name="name" size="small" title="Name" required error={errors.name} />
+                    {/* eslint-disable-next-line no-console */}
+                    <FileUpload title="Cover" image onFileSelect={files => console.log(files)} required />
+                    <FormControl control={control} name="info" size="small" title="Info" required error={errors.name} />
                     <FormControl
                         control={control}
                         type="textarea"
@@ -52,10 +58,10 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                 </form>
             </DialogBodySection>
             <DialogButtonSection>
-                <Button disabled={isSubmitting} className="btn-small" severity="secondary" onClick={() => close()}>
+                <Button disabled={isSubmitting} className="btn-small" color="gray" onClick={() => close()}>
                     Cancel
                 </Button>
-                <Button disabled={isSubmitting} className="btn-small" onClick={() => close()}>
+                <Button disabled={isSubmitting} className="btn-small" onClick={() => form.current?.requestSubmit()}>
                     {isSubmitting ? "Saving..." : "Save"}
                     {isSubmitting && <Spinner />}
                 </Button>

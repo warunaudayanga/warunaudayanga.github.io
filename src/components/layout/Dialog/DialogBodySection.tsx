@@ -1,23 +1,21 @@
 import { JSX, PropsWithChildren } from "react";
-import { ScrollPanel } from "primereact/scrollpanel";
-import { classNames } from "primereact/utils";
+import ScrollPane from "../ScrollPane.tsx";
 
 const DialogBodySection = ({ children, full }: PropsWithChildren<{ full?: boolean }>): JSX.Element => {
+    const maxHeight =
+        "calc(var(--dialog-max-height) - var(--dialog-header) - var(--dialog-footer) - var(--dialog-padding) * 2";
+
     return (
-        <ScrollPanel
-            className="flex-grow"
-            style={{ maxHeight: "calc(100% - 110px)" }}
-            pt={{ content: { className: "h-full" } }}
-        >
-            <div
-                className={classNames({
-                    "dialog-body px-5": true,
-                    "h-full": full,
-                })}
+        <div className="max-w-full">
+            <ScrollPane
+                style={{
+                    maxHeight,
+                    height: full ? maxHeight : "auto",
+                }}
             >
                 {children}
-            </div>
-        </ScrollPanel>
+            </ScrollPane>
+        </div>
     );
 };
 

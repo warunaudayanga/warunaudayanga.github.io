@@ -1,6 +1,9 @@
 // noinspection JSUnusedGlobalSymbols
+export * from "./Menu";
 
 export { default as Header } from "./Header/Header";
+export { default as Menu } from "./Menu";
+export { default as PopupMenu } from "./PopupMenu";
 export { default as Content } from "./Content/Content";
 export { default as Dialog } from "../layout/Dialog/Dialog";
 export { default as DialogContainer } from "../layout/Dialog/DialogContainer";

@@ -1,0 +1,46 @@
+@layer utilities {
+    .shadow-primary {
+        box-shadow: 0 0 0 2px var(--primary-shadow), 0 0 0 4px var(--primary-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-secondary {
+        box-shadow: 0 0 0 2px var(--secondary-shadow), 0 0 0 4px var(--secondary-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-accent {
+        box-shadow: 0 0 0 2px var(--accent-shadow), 0 0 0 4px var(--accent-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-success {
+        box-shadow: 0 0 0 2px var(--success-shadow), 0 0 0 4px var(--success-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-danger {
+        box-shadow: 0 0 0 2px var(--danger-shadow), 0 0 0 4px var(--danger-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-info {
+        box-shadow: 0 0 0 2px var(--info-shadow), 0 0 0 4px var(--info-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-help {
+        box-shadow: 0 0 0 2px var(--help-shadow), 0 0 0 4px var(--help-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-warning {
+        box-shadow: 0 0 0 2px var(--warning-shadow), 0 0 0 4px var(--warning-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-black {
+        box-shadow: 0 0 0 2px var(--black-shadow), 0 0 0 4px var(--black-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-white {
+        box-shadow: 0 0 0 2px var(--white-shadow), 0 0 0 4px var(--white-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+    }
+
+    .shadow-gray {
+        box-shadow: 0 0 0 2px var(--gray-shadow), 0 0 0 4px var(--gray-shadow), 0 1px 2px 0 rgb(0, 0, 0);
+        border: none !important;
+    }
+}

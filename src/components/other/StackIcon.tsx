@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { classNames } from "primereact/utils";
+import classNames from "classnames";
 
 const StackIcon = ({ icon, size = "25px", inline }: { icon: string; size?: string; inline?: boolean }): JSX.Element => {
     return (

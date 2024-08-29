@@ -1,6 +1,6 @@
 import { JSX } from "react";
-import { Button } from "primereact/button";
 import { PropsWithCloseAndData } from "../../interfaces";
+import { Button } from "../other";
 
 interface Props {
     cancelText?: string;
@@ -12,8 +12,12 @@ const ConfirmDialogButtons = ({
     cancelText,
     confirmText,
 }: PropsWithCloseAndData<unknown, boolean, Props>): JSX.Element[] => [
-    <Button className="btn-small" key="no" label={cancelText || "No"} onClick={() => close(false)} />,
-    <Button className="btn-small" key="yes" label={confirmText || "Yes"} onClick={() => close(true)} />,
+    <Button className="btn-small" key="no" onClick={() => close(false)}>
+        {cancelText || "No"}
+    </Button>,
+    <Button className="btn-small" key="yes" onClick={() => close(true)}>
+        {confirmText || "Yes"}
+    </Button>,
 ];
 
 export default ConfirmDialogButtons;

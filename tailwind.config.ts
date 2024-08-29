@@ -1,16 +1,16 @@
 // noinspection JSUnusedGlobalSymbols
 
-/** @type {import('tailwindcss').Config} */
+import type { Config } from "tailwindcss/types/config";
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./src/index.css",
-    "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.css",
   ],
   theme: {
     extend: {},
   },
   plugins: [],
-}
+} as Config;
 

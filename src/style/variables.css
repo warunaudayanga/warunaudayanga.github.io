@@ -1,0 +1,66 @@
+:root {
+    --header: 60px;
+    --dialog-padding: 20px;
+    --dialog-max-height: calc(100vh - 50px);
+    --dialog-max-width: 95vw;
+    --dialog-header: 50px;
+    --dialog-footer: 60px;
+
+    --primaryHue: 207;
+    --accentHue: 45;
+
+    --primary: hsl(var(--primaryHue), 90%, 40%);
+    --primary-dark: hsl(var(--primaryHue), 90%, 30%);
+    --primary-darker: hsl(var(--primaryHue), 83%, 25%);
+    --primary-shadow: hsl(var(--primaryHue), 92%, 80%);
+
+    --secondary: hsl(var(--primaryHue), 80%, 25%);
+    --secondary-dark: hsl(var(--primaryHue), 80%, 18%);
+    --secondary-darker: hsl(var(--primaryHue), 73%, 12%);
+    --secondary-shadow: hsl(var(--primaryHue), 82%, 80%);
+
+    --accent: hsl(var(--accentHue), 97%, 84%);
+    --accent-dark: hsl(var(--accentHue), 97%, 74%);
+    --accent-darker: hsl(var(--accentHue), 90%, 70%);
+    --accent-shadow: hsl(var(--accentHue), 97%, 90%);
+
+    --success: hsl(120, 90%, 40%);
+    --success-dark: hsl(120, 90%, 30%);
+    --success-darker: hsl(120, 83%, 25%);
+    --success-shadow: hsl(120, 92%, 80%);
+
+    --danger: hsl(0, 90%, 40%);
+    --danger-dark: hsl(0, 90%, 30%);
+    --danger-darker: hsl(0, 83%, 25%);
+    --danger-shadow: hsl(0, 92%, 80%);
+
+    --info: hsl(207, 90%, 40%);
+    --info-dark: hsl(207, 90%, 30%);
+    --info-darker: hsl(207, 83%, 25%);
+    --info-shadow: hsl(207, 92%, 80%);
+
+    --help: hsl(45, 90%, 40%);
+    --help-dark: hsl(45, 90%, 30%);
+    --help-darker: hsl(45, 83%, 25%);
+    --help-shadow: hsl(45, 92%, 80%);
+
+    --warning: hsl(30, 90%, 40%);
+    --warning-dark: hsl(30, 90%, 30%);
+    --warning-darker: hsl(30, 83%, 25%);
+    --warning-shadow: hsl(30, 92%, 80%);
+
+    --black: hsl(0, 0%, 0%);
+    --black-dark: hsl(0, 0%, 10%);
+    --black-darker: hsl(0, 0%, 20%);
+    --black-shadow: hsl(0, 0%, 5%);
+
+    --white: hsl(0, 0%, 100%);
+    --white-dark: hsl(0, 0%, 90%);
+    --white-darker: hsl(0, 0%, 80%);
+    --white-shadow: hsl(0, 0%, 95%);
+
+    --gray: hsl(0, 0%, 70%);
+    --gray-dark: hsl(0, 0%, 80%);
+    --gray-darker: hsl(0, 0%, 70%);
+    --gray-shadow: hsl(0, 0%, 90%);
+}
