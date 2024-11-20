@@ -104,7 +104,7 @@ const Home = (): JSX.Element => {
                         <div className="relative">
                             <h2
                                 className="text-[60px] fredoka-one text-accent "
-                                dangerouslySetInnerHTML={innerHTML(config.title || "Your Title")}
+                                dangerouslySetInnerHTML={innerHTML(config.title || "Set Your Title")}
                             ></h2>
                             {user && (
                                 <Button
@@ -119,7 +119,7 @@ const Home = (): JSX.Element => {
                         <div className="relative">
                             <h4
                                 className="text-[30px] fredoka-one text-center text-accent-darker"
-                                dangerouslySetInnerHTML={innerHTML(config.subtitle || "Your Subtitle")}
+                                dangerouslySetInnerHTML={innerHTML(config.subtitle || "Set Your Subtitle")}
                             ></h4>
                             {user && (
                                 <Button
