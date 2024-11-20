@@ -177,6 +177,7 @@ export const stackIcon = {
     DotNet,
     TypeORM,
     Electron,
+    NoIcon: NPM,
 };
 
 export {

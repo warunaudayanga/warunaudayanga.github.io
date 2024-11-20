@@ -14,8 +14,6 @@ const PopupMenu = ({ items, title }: Props): JSX.Element => {
 
     const [opened, setOpened] = useState(false);
 
-    // useClickOutside(panelRef, () => setOpened(false));
-
     const avatarBounds = avatarRef.current?.getBoundingClientRect();
 
     const PopupMenuPanel = (): ReactNode =>

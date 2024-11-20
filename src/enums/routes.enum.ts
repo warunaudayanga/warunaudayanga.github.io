@@ -1,7 +1,8 @@
 export enum Route {
     HOME = "home",
     ABOUT = "about",
-    PROJECTS = "projects",
-    PERSONAL = "personal",
-    NPM = "npm",
+    WORK_PROJECTS = "work",
+    PERSONAL_PROJECTS = "personal",
+    COLLABORATION_PROJECTS = "collaboration",
+    NPM_PROJECTS = "npm",
 }

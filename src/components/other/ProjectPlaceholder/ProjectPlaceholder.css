@@ -1,0 +1,13 @@
+.project-placeholder {
+    svg {
+        .background {
+            fill: var(--primary-dark);
+        }
+        .border {
+            fill: var(--accent-darker);
+        }
+        .inner {
+            fill: var(--primary);
+        }
+    }
+}

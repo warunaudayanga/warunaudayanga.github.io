@@ -1,29 +1,17 @@
 import { JSX, UIEvent, useEffect, useState } from "react";
-import {
-    AboutMe,
-    Button,
-    Content,
-    Header,
-    Home,
-    LoginDialog,
-    Menu,
-    MyProjects,
-    NPMLibraries,
-    Page,
-    PersonalProjects,
-    PopupMenu,
-    ProjectDialog,
-} from "../index.ts";
+import { AboutMe, Button, Content, Header, Home, LoginDialog, Menu, Page, PopupMenu, ProjectDialog } from "../index.ts";
 import { useAppState, useAuth, useDialog } from "../../hooks";
 import { FaHome, FaInfoCircle, FaPowerOff, FaSignInAlt } from "react-icons/fa";
 import { GrProjects } from "react-icons/gr";
 import { VscGithubProject } from "react-icons/vsc";
 import { BiSolidAddToQueue } from "react-icons/bi";
-import { DialogRef, MenuItem, ProjectDocument, ProjectDto } from "../../interfaces";
+import { DialogRef, MenuItem, ProjectDocument } from "../../interfaces";
 import { AppActionType } from "../../reducers";
 import { Route } from "../../enums";
 import WebFont from "webfontloader";
 import { ToastContainer } from "react-toastify";
+import { Projects } from "../sections";
+import { ProjectCategory } from "../../enums/project-category.enum.ts";
 
 function Layout(): JSX.Element {
     const [scrolled, setScrolled] = useState(false);
@@ -57,7 +45,7 @@ function Layout(): JSX.Element {
     };
 
     const handleAddProject = async (): Promise<void> => {
-        const dialogRef: DialogRef<ProjectDto> = openDialog<ProjectDocument, ProjectDocument>(ProjectDialog, {
+        const dialogRef: DialogRef<ProjectDocument> = openDialog<ProjectDocument, ProjectDocument>(ProjectDialog, {
             heading: "Add Project",
             full: true,
             width: "90vw",
@@ -71,27 +59,38 @@ function Layout(): JSX.Element {
         {
             label: "Home",
             icon: <FaHome />,
-            url: "#home",
+            url: "#",
+            elementId: Route.HOME,
         },
         {
             label: "About Me",
             icon: <FaInfoCircle />,
-            url: "#about",
+            url: "#",
+            elementId: Route.ABOUT,
         },
         {
-            label: "My Projects",
+            label: "Work",
             icon: <VscGithubProject />,
-            url: "#projects",
+            url: "#",
+            elementId: Route.WORK_PROJECTS,
         },
         {
-            label: "Personal Projects",
+            label: "Personal",
             icon: <VscGithubProject />,
-            url: "#personal",
+            url: "#",
+            elementId: Route.PERSONAL_PROJECTS,
+        },
+        {
+            label: "Collaboration",
+            icon: <VscGithubProject />,
+            url: "#",
+            elementId: Route.COLLABORATION_PROJECTS,
         },
         {
             label: "NPM Libraries",
             icon: <GrProjects />,
-            url: "#npm",
+            url: "#",
+            elementId: Route.NPM_PROJECTS,
         },
     ];
 
@@ -138,9 +137,10 @@ function Layout(): JSX.Element {
                 <Home />
                 <Page>
                     <AboutMe />
-                    <MyProjects />
-                    <PersonalProjects />
-                    <NPMLibraries />
+                    <Projects category={ProjectCategory.WORK} route={Route.WORK_PROJECTS} />
+                    <Projects category={ProjectCategory.PERSONAL} route={Route.PERSONAL_PROJECTS} />
+                    <Projects category={ProjectCategory.COLLABORATION} route={Route.COLLABORATION_PROJECTS} />
+                    <Projects category={ProjectCategory.NPM} route={Route.NPM_PROJECTS} />
                 </Page>
             </Content>
             <ToastContainer theme="colored" />

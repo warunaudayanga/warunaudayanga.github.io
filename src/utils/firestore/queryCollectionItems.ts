@@ -29,12 +29,12 @@ import { createCollectionRef } from "./createCollectionRef";
 export const queryCollectionItems = async <T extends DocumentData>(
     db: Firestore,
     collectionPath: string,
-    conditions: QueryConstraint[],
+    conditions?: QueryConstraint[],
 ): Promise<QuerySnapshot<T>> => {
     try {
         const collectionRef = createCollectionRef<T>(db, collectionPath);
 
-        const q = query(collectionRef, ...conditions);
+        const q = query(collectionRef, ...(conditions || []));
 
         return await getDocs(q);
     } catch (error) {

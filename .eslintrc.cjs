@@ -40,6 +40,7 @@ module.exports = {
         ],
         "react/react-in-jsx-scope": "off",
         "react-hooks/exhaustive-deps": "off",
+
         "@typescript-eslint/consistent-indexed-object-style": "off",
         "@typescript-eslint/explicit-function-return-type": "error",
 
@@ -48,6 +49,7 @@ module.exports = {
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-unnecessary-type-assertion": "off",
         "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
         "@typescript-eslint/non-nullable-type-assertion-style": "off",
         "@typescript-eslint/prefer-nullish-coalescing": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
@@ -261,7 +263,7 @@ module.exports = {
             },
         ],
         radix: "off",
-        "require-atomic-updates": "error",
+        "require-atomic-updates": "off",
         "require-await": "error",
         "require-unicode-regexp": "off",
         "rest-spread-spacing": "error",

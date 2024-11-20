@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JSX, ReactNode } from "react";
+import { Severity } from "../types";
 
 export type PropsWithCloseAndData<R = any, D = unknown, P = unknown> = P & {
     close: (response?: R) => void;
@@ -20,6 +21,7 @@ export interface DialogOptions<D = unknown> {
 export interface AlertDialogOptions {
     heading?: string;
     message: string;
+    severity?: Severity;
 }
 
 export interface ConfirmDialogOptions extends AlertDialogOptions {

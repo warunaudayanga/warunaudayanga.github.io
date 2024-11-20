@@ -47,12 +47,12 @@ const DialogProvider = ({ children }: PropsWithChildren): JSX.Element => {
         [],
     );
 
-    const alertDialog = useCallback(async ({ heading, message }: ConfirmDialogOptions): Promise<void> => {
+    const alertDialog = useCallback(async ({ heading, message, severity }: ConfirmDialogOptions): Promise<void> => {
         const ref = open<boolean>({
             heading,
             content: message,
             buttons: close => [
-                <Button key="ok" className="btn-small" onClick={close}>
+                <Button key="ok" className="btn-small" onClick={close} color={severity}>
                     OK
                 </Button>,
             ],
@@ -61,11 +61,17 @@ const DialogProvider = ({ children }: PropsWithChildren): JSX.Element => {
     }, []);
 
     const confirmDialog = useCallback(
-        ({ heading, message, confirmText, cancelText }: ConfirmDialogOptions): Promise<boolean | undefined> => {
+        ({
+            heading,
+            message,
+            confirmText,
+            cancelText,
+            severity,
+        }: ConfirmDialogOptions): Promise<boolean | undefined> => {
             const ref = open<boolean>({
                 heading,
-                content: message,
-                buttons: close => ConfirmDialogButtons({ close, confirmText, cancelText }),
+                content: <p className="px-3">{message}</p>,
+                buttons: close => ConfirmDialogButtons({ close, confirmText, cancelText, severity }),
             });
             return ref.result;
         },

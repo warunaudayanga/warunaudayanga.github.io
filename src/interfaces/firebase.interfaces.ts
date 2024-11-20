@@ -8,4 +8,6 @@ export interface UploadedFile {
     bucket: string;
     fullPath: string;
     url: string;
+    size: number;
+    originalName: string;
 }

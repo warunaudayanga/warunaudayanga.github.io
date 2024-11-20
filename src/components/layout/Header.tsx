@@ -1,5 +1,4 @@
 import { JSX, PropsWithChildren } from "react";
-import "./Header.css";
 import classNames from "classnames";
 
 const Header = ({ show, children }: PropsWithChildren<{ show?: boolean }>): JSX.Element => {

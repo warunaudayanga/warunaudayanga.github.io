@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { JSX, useState } from "react";
 import { DialogComponent, LoginDto, PropsWithCloseAndData } from "../../interfaces";
 import { useForm } from "react-hook-form";
@@ -12,11 +13,7 @@ const LoginDialog: DialogComponent = ({ close }: PropsWithCloseAndData<LoginDto>
 
     const defaultValues = { email: "", password: "" };
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({ defaultValues });
+    const { control, handleSubmit } = useForm({ defaultValues });
 
     const onSubmit = handleSubmit(async (loginDto: LoginDto): Promise<void> => {
         try {
@@ -25,7 +22,8 @@ const LoginDialog: DialogComponent = ({ close }: PropsWithCloseAndData<LoginDto>
             toast.success("Logged in successfully");
             close();
         } catch (error) {
-            // errorToast((error as Error).message);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
+            toast.error((error as any).message || "Error logging in");
         } finally {
             setSubmitting(false);
         }
@@ -33,24 +31,16 @@ const LoginDialog: DialogComponent = ({ close }: PropsWithCloseAndData<LoginDto>
 
     return (
         <DialogBodySection>
-            <form onSubmit={onSubmit} className="flex flex-col items-center gap-3">
-                <FormControl control={control} name="email" title="E-mail" required fullWidth error={errors.email} />
-                <FormControl
-                    control={control}
-                    type="password"
-                    name="password"
-                    title="Password"
-                    required
-                    fullWidth
-                    error={errors.password}
-                />
+            <form onSubmit={onSubmit} className="flex flex-col items-center gap-3 p-3">
+                <FormControl control={control} name="email" title="E-mail" required fullWidth />
+                <FormControl control={control} type="password" name="password" title="Password" required fullWidth />
                 <div className="flex justify-center gap-3 pt-4">
                     <Button type="button" disabled={isSubmitting} color="gray" onClick={() => close()}>
                         Cancel
                     </Button>
-                    <Button disabled={isSubmitting}>
-                        {isSubmitting ? "Logging in" : "Login"}
-                        {isSubmitting && <Spinner className="ml-2" />}
+                    <Button type="submit" disabled={isSubmitting}>
+                        {isSubmitting ? "Logging in..." : "Login"}
+                        {isSubmitting && <Spinner className="ml-2 border-white" />}
                     </Button>
                 </div>
             </form>

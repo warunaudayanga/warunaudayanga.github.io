@@ -1,0 +1,23 @@
+.scroll-pane, .scroll-pane-full {
+    .os-scrollbar-handle {
+        width: 10px !important;
+        background-color: var(--gray);
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--gray-darker);
+        }
+    }
+}
+
+.scroll-pane .os-scrollbar-handle {
+    border-radius: 0.25rem;
+}
+
+.scroll-pane-full .os-scrollbar-handle {
+    background-color: var(--primary-dark);
+
+    &:hover {
+        background-color: var(--primary-darker);
+    }
+}

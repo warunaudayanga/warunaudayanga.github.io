@@ -1,9 +1,10 @@
 import { JSX } from "react";
-import { ProjectDocument, PropsWithCloseAndData, Tool } from "../../../interfaces";
+import { ProjectDocument, PropsWithCloseAndData, UploadedFile } from "../../interfaces";
 import ToolSection from "./ToolSection.tsx";
 import Tools from "./Tools.tsx";
-import { DialogBodySection, DialogButtonSection } from "../../layout";
-import { Button } from "../../other";
+import { DialogBodySection, DialogButtonSection } from "../layout";
+import { Button } from "../other";
+import { stackIcon } from "../../data/stack-icons.ts";
 
 const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, ProjectDocument>): JSX.Element => {
     const libraries =
@@ -14,10 +15,10 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
         data?.databaseLibs ||
         data?.otherLibs;
 
-    const addTools = (category: string, tools?: Tool[], isSub?: boolean): JSX.Element | null =>
+    const addTools = (category: string, tools?: (keyof typeof stackIcon)[], isSub?: boolean): JSX.Element | null =>
         tools?.length ? (
             <ToolSection category={category} isSub={isSub}>
-                <Tools tools={tools}></Tools>
+                <Tools tools={tools.map(name => ({ name, icon: name }))}></Tools>
             </ToolSection>
         ) : null;
 
@@ -38,19 +39,21 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                         </div>
                     )}
                     <div className="tools">
-                        {addTools("Languages", data?.languages)}
-                        {addTools("Database", data?.databases)}
-                        {addTools("Deployment", data?.deployment)}
-                        {addTools("Deployment", data?.services)}
+                        {data?.languages && addTools("Languages", data.languages)}
+                        {data?.databases && addTools("Database", data.databases)}
+                        {data?.deployment && addTools("Deployment", data.deployment)}
+                        {data?.services && addTools("Deployment", data.services)}
                         {libraries && (
                             <ToolSection category="Frameworks and Libraries">
                                 <div className="mb-2">
-                                    {addTools("Core Libraries / Frameworks", data.coreLibs, true)}
-                                    {addTools("UI Libraries / Frameworks", data.uiLibs, true)}
-                                    {addTools("State Management Libraries", data.stateManageLibs, true)}
-                                    {addTools("Backend Libraries / Frameworks", data.backendLibs, true)}
-                                    {addTools("Database Libraries", data.databaseLibs, true)}
-                                    {addTools("Other Tools", data.otherLibs, true)}
+                                    {data.coreLibs && addTools("Core Libraries / Frameworks", data.coreLibs, true)}
+                                    {data.uiLibs && addTools("UI Libraries / Frameworks", data.uiLibs, true)}
+                                    {data.stateManageLibs &&
+                                        addTools("State Management Libraries", data.stateManageLibs, true)}
+                                    {data.backendLibs &&
+                                        addTools("Backend Libraries / Frameworks", data.backendLibs, true)}
+                                    {data.databaseLibs && addTools("Database Libraries", data.databaseLibs, true)}
+                                    {data.otherLibs && addTools("Other Tools", data.otherLibs, true)}
                                 </div>
                             </ToolSection>
                         )}
@@ -65,7 +68,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                 <div
                                     key={index}
                                     className="h-full w-full bg-no-repeat bg-center bg-contain mb-5"
-                                    style={{ backgroundImage: `url(${screenshot.url})` }}
+                                    style={{ backgroundImage: `url(${(screenshot as UploadedFile).url})` }}
                                 />
                             ))}
                         </div>

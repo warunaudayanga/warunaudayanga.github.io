@@ -21,7 +21,7 @@ const Button = ({
     rounded,
     className,
     style,
-    type,
+    type = "button",
     size,
     disabled,
     children,
@@ -37,6 +37,12 @@ const Button = ({
             focusShadow = "focus:shadow-secondary";
             break;
         case "accent":
+            focusShadow = "focus:shadow-accent";
+            break;
+        case "accent-dark":
+            focusShadow = "focus:shadow-accent";
+            break;
+        case "accent-darker":
             focusShadow = "focus:shadow-accent";
             break;
         case "success":
@@ -75,7 +81,7 @@ const Button = ({
         icon && children ? "gap-2" : "gap-0",
         size === "small" ? "h-[30px]" : size === "large" ? "h-[50px]" : "h-[40px]",
         rounded ? "rounded-full" : "rounded-[6px] min-w-24",
-        color === "white" ? "text-black" : "text-white",
+        color === "white" ? "text-black" : color?.startsWith("accent") ? "text-black" : "text-white",
         className,
         focusShadow,
     );
