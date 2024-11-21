@@ -6,6 +6,7 @@ export type ProjectStatus = "draft" | "published";
 
 export interface ProjectDto {
     name: string;
+    client: string;
     // cover?: UploadedFile;
     // thumbnail?: UploadedFile;
     cover: File | UploadedFile | null;
@@ -14,6 +15,7 @@ export interface ProjectDto {
     order: number;
     info: string;
     description: string | null;
+    techStack: (keyof typeof stackIcon)[] | null;
     languages: (keyof typeof stackIcon)[] | null;
     databases: (keyof typeof stackIcon)[] | null;
     deployment: (keyof typeof stackIcon)[] | null;

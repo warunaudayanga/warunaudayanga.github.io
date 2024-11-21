@@ -1,10 +1,12 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { JSX } from "react";
 import "./ProjectPlaceholder.css";
 
 const ProjectPlaceholder = (): JSX.Element => {
     return (
         <div className="project-placeholder">
-            <svg width="100%" viewBox="0 0 715 479" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="100%" viewBox="0 38 715 402" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="#695ccdff">
                     <path
                         className="background"

@@ -110,7 +110,7 @@ const AboutMe = (): JSX.Element => {
                     <StackIcon key={index} icon={icon.icon} />
                 ))}
             </div>
-            <div className="text-xl google-sans text-justify" style={{ lineHeight: "35px" }}>
+            <div className="text-xl text-justify" style={{ lineHeight: "35px" }}>
                 <p className="pb-5">
                     <Nbsp count={16} />I am a Senior Software Engineer and Full Stack Web Developer with extensive
                     experience in designing, developing, and maintaining web applications. My focus is on creating
@@ -119,44 +119,47 @@ const AboutMe = (): JSX.Element => {
                     and continuously improving my skills to stay at the forefront of the industry.
                 </p>
                 <p className="pb-5">
-                    <Nbsp count={16} /> My primary stack includes{" "}
-                    <StackIcon icon={stackIcon.Angular.icon} size="30px" inline /> Angular,{" "}
-                    <StackIcon icon={stackIcon.ReactJs.icon} inline /> Reaxt,{" "}
+                    <Nbsp count={16} />
+                    My primary technology stack includes <StackIcon
+                        icon={stackIcon.Angular.icon}
+                        size="30px"
+                        inline
+                    />{" "}
+                    Angular, <StackIcon icon={stackIcon.ReactJs.icon} inline /> React,{" "}
                     <StackIcon icon={stackIcon.NestJs.icon} inline /> Nest.js,{" "}
                     <StackIcon icon={stackIcon.NextJs.icon} inline /> Next.js,{" "}
                     <StackIcon icon={stackIcon.Spring.icon} inline /> Spring Boot, coupled with databases such as{" "}
                     <StackIcon icon={stackIcon.MongoDB.icon} inline /> MongoDB,{" "}
                     <StackIcon icon={stackIcon.MySQL.icon} inline /> MySQL, and{" "}
-                    <StackIcon icon={stackIcon.PostgreSQL.icon} inline /> PostgresSQL. In the realm of web applications,
-                    I adeptly design front-ends using <StackIcon icon={stackIcon.Angular.icon} size="30px" inline />{" "}
-                    Angular, <StackIcon icon={stackIcon.ReactJs.icon} size="30px" inline /> React,{" "}
-                    <StackIcon icon={stackIcon.NextJs.icon} size="30px" inline /> Next.js or plain{" "}
+                    <StackIcon icon={stackIcon.PostgreSQL.icon} inline /> PostgreSQL. In the realm of web applications,
+                    I specialize in designing front-end interfaces using{" "}
+                    <StackIcon icon={stackIcon.Angular.icon} size="30px" inline /> Angular,{" "}
+                    <StackIcon icon={stackIcon.ReactJs.icon} size="30px" inline /> React,{" "}
+                    <StackIcon icon={stackIcon.NextJs.icon} size="30px" inline /> Next.js, or plain{" "}
                     <StackIcon icon={stackIcon.HTML5.icon} inline /> HTML,{" "}
-                    <StackIcon icon={stackIcon.CSS3.icon} inline /> CSS,{" "}
-                    <StackIcon icon={stackIcon.Bootstrap.icon} inline /> Bootstrap websites with{" "}
+                    <StackIcon icon={stackIcon.CSS3.icon} inline /> CSS, and{" "}
+                    <StackIcon icon={stackIcon.Bootstrap.icon} inline /> Bootstrap. I build interactive websites with{" "}
                     <StackIcon icon={stackIcon.JavaScript.icon} inline /> JavaScript,{" "}
-                    <StackIcon icon={stackIcon.TypeScript.icon} inline /> Typescript, and{" "}
-                    <StackIcon icon={stackIcon.jQuery.icon} inline /> jQuery, While implementing robust back-ends with{" "}
-                    <StackIcon icon={stackIcon.NodeJs.icon} inline /> NodeJS{" "}
+                    <StackIcon icon={stackIcon.TypeScript.icon} inline /> TypeScript, and{" "}
+                    <StackIcon icon={stackIcon.jQuery.icon} inline /> jQuery, while implementing robust back-end
+                    solutions with <StackIcon icon={stackIcon.NodeJs.icon} inline /> Node.js,{" "}
                     <StackIcon icon={stackIcon.ExpressJs.icon} inline /> Express,{" "}
-                    <StackIcon icon={stackIcon.NestJs.icon} inline /> NestJS,{" "}
-                    <StackIcon icon={stackIcon.NextJs.icon} inline /> NestJS or{" "}
+                    <StackIcon icon={stackIcon.NestJs.icon} inline /> NestJS, or{" "}
                     <StackIcon icon={stackIcon.Java.icon} inline /> Java{" "}
                     <StackIcon icon={stackIcon.Spring.icon} inline /> Spring Boot.
                 </p>
                 <p className="pb-5">
-                    <Nbsp count={16} /> Expanding beyond web applications, I specialize in designing desktop
-                    applications through various technologies. This includes integration of web applications with
-                    ElectronJS, as well as standalone applications developed{" "}
-                    <StackIcon icon={stackIcon.CSharp.icon} inline /> C#, and{" "}
-                    <StackIcon icon={stackIcon.DotNET.icon} inline /> .Net. Moreover, I possess basic knowledge of{" "}
-                    <StackIcon icon={stackIcon.AWS.icon} inline /> AWS and{" "}
+                    <Nbsp count={16} />
+                    Expanding beyond web applications, I specialize in designing desktop applications using various
+                    technologies. This includes integrating web applications with ElectronJS as well as developing
+                    standalone applications in <StackIcon icon={stackIcon.CSharp.icon} inline /> C#, and{" "}
+                    <StackIcon icon={stackIcon.DotNET.icon} inline /> .NET. Additionally, I have a foundational
+                    understanding of <StackIcon icon={stackIcon.AWS.icon} inline /> AWS and{" "}
                     <StackIcon icon={stackIcon.GoogleCloud.icon} inline /> Google Cloud services and can proficiently
-                    manage a VPS for web hosting. Additionally, I have experience with{" "}
-                    <StackIcon icon={stackIcon.PHP.icon} inline /> PHP and{" "}
-                    <StackIcon icon={stackIcon.CPP.icon} inline /> C++ and{" "}
-                    <StackIcon icon={stackIcon.CSharp.icon} inline /> C#, rounding out my skill set and enabling me to
-                    tackle a diverse range of projects with expertise.
+                    manage a VPS for web hosting. I also have experience working with{" "}
+                    <StackIcon icon={stackIcon.PHP.icon} inline /> PHP, <StackIcon icon={stackIcon.CPP.icon} inline />{" "}
+                    C++, and <StackIcon icon={stackIcon.CSharp.icon} inline /> C#, rounding out my skill set and
+                    enabling me to tackle a diverse range of projects with expertise.
                 </p>
             </div>
         </Section>

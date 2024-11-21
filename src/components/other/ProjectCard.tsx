@@ -7,13 +7,15 @@ import { ProjectDocument } from "../../interfaces";
 import Button from "./Button.tsx";
 import { FaChevronLeft, FaChevronRight, FaPen } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
-import ProjectPlaceholder from "./ProjectPlaceholder/ProjectPlaceholder.tsx";
 import { useProjectState } from "../../hooks/use-project-state.ts";
 import { ProjectActionType } from "../../reducers";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
 import githubLogo from "../../assets/images/logos/github.png";
 import npmLogo from "../../assets/images/logos/npm.png";
 import classNames from "classnames";
+import StackIcon from "./StackIcon.tsx";
+import { stackIcon } from "../../data/stack-icons.ts";
+import npmCover from "../../assets/svg/npm.svg";
 
 interface Props {
     project: ProjectDocument;
@@ -30,7 +32,6 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
 
     const handleView = (): void => {
         openDialog(ProjectViewDialog, {
-            heading: `Project - ${currentProject.name}`,
             full: true,
             width: "90vw",
             data: currentProject,
@@ -65,8 +66,8 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
     };
 
     return (
-        <div className="w-1/2 odd:pr-4 even:pl-4 pb-8">
-            <div className="p-8 bg-white shadow-lg relative rounded-lg h-full flex flex-col justify-between">
+        <div className="w-1/2 odd:pr-6 even:pl-6 pb-12">
+            <div className="p-8 bg-white shadow-xl relative rounded-lg h-full flex flex-col">
                 {user && (
                     <div className="flex gap-2 absolute top-[-10px] right-[-10px]">
                         <Button
@@ -93,16 +94,37 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         ></Button>
                     </div>
                 )}
-                <div className="flex flex-col gap-3 mb-5">
+                <div
+                    className="flex flex-col gap-3 mb-5"
+                    style={{ backgroundColor: currentProject.category === ProjectCategory.NPM ? "#c73636" : "" }}
+                >
                     {currentProject.thumbnail?.url ? (
                         <img src={currentProject.thumbnail.url} className="rounded" alt="card-image" />
+                    ) : project.category === ProjectCategory.NPM ? (
+                        <img src={npmCover} className="w-1/2 m-auto" alt="card-image" />
                     ) : (
-                        <ProjectPlaceholder />
+                        <div
+                            className="bg-primary-darker w-full flex items-center justify-center"
+                            style={{ aspectRatio: "16/9" }}
+                        >
+                            <h2 className="text-6xl fredoka-one text-accent text-center">{currentProject.name}</h2>
+                        </div>
                     )}
                 </div>
-                <div>
-                    <div className="text-xl font-bold">{project.name}</div>
-                    <p className="mb-3">{project.info}</p>
+                <div className="flex-grow flex flex-col">
+                    <div className="text-xl font-bold flex justify-between">
+                        <div>{project.name}</div>
+                        {project.techStack && (
+                            <div className="flex gap-1 ms-3">
+                                {project.techStack.map(icon => (
+                                    <StackIcon key={icon} icon={stackIcon[icon].icon} size="20px" inline />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <p className="mb-3 flex-grow text-gray-600">{project.info}</p>
+
+                    <p className="mb-3 text-gray-600 font-bold">{project.client}</p>
 
                     {project.category !== ProjectCategory.NPM && (
                         <div className="flex gap-4 mb-3">
@@ -152,6 +174,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                     )}
                     <div className="flex gap-8">
                         <Button
+                            color="primary-dark"
                             className={classNames({
                                 "justify-center": true,
                                 "w-1/2": project.npmUrl || project.projectUrl,
@@ -163,6 +186,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         </Button>
                         {(project.npmUrl || project.projectUrl) && (
                             <Button
+                                color="primary-dark"
                                 type="link"
                                 className="w-1/2 justify-center"
                                 link={project.category === ProjectCategory.NPM ? project.npmUrl : project.projectUrl}

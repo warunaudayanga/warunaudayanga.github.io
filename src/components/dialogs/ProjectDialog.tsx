@@ -24,12 +24,14 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
 
     const values: ProjectDto = {
         name: data?.name || "",
+        client: data?.client || "",
         order: data?.order || 0,
         category: data?.category || ProjectCategory.WORK,
         cover: data?.cover || null,
         thumbnail: data?.thumbnail || null,
         info: data?.info || "",
         description: data?.description || "",
+        techStack: data?.techStack || [],
         languages: data?.languages || [],
         databases: data?.databases || [],
         deployment: data?.deployment || [],
@@ -179,6 +181,7 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         onSelected={value => setSelectedCategory(value as ProjectCategory)}
                     />
                     <FormControl control={control} name="name" title="Name" required className="w-1/2" />
+                    <FormControl control={control} name="client" title="Company / Client" className="w-1/2" />
                     <FileUpload
                         control={control}
                         name="cover"
@@ -201,6 +204,13 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         title="Description"
                         required
                         fullWidth
+                    />
+                    <ToolSelector
+                        control={control}
+                        name="techStack"
+                        title="Tech Stack"
+                        fullWidth
+                        value={values.techStack}
                     />
                     <ToolSelector
                         control={control}

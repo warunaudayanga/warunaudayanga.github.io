@@ -78,7 +78,7 @@ const Button = ({
     }
 
     const classes = twMerge(
-        "border px-3 flex justify-center items-center h-[40px]",
+        "border px-3 flex justify-center items-center h-[40px] font-bold",
         `bg-${color || "primary"}`,
         `border-${color || "primary"}`,
         icon && children ? "gap-2" : "gap-0",

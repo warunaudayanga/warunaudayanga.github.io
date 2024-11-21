@@ -10,6 +10,7 @@ export default defineConfig({
         port: 3000,
     },
     build: {
+        sourcemap: true,
         rollupOptions: {
             output: {
                 manualChunks(id) {
@@ -27,7 +28,7 @@ export default defineConfig({
         include: [
             "react",
             "react-dom",
-            "firebase",
+            // "firebase",
             "zustand",
             // Add any other libraries you want to optimize
         ],
