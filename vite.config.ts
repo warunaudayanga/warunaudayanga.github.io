@@ -2,7 +2,6 @@
 
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { analyzer } from "vite-bundle-analyzer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,17 +13,12 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks(id) {
-                    // Separate React and React DOM into a separate chunk
                     if (id.includes("node_modules/react")) {
                         return "react";
                     }
-
-                    // Separate Firebase into its own chunk
                     if (id.includes("node_modules/firebase")) {
                         return "firebase";
                     }
-
-                    // Other large dependencies can be chunked similarly
                 },
             },
         },
@@ -38,5 +32,5 @@ export default defineConfig({
             // Add any other libraries you want to optimize
         ],
     },
-    plugins: [react(), analyzer()],
+    plugins: [react()],
 });
