@@ -2,11 +2,6 @@ import { FirestoreDocument, UploadedFile } from "./firebase.interfaces.ts";
 import { stackIcon } from "../data/stack-icons.ts";
 import { ProjectCategory } from "../enums/project-category.enum.ts";
 
-export interface Tool {
-    name: string;
-    icon?: keyof typeof stackIcon;
-}
-
 export type ProjectStatus = "draft" | "published";
 
 export interface ProjectDto {
@@ -30,6 +25,11 @@ export interface ProjectDto {
     databaseLibs: (keyof typeof stackIcon)[] | null;
     otherLibs: (keyof typeof stackIcon)[] | null;
     extra: string | null;
+    projectUrl: string;
+    githubUrl: string;
+    frontendGit: string;
+    backendGit: string;
+    npmUrl: string;
     screenshots: (File | UploadedFile)[] | null;
     status: ProjectStatus;
 }

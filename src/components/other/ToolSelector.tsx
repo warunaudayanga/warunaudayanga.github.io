@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { JSX, useEffect, useRef, useState } from "react";
 import { Control, Controller } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
@@ -5,7 +6,6 @@ import { stackIcon } from "../../data/stack-icons.ts";
 import { StackIcon } from "./index.ts";
 import { ScrollPane } from "../layout";
 import { BiX } from "react-icons/bi";
-import { Tool } from "../../interfaces";
 import { useClickOutside } from "../../hooks";
 
 interface Props {
@@ -19,7 +19,8 @@ interface Props {
     value?: (keyof typeof stackIcon)[] | null;
 }
 
-interface ControlTool extends Tool {
+interface ControlTool {
+    tool: keyof typeof stackIcon;
     selected: boolean;
     filtered?: boolean;
 }
@@ -30,9 +31,10 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
     const [focused, setFocused] = useState<boolean>(false);
 
     const [availableTools, setAvailableTools] = useState<ControlTool[]>(
-        (Object.entries(stackIcon) as [keyof typeof stackIcon, keyof typeof stackIcon][])
-            .map(([name, icon]) => ({ name, icon, selected: Boolean(value?.includes(name)) }))
-            .sort((a, b) => a.name.localeCompare(b.name)),
+        Object.entries(stackIcon)
+            .sort(([, item1], [, item2]) => item1.label.localeCompare(item2.label))
+            .map(([key]) => key as keyof typeof stackIcon)
+            .map(tool => ({ tool, selected: Boolean(value?.includes(tool)) })),
     );
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +42,7 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
 
     const changeFilteredToolState = (keyword: string): ControlTool[] => {
         return availableTools.map(tool => {
-            tool.filtered = tool.name.toLowerCase().includes(keyword.toLowerCase());
+            tool.filtered = tool.tool.toLowerCase().includes(keyword.toLowerCase());
             return tool;
         });
     };
@@ -66,7 +68,7 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
                     useEffect(() => {
                         const tools = availableTools.map(tool => ({
                             ...tool,
-                            selected: (field.value as string[]).includes(tool.name),
+                            selected: (field.value as string[]).includes(tool.tool),
                         }));
 
                         setAvailableTools(tools);
@@ -74,7 +76,7 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
 
                     const changeSelectedToolState = (name: string): ControlTool[] => {
                         return availableTools.map(tool => {
-                            if (tool.name === name) tool.selected = !tool.selected;
+                            if (tool.tool === name) tool.selected = !tool.selected;
                             return tool;
                         });
                     };
@@ -87,7 +89,7 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
                         const selected = tools.filter(tool => tool.selected);
                         field.onChange({
                             target: {
-                                value: selected.length ? selected.map(tool => tool.name) : [],
+                                value: selected.length ? selected.map(tool => tool.tool) : [],
                             },
                         });
 
@@ -119,14 +121,18 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
                                 >
                                     {availableTools
                                         .filter(({ selected }) => selected)
-                                        .map(({ name, icon }) => (
+                                        .map(({ tool }) => (
                                             <div
-                                                key={name}
+                                                key={tool}
                                                 className="inline-flex items-center gap-2 bg-accent px-2 py-1 rounded-lg"
                                             >
-                                                <StackIcon key={name} icon={icon || stackIcon.NoIcon} size="20px" />
-                                                {name}
-                                                <button type="button" onClick={() => onChange(name)}>
+                                                <StackIcon
+                                                    key={tool}
+                                                    icon={stackIcon[tool]?.icon || stackIcon.NPM.icon}
+                                                    size="20px"
+                                                />
+                                                {stackIcon[tool]?.label || tool}
+                                                <button type="button" onClick={() => onChange(tool)}>
                                                     <BiX className="pointer-events-none" />
                                                 </button>
                                             </div>
@@ -148,7 +154,7 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
                                             disabled={field.disabled}
                                         />
                                         {panelOpened && (
-                                            <div className="absolute z-[1000] border rounded top-full left-0 py-2 bg-white shadow w-[175px]">
+                                            <div className="absolute z-[1000] border rounded top-full left-0 py-2 bg-white shadow w-[240px]">
                                                 <ScrollPane maxHeight="250px" full>
                                                     {availableTools.some(({ selected }) => !selected) ? (
                                                         availableTools.every(({ filtered }) => !filtered) ? (
@@ -156,18 +162,21 @@ const ToolSelector = ({ title, name, control, required, fullWidth, value, classN
                                                         ) : (
                                                             availableTools
                                                                 .filter(({ filtered }) => filtered)
-                                                                .map(({ name, icon, selected }) => (
+                                                                .map(({ tool, selected }) => (
                                                                     <div
-                                                                        key={name}
+                                                                        key={tool}
                                                                         style={{ display: selected ? "none" : "flex" }}
                                                                         className="flex items-center gap-2 px-4 cursor-pointer my-2"
-                                                                        onClick={() => onChange(name)}
+                                                                        onClick={() => onChange(tool)}
                                                                     >
                                                                         <StackIcon
-                                                                            icon={icon || stackIcon.NoIcon}
+                                                                            icon={
+                                                                                stackIcon[tool]?.icon ||
+                                                                                stackIcon.NPM.icon
+                                                                            }
                                                                             size="20px"
                                                                         />
-                                                                        {name}
+                                                                        {stackIcon[tool]?.label || tool}
                                                                     </div>
                                                                 ))
                                                         )

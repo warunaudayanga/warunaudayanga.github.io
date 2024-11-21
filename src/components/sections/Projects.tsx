@@ -1,52 +1,60 @@
 // noinspection SpellCheckingInspection
 
-import { JSX } from "react";
+import { JSX, ReactNode } from "react";
 import { Route } from "../../enums";
 import { Section } from "../index.ts";
-import { ProjectCard, Spinner } from "../other";
-import { useQueryCollection } from "../../hooks/use-query-collection.hook.ts";
-import { ProjectDocument } from "../../interfaces";
-import { orderBy, where } from "firebase/firestore";
+import { ProjectCard } from "../other";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
 import { toFirstCase } from "hichchi-utils";
 import { handleProjectOrder } from "../../utils";
-import { Collection } from "../../config/firebase.ts";
 import { handleProjectDelete } from "../../utils/project-utils.ts";
+import { useProjectState } from "../../hooks/use-project-state.ts";
+import { ProjectActionType } from "../../reducers";
 
-const Projects = ({ category, route }: { category: ProjectCategory; route: Route }): JSX.Element | null => {
-    const {
-        items: projects,
-        setItems,
-        loading,
-    } = useQueryCollection<ProjectDocument>(Collection.PROJECTS, [where("category", "==", category), orderBy("order")]);
+interface Props {
+    category: ProjectCategory;
+    route: Route;
+    description?: ReactNode;
+}
+
+const Projects = ({ category, route, description }: Props): JSX.Element | null => {
+    const { getProjects, dispatch } = useProjectState();
+
+    const projects = getProjects(category);
 
     const handleOrder = async (id: string, decrease?: boolean): Promise<void> => {
-        await handleProjectOrder(projects, setItems, id, decrease);
+        const orderedProjects = await handleProjectOrder(projects, id, decrease);
+        dispatch({ type: ProjectActionType.UPDATE_PROJECTS, projects: orderedProjects });
+        // const x = projects.map((project, i) => ({ ...project, order: i }));
+        // console.log(x);
+        // for await (const x1 of x) {
+        //     await updateCollectionItem(firestore, Collection.PROJECTS, x1.id, x1);
+        // }
     };
 
     const handleDelete = async (id: string): Promise<void> => {
-        await handleProjectDelete(projects, setItems, id);
+        const updatedProjects = await handleProjectDelete(projects, id);
+        dispatch({ type: ProjectActionType.DELETE_PROJECT, projectId: id });
+        dispatch({ type: ProjectActionType.UPDATE_PROJECTS, projects: updatedProjects });
     };
 
     if (!projects.length) return null;
 
     return (
-        <Section title={`${toFirstCase(category)} Projects`} route={route}>
+        <Section
+            title={category === ProjectCategory.NPM ? "NPM Libraries" : `${toFirstCase(category)} Projects`}
+            route={route}
+        >
+            {description}
             <div className="flex flex-wrap mx-3">
-                {loading ? (
-                    <div className="h-[250px] w-full flex justify-center items-center">
-                        <Spinner className="h-20 w-20 border-primary"></Spinner>
-                    </div>
-                ) : (
-                    projects.map(project => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            onChangeOrder={handleOrder}
-                            onDeleted={handleDelete}
-                        ></ProjectCard>
-                    ))
-                )}
+                {projects.map(project => (
+                    <ProjectCard
+                        key={project.id}
+                        project={project}
+                        onChangeOrder={handleOrder}
+                        onDeleted={handleDelete}
+                    ></ProjectCard>
+                ))}
             </div>
         </Section>
     );

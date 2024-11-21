@@ -3,7 +3,7 @@
 import { getDocs, query } from "firebase/firestore";
 import { createCollectionRef } from "./createCollectionRef";
 import { Collection, firestore } from "../../config/firebase.ts";
-import { Config, ConfigDocument } from "../../interfaces/config.interface.ts";
+import { Config, ConfigDocument } from "../../interfaces";
 
 export const getConfigItems = async (): Promise<Config> => {
     try {

@@ -3,7 +3,7 @@
 import { addDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { createCollectionRef } from "./createCollectionRef";
 import { Collection, firestore } from "../../config/firebase.ts";
-import { Config, ConfigDto } from "../../interfaces/config.interface.ts";
+import { Config, ConfigDto } from "../../interfaces";
 
 export const setConfigItem = async (key: keyof Config, value: Config[keyof Config]): Promise<boolean> => {
     try {

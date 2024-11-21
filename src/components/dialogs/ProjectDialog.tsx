@@ -8,21 +8,24 @@ import { Button, Spinner } from "../other";
 import FileUpload from "../other/FileUpload.tsx";
 import ToolSelector from "../other/ToolSelector.tsx";
 import { addCollectionItem, getCollectionItem, scrollIntoElement } from "../../utils";
-import { firestore, Collection } from "../../config/firebase.ts";
+import { Collection, firestore } from "../../config/firebase.ts";
 import { useFirebaseUpload } from "../../hooks";
 import { toast } from "react-toastify";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
 import { countCollectionItems } from "../../utils/firestore/countCollectionItems.ts";
+import { where } from "firebase/firestore";
 
 const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, ProjectDocument>): JSX.Element => {
-    const [isSubmitting, setSubmitting] = useState(false);
     const form = useRef<HTMLFormElement>(null);
     const { uploadFile, deleteFile } = useFirebaseUpload();
+
+    const [isSubmitting, setSubmitting] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>(data?.category || ProjectCategory.WORK);
 
     const values: ProjectDto = {
         name: data?.name || "",
         order: data?.order || 0,
-        category: data?.category || ProjectCategory.PERSONAL,
+        category: data?.category || ProjectCategory.WORK,
         cover: data?.cover || null,
         thumbnail: data?.thumbnail || null,
         info: data?.info || "",
@@ -37,8 +40,13 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
         backendLibs: data?.backendLibs || [],
         databaseLibs: data?.databaseLibs || [],
         otherLibs: data?.otherLibs || [],
-        extra: data?.extra || null,
+        extra: data?.extra || "",
         screenshots: data?.screenshots || null,
+        projectUrl: data?.projectUrl || "",
+        githubUrl: data?.githubUrl || "",
+        frontendGit: data?.frontendGit || "",
+        backendGit: data?.backendGit || "",
+        npmUrl: data?.npmUrl || "",
         status: data?.status || "draft",
     };
 
@@ -120,7 +128,11 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                 projectDto.screenshots = screenshots;
             }
 
-            projectDto.order = await countCollectionItems(firestore, Collection.PROJECTS);
+            if (!data?.id) {
+                projectDto.order = await countCollectionItems(firestore, Collection.PROJECTS, [
+                    where("category", "==", projectDto.category),
+                ]);
+            }
 
             const projectRef = await addCollectionItem<ProjectDto>(
                 firestore,
@@ -133,7 +145,7 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
 
             toast.success("Project saved successfully");
             close(doc ?? undefined);
-        } catch {
+        } catch (err) {
             toast.error("Error saving project");
         } finally {
             setSubmitting(false);
@@ -156,11 +168,15 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                     <FormControl
                         control={control}
                         type="select"
-                        options={Object.entries(ProjectCategory).map(([, value]) => ({ value }))}
+                        options={Object.entries(ProjectCategory).map(([, value]) => ({
+                            label: value === ProjectCategory.NPM ? "NPM" : "",
+                            value,
+                        }))}
                         name="category"
                         title="Category"
                         required
                         className="w-1/2"
+                        onSelected={value => setSelectedCategory(value as ProjectCategory)}
                     />
                     <FormControl control={control} name="name" title="Name" required className="w-1/2" />
                     <FileUpload
@@ -169,7 +185,6 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         title="Cover"
                         image
                         onFileSelect={handleFileSelect("cover")}
-                        // required
                     />
                     <FileUpload
                         control={control}
@@ -177,7 +192,6 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         title="Thumbnail"
                         image
                         onFileSelect={handleFileSelect("thumbnail")}
-                        // required
                     />
                     <FormControl control={control} type="textarea" name="info" title="Info" required fullWidth />
                     <FormControl
@@ -258,14 +272,40 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         fullWidth
                         value={values.otherLibs}
                     />
-                    <FileUpload
-                        control={control}
-                        name="screenshots"
-                        title="Screenshots"
-                        image
-                        onFileSelect={handleFileSelect("screenshots")}
-                        multiple
-                    />
+                    {selectedCategory === ProjectCategory.NPM && (
+                        <>
+                            <FormControl control={control} name="githubUrl" title="Github URL" className="w-1/2" />
+                            <FormControl control={control} name="npmUrl" title="NPM URL" className="w-1/2" />
+                        </>
+                    )}
+                    {selectedCategory !== ProjectCategory.NPM && (
+                        <>
+                            <FormControl
+                                control={control}
+                                name="frontendGit"
+                                title="Frontend Source URL"
+                                className="w-1/2"
+                            />
+                            <FormControl
+                                control={control}
+                                name="backendGit"
+                                title="Backend Source URL"
+                                className="w-1/2"
+                            />
+                            <FormControl control={control} name="projectUrl" title="Project URL" className="w-1/2" />
+                        </>
+                    )}
+                    <FormControl control={control} type="textarea" name="extra" title="Extra" fullWidth />
+                    {selectedCategory !== ProjectCategory.NPM && (
+                        <FileUpload
+                            control={control}
+                            name="screenshots"
+                            title="Screenshots"
+                            image
+                            onFileSelect={handleFileSelect("screenshots")}
+                            multiple
+                        />
+                    )}
                     <FormControl
                         control={control}
                         type="switch"

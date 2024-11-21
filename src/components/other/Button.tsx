@@ -1,6 +1,7 @@
 import { CSSProperties, JSX, MouseEventHandler, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { Color } from "../../types";
+import classNames from "classnames";
 
 interface Props {
     icon?: ReactNode;
@@ -8,11 +9,12 @@ interface Props {
     className?: string;
     style?: CSSProperties;
     color?: Color;
-    type?: "button" | "submit" | "reset";
+    type?: "button" | "submit" | "reset" | "link";
     size?: "small" | "large";
     disabled?: boolean;
     children?: ReactNode;
     onClick?: MouseEventHandler<HTMLButtonElement>;
+    link?: string;
 }
 
 const Button = ({
@@ -26,6 +28,7 @@ const Button = ({
     disabled,
     children,
     onClick,
+    link,
 }: Props): JSX.Element => {
     let focusShadow: string;
 
@@ -85,6 +88,26 @@ const Button = ({
         className,
         focusShadow,
     );
+
+    if (type === "link") {
+        return (
+            <a
+                href={link}
+                className={classNames({
+                    [classes]: true,
+                    "cursor-pointer": !disabled,
+                    "pointer-events-none": disabled,
+                })}
+                target="_blank"
+                rel="noreferrer"
+            >
+                <button style={style} type="button" disabled={disabled}>
+                    <div>{icon}</div>
+                    <div>{children}</div>
+                </button>
+            </a>
+        );
+    }
 
     return (
         <button className={classes} style={style} type={type} disabled={disabled} onClick={onClick}>

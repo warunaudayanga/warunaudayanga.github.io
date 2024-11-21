@@ -6,19 +6,66 @@ import { GrProjects } from "react-icons/gr";
 import { VscGithubProject } from "react-icons/vsc";
 import { BiSolidAddToQueue } from "react-icons/bi";
 import { DialogRef, MenuItem, ProjectDocument } from "../../interfaces";
-import { AppActionType } from "../../reducers";
+import { AppActionType, ProjectActionType } from "../../reducers";
 import { Route } from "../../enums";
 import WebFont from "webfontloader";
 import { ToastContainer } from "react-toastify";
-import { Projects } from "../sections";
+import { NpmProjects, Projects } from "../sections";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
+import { useProjectState } from "../../hooks/use-project-state.ts";
+import { groupBy } from "hichchi-utils";
 
 function Layout(): JSX.Element {
-    const [scrolled, setScrolled] = useState(false);
+    const [scrolled, setScrolled] = useState<boolean>(false);
+    const [menuItems, setMenuItems] = useState<MenuItem[]>([
+        {
+            label: "Home",
+            icon: <FaHome />,
+            url: "#",
+            elementId: Route.HOME,
+            hidden: false,
+        },
+        {
+            label: "About Me",
+            icon: <FaInfoCircle />,
+            url: "#",
+            elementId: Route.ABOUT,
+            hidden: false,
+        },
+        {
+            label: "Work",
+            icon: <VscGithubProject />,
+            url: "#",
+            elementId: Route.WORK_PROJECTS,
+            hidden: false,
+        },
+        {
+            label: "Personal",
+            icon: <VscGithubProject />,
+            url: "#",
+            elementId: Route.PERSONAL_PROJECTS,
+            hidden: false,
+        },
+        {
+            label: "Collaboration",
+            icon: <VscGithubProject />,
+            url: "#",
+            elementId: Route.COLLABORATION_PROJECTS,
+            hidden: false,
+        },
+        {
+            label: "NPM Libraries",
+            icon: <GrProjects />,
+            url: "#",
+            elementId: Route.NPM_PROJECTS,
+            hidden: false,
+        },
+    ]);
 
     const { user, logout } = useAuth();
     const { openDialog } = useDialog();
     const { dispatch } = useAppState();
+    const { getProjects, dispatch: dispatchProject } = useProjectState();
 
     let handleScroll = (e: UIEvent<HTMLDivElement>): void => {
         const top = (e.target as HTMLElement).scrollTop;
@@ -51,48 +98,11 @@ function Layout(): JSX.Element {
             width: "90vw",
         });
 
-        // eslint-disable-next-line no-console
-        console.log(await dialogRef.result);
+        const result = await dialogRef.result;
+        if (result) {
+            dispatchProject({ type: ProjectActionType.ADD_PROJECT, project: result });
+        }
     };
-
-    const menuItems: MenuItem[] = [
-        {
-            label: "Home",
-            icon: <FaHome />,
-            url: "#",
-            elementId: Route.HOME,
-        },
-        {
-            label: "About Me",
-            icon: <FaInfoCircle />,
-            url: "#",
-            elementId: Route.ABOUT,
-        },
-        {
-            label: "Work",
-            icon: <VscGithubProject />,
-            url: "#",
-            elementId: Route.WORK_PROJECTS,
-        },
-        {
-            label: "Personal",
-            icon: <VscGithubProject />,
-            url: "#",
-            elementId: Route.PERSONAL_PROJECTS,
-        },
-        {
-            label: "Collaboration",
-            icon: <VscGithubProject />,
-            url: "#",
-            elementId: Route.COLLABORATION_PROJECTS,
-        },
-        {
-            label: "NPM Libraries",
-            icon: <GrProjects />,
-            url: "#",
-            elementId: Route.NPM_PROJECTS,
-        },
-    ];
 
     const popupMenuItems: MenuItem[] = [
         {
@@ -114,6 +124,26 @@ function Layout(): JSX.Element {
             },
         });
     }, []);
+
+    useEffect(() => {
+        const projectMap = groupBy(getProjects(), p => p.category);
+        let changedMenuItems = menuItems.map(item => {
+            if (item.elementId === Route.WORK_PROJECTS) {
+                item.hidden = !projectMap.get(ProjectCategory.WORK)?.length;
+            }
+            if (item.elementId === Route.PERSONAL_PROJECTS) {
+                item.hidden = !projectMap.get(ProjectCategory.PERSONAL)?.length;
+            }
+            if (item.elementId === Route.COLLABORATION_PROJECTS) {
+                item.hidden = !projectMap.get(ProjectCategory.COLLABORATION)?.length;
+            }
+            if (item.elementId === Route.NPM_PROJECTS) {
+                item.hidden = !projectMap.get(ProjectCategory.NPM)?.length;
+            }
+            return item;
+        });
+        setMenuItems(changedMenuItems);
+    }, [getProjects()]);
 
     const handleAuth = async (): Promise<void> => {
         if (user) {
@@ -140,7 +170,7 @@ function Layout(): JSX.Element {
                     <Projects category={ProjectCategory.WORK} route={Route.WORK_PROJECTS} />
                     <Projects category={ProjectCategory.PERSONAL} route={Route.PERSONAL_PROJECTS} />
                     <Projects category={ProjectCategory.COLLABORATION} route={Route.COLLABORATION_PROJECTS} />
-                    <Projects category={ProjectCategory.NPM} route={Route.NPM_PROJECTS} />
+                    <Projects category={ProjectCategory.NPM} route={Route.NPM_PROJECTS} description={<NpmProjects />} />
                 </Page>
             </Content>
             <ToastContainer theme="colored" />

@@ -2,6 +2,7 @@ import { JSX, ReactNode, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { MenuItem } from "../../interfaces";
 import classNames from "classnames";
+import { useClickOutside } from "../../hooks";
 
 interface Props {
     items?: MenuItem[];
@@ -11,14 +12,18 @@ interface Props {
 const PopupMenu = ({ items, title }: Props): JSX.Element => {
     const avatarRef = useRef<HTMLDivElement>(null);
     const panelRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const [opened, setOpened] = useState(false);
+
+    useClickOutside(menuRef, () => setOpened(false));
 
     const avatarBounds = avatarRef.current?.getBoundingClientRect();
 
     const PopupMenuPanel = (): ReactNode =>
         ReactDOM.createPortal(
             <div
+                ref={menuRef}
                 className={classNames({
                     "absolute z-[1000]": true,
                     hidden: !opened,
@@ -37,7 +42,10 @@ const PopupMenu = ({ items, title }: Props): JSX.Element => {
                         <div
                             key={i}
                             className="px-5 py-1 h-[40px] flex items-center cursor-pointer hover:bg-gray gap-2"
-                            onClick={() => item.action?.()}
+                            onClick={() => {
+                                setOpened(false);
+                                item.action?.();
+                            }}
                         >
                             {item.icon}
                             {item.label}

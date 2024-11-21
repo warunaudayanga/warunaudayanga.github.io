@@ -20,27 +20,6 @@ body {
     font-family: 'Google Sans', serif;
 }
 
-.p-button {
-    &:not(.p-button-secondary):not(.p-button-success):not(.p-button-danger):not(.p-button-info):not(.p-button-help):not(.p-button-contrast):not(.p-button-warning) {
-        background-color: var(--primary);
-        border-color: var(--primary);
-
-        &:not(:disabled):hover {
-            background-color: var(--primary-dark);
-            border-color: var(--primary-dark);
-        }
-
-        &:not(:disabled):active {
-            background-color: var(--primary-darker);
-            border-color: var(--primary-darker);
-        }
-
-        &:focus {
-            box-shadow: 0 0 0 2px var(--primary-shadow), 0 0 0 4px var(--primary-shadow), 0 1px 2px 0 rgb(0, 0, 0);
-        }
-    }
-}
-
 .page-section {
     @apply p-5;
     min-height: calc(100vh - var(--header));
@@ -60,12 +39,14 @@ body {
     overflow: hidden;
 }
 
-.p-scrollpanel-bar-x {
-    display: none;
-}
-
 .btn-small, .form-control-small {
     height: 2.3rem !important;
     min-width: 5rem;
     justify-content: center;
+}
+
+.view-container ol, .view-container ul {
+    list-style: revert !important;
+    margin: revert !important;
+    padding: revert !important;
 }

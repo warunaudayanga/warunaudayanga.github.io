@@ -133,7 +133,7 @@ const BackgroundArt = ({
     return (
         <>
             <div className="art-wrapper" style={{ height }} onMouseMove={handleMouseMove}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 920">
+                <svg className="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 920">
                     <rect className="primary-shade-1" x=".3" width="2400.38" height="920" />
                     <polygon className="no-fill" points="2400 33.69 2400.67 33.3 2400.67 32.87 2400 33.26 2400 33.69" />
                     <polygon

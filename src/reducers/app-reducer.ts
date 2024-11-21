@@ -1,4 +1,5 @@
 import { Route } from "../enums";
+import { ProjectDocument } from "../interfaces";
 
 export enum AppActionType {
     SET_ROUTE = "SET_ROUTE",
@@ -11,10 +12,12 @@ interface SetRouteAction {
 
 export interface AppState {
     route: Route;
+    projects: ProjectDocument[];
 }
 
 const initialAppState: AppState = {
     route: Route.HOME,
+    projects: [],
 };
 
 export type AppAction = SetRouteAction;

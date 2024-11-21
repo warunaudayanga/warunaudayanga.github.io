@@ -25,21 +25,23 @@ const Menu = ({ items, className }: Props): JSX.Element => {
 
     return (
         <div className={twMerge("h-full flex items-center gap-5", className)}>
-            {items?.map((item, i) => (
-                <a key={i} href={item.url} onClick={() => scrollIntoElement(item.elementId)}>
-                    <div
-                        className={classNames({
-                            "px-4 py-2 cursor-pointer rounded-md flex items-center gap-2": true,
-                            "hover:bg-secondary-dark": activeIndex !== i,
-                            "bg-secondary-darker hover:bg-secondary-darker": activeIndex === i,
-                        })}
-                        onClick={() => item.action?.()}
-                    >
-                        {item.icon}
-                        {item.label}
-                    </div>
-                </a>
-            ))}
+            {items?.map((item, i) =>
+                item.hidden ? null : (
+                    <a key={i} href={item.url} onClick={() => scrollIntoElement(item.elementId)}>
+                        <div
+                            className={classNames({
+                                "px-4 py-2 cursor-pointer rounded-md flex items-center gap-2": true,
+                                "hover:bg-secondary-dark": activeIndex !== i,
+                                "bg-secondary-darker hover:bg-secondary-darker": activeIndex === i,
+                            })}
+                            onClick={() => item.action?.()}
+                        >
+                            {item.icon}
+                            {item.label}
+                        </div>
+                    </a>
+                ),
+            )}
         </div>
     );
 };

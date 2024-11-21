@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { ChangeEvent, HTMLInputTypeAttribute, JSX } from "react";
 import { Control, Controller, RegisterOptions } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
@@ -19,6 +20,9 @@ interface Props {
     fullWidth?: boolean;
     className?: string;
     inputClassName?: string;
+    onChange?: <T>(value: T) => void;
+    rows?: number;
+    onSelected?: (value: string) => void;
 }
 
 const FormControl = ({
@@ -34,6 +38,9 @@ const FormControl = ({
     fullWidth,
     className,
     inputClassName,
+    onChange,
+    rows = 7,
+    onSelected,
 }: Props): JSX.Element => {
     return (
         <div className={twMerge(className, "form-control inline-block p-3", fullWidth ? "w-full" : "")}>
@@ -44,15 +51,17 @@ const FormControl = ({
                 rules={{ required: required ? `${title} is required.` : undefined, ...rules }}
                 render={({ field, fieldState }) => {
                     const handleSwitchChange = (e: ChangeEvent<HTMLInputElement>): void => {
+                        const value = switchValues
+                            ? e.target.checked
+                                ? switchValues[1]
+                                : switchValues[0]
+                            : e.target.checked;
                         field.onChange({
                             target: {
-                                value: switchValues
-                                    ? e.target.checked
-                                        ? switchValues[1]
-                                        : switchValues[0]
-                                    : e.target.checked,
+                                value,
                             },
                         });
+                        onChange?.(value);
                     };
 
                     const { ref, ...rest } = field;
@@ -98,7 +107,7 @@ const FormControl = ({
                                             ? "border-danger focus:shadow-danger focus:border-danger"
                                             : "focus:shadow-secondary focus:border-secondary",
                                     )}
-                                    rows={7}
+                                    rows={rows}
                                 />
                             );
 
@@ -117,6 +126,10 @@ const FormControl = ({
                                             ? "border-danger focus:shadow-danger focus:border-danger"
                                             : "focus:shadow-secondary focus:border-secondary",
                                     )}
+                                    onChange={e => {
+                                        field.onChange(e);
+                                        onSelected?.(e.target.value);
+                                    }}
                                 >
                                     {options?.map(option => (
                                         <option key={option.value} value={option.value}>

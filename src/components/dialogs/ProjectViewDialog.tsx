@@ -5,6 +5,9 @@ import Tools from "./Tools.tsx";
 import { DialogBodySection, DialogButtonSection } from "../layout";
 import { Button } from "../other";
 import { stackIcon } from "../../data/stack-icons.ts";
+import { innerHTML } from "../../utils";
+import githubLogo from "../../assets/images/logos/github.png";
+import npmLogo from "../../assets/images/logos/npm.png";
 
 const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, ProjectDocument>): JSX.Element => {
     const libraries =
@@ -18,24 +21,23 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
     const addTools = (category: string, tools?: (keyof typeof stackIcon)[], isSub?: boolean): JSX.Element | null =>
         tools?.length ? (
             <ToolSection category={category} isSub={isSub}>
-                <Tools tools={tools.map(name => ({ name, icon: name }))}></Tools>
+                <Tools tools={tools}></Tools>
             </ToolSection>
         ) : null;
 
     return (
         <>
             <DialogBodySection full={true}>
-                <div className="h-full px-3">
+                <div className="view-container h-full px-3">
                     {data?.cover && (
-                        <div
-                            className="h-full w-full bg-no-repeat bg-center bg-contain mb-5"
-                            style={{ backgroundImage: `url(${data.cover.url})` }}
-                        />
+                        <div className="h-full w-full bg-no-repeat bg-center bg-contain mb-5 flex justify-center">
+                            <img src={data.cover.url} alt="cover" className="border-2 rounded-lg h-full" />
+                        </div>
                     )}
                     <div className="text-2xl font-bold mb-3">{data?.name}</div>
-                    {data?.info && (
+                    {data?.description && (
                         <div className="info mb-3">
-                            <p className="text-justify">{data.info}</p>
+                            <div className="text-justify" dangerouslySetInnerHTML={innerHTML(data.description)}></div>
                         </div>
                     )}
                     <div className="tools">
@@ -58,8 +60,102 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                             </ToolSection>
                         )}
                     </div>
+                    {(data?.frontendGit || data?.backendGit || data?.githubUrl || data?.npmUrl) && (
+                        <div className="sources mb-3">
+                            <div className="text-lg font-bold mb-2">Sources</div>
+                            <div className="ml-6">
+                                {data.frontendGit && (
+                                    <div>
+                                        <div className="font-bold mb-1">Frontend</div>
+                                        <div className="ml-6">
+                                            <div className="flex gap-2 items-center mb-3">
+                                                <img alt="logo" className="w-[20px]" src={githubLogo} />
+                                                <a
+                                                    className="underline"
+                                                    href={data.frontendGit}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    {data.frontendGit.split("/").pop()}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                {data.backendGit && (
+                                    <div>
+                                        <div className="font-bold mb-1">Backend</div>
+                                        <div className="ml-6">
+                                            <div className="flex gap-2 items-center mb-3">
+                                                <img alt="logo" className="w-[20px]" src={githubLogo} />
+                                                <a
+                                                    className="underline"
+                                                    href={data.backendGit}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    {data.backendGit.split("/").pop()}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                {data.githubUrl && (
+                                    <div>
+                                        <div className="font-bold mb-1">Github</div>
+                                        <div className="ml-6">
+                                            <div className="flex gap-2 items-center mb-3">
+                                                <img alt="logo" className="w-[20px]" src={githubLogo} />
+                                                <a
+                                                    className="underline"
+                                                    href={data.githubUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    {data.githubUrl.split("/").pop()}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                {data.npmUrl && (
+                                    <div>
+                                        <div className="font-bold mb-1">NPM</div>
+                                        <div className="ml-6">
+                                            <div className="flex gap-2 items-center mb-3">
+                                                <img alt="logo" className="w-[20px]" src={npmLogo} />
+                                                <a
+                                                    className="underline"
+                                                    href={data.npmUrl}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    {data.npmUrl.split("/").pop()}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    {data?.projectUrl && (
+                        <div className="project mb-3">
+                            <div className="text-lg font-bold mb-2">Project URL</div>
+                            <div className="ml-6">
+                                <a className="underline" href={data.projectUrl} target="_blank" rel="noreferrer">
+                                    {data.projectUrl}
+                                </a>
+                            </div>
+                        </div>
+                    )}
                     {data?.extra && (
-                        <div className="tool-section mb-3" dangerouslySetInnerHTML={{ __html: data.extra }} />
+                        <div className="extra mb-3">
+                            <div className="text-lg font-bold mb-2">Extra</div>
+                            <div className="ml-6">
+                                <div className="mb-3" dangerouslySetInnerHTML={innerHTML(data.extra)} />
+                            </div>
+                        </div>
                     )}
                     {data?.screenshots?.length && (
                         <div className="screenshots h-full">
@@ -67,9 +163,14 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                             {data.screenshots.map((screenshot, index) => (
                                 <div
                                     key={index}
-                                    className="h-full w-full bg-no-repeat bg-center bg-contain mb-5"
-                                    style={{ backgroundImage: `url(${(screenshot as UploadedFile).url})` }}
-                                />
+                                    className="h-full w-full bg-no-repeat bg-center bg-contain mb-10 flex justify-center"
+                                >
+                                    <img
+                                        src={(screenshot as UploadedFile).url}
+                                        alt="screenshot"
+                                        className="border-2 rounded-lg h-full"
+                                    />
+                                </div>
                             ))}
                         </div>
                     )}

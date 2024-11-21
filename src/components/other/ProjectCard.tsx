@@ -1,14 +1,19 @@
 // noinspection JSIgnoredPromiseFromCall
 
-import { JSX, useState } from "react";
+import { JSX } from "react";
 import { useAuth, useDialog } from "../../hooks";
 import { ProjectDialog, ProjectViewDialog } from "../dialogs";
 import { ProjectDocument } from "../../interfaces";
 import Button from "./Button.tsx";
 import { FaChevronLeft, FaChevronRight, FaPen } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
-import { Id, toast } from "react-toastify";
 import ProjectPlaceholder from "./ProjectPlaceholder/ProjectPlaceholder.tsx";
+import { useProjectState } from "../../hooks/use-project-state.ts";
+import { ProjectActionType } from "../../reducers";
+import { ProjectCategory } from "../../enums/project-category.enum.ts";
+import githubLogo from "../../assets/images/logos/github.png";
+import npmLogo from "../../assets/images/logos/npm.png";
+import classNames from "classnames";
 
 interface Props {
     project: ProjectDocument;
@@ -19,7 +24,9 @@ interface Props {
 const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element => {
     const { user } = useAuth();
     const { openDialog, confirmDialog } = useDialog();
-    const [currentProject, setCurrentProject] = useState<ProjectDocument>(project);
+    const { getProject, dispatch } = useProjectState();
+
+    const currentProject = getProject(project.id) || project;
 
     const handleView = (): void => {
         openDialog(ProjectViewDialog, {
@@ -31,17 +38,16 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
     };
 
     const handleEdit = async (): Promise<void> => {
-        const ref = openDialog(ProjectDialog, {
+        const dialogRef = openDialog(ProjectDialog, {
             heading: `Project - ${currentProject.name}`,
             full: true,
             width: "90vw",
             data: currentProject,
         });
 
-        const result = await ref.result;
+        const result = await dialogRef.result;
         if (result) {
-            // eslint-disable-next-line no-param-reassign
-            setCurrentProject(result);
+            dispatch({ type: ProjectActionType.UPDATE_PROJECT, project: result });
         }
     };
 
@@ -57,8 +63,6 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
             onDeleted?.(currentProject.id);
         }
     };
-
-    const notify = (): Id => toast.success("Wow so easy!");
 
     return (
         <div className="w-1/2 odd:pr-4 even:pl-4 pb-8">
@@ -98,14 +102,74 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                 </div>
                 <div>
                     <div className="text-xl font-bold">{project.name}</div>
-                    <p className="mb-3">Lorem ipsum dolor sit amet</p>
+                    <p className="mb-3">{project.info}</p>
+
+                    {project.category !== ProjectCategory.NPM && (
+                        <div className="flex gap-4 mb-3">
+                            {project.frontendGit && (
+                                <div className="flex gap-2 items-center mb-3">
+                                    <img alt="logo" className="w-[20px]" src={githubLogo} />
+                                    <a
+                                        className="underline"
+                                        href={project.frontendGit}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {project.frontendGit.split("/").pop()}
+                                    </a>
+                                </div>
+                            )}
+                            {project.backendGit && (
+                                <div className="flex gap-2 items-center mb-3">
+                                    <img alt="logo" className="w-[20px]" src={githubLogo} />
+                                    <a className="underline" href={project.backendGit} target="_blank" rel="noreferrer">
+                                        {project.backendGit.split("/").pop()}
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {project.category === ProjectCategory.NPM && (
+                        <div className="flex gap-4 mb-3">
+                            {project.githubUrl && (
+                                <div className="flex gap-2 items-center mb-3">
+                                    <img alt="logo" className="w-[20px]" src={githubLogo} />
+                                    <a className="underline" href={project.githubUrl} target="_blank" rel="noreferrer">
+                                        {project.githubUrl.split("/").pop()}
+                                    </a>
+                                </div>
+                            )}
+                            {project.npmUrl && (
+                                <div className="flex gap-2 items-center mb-3">
+                                    <img alt="logo" className="w-[20px]" src={npmLogo} />
+                                    <a className="underline" href={project.githubUrl} target="_blank" rel="noreferrer">
+                                        {project.githubUrl.split("/").pop()}
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+                    )}
                     <div className="flex gap-8">
-                        <Button className="flex-grow justify-center" onClick={handleView}>
-                            View
+                        <Button
+                            className={classNames({
+                                "justify-center": true,
+                                "w-1/2": project.npmUrl || project.projectUrl,
+                                "w-full": !project.npmUrl && !project.projectUrl,
+                            })}
+                            onClick={handleView}
+                        >
+                            View Details
                         </Button>
-                        <Button className="flex-grow justify-center" onClick={notify}>
-                            Open
-                        </Button>
+                        {(project.npmUrl || project.projectUrl) && (
+                            <Button
+                                type="link"
+                                className="w-1/2 justify-center"
+                                link={project.category === ProjectCategory.NPM ? project.npmUrl : project.projectUrl}
+                            >
+                                Open App
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>

@@ -6,4 +6,5 @@ export interface MenuItem {
     url?: string;
     elementId?: string;
     action?: () => void;
+    hidden?: boolean;
 }

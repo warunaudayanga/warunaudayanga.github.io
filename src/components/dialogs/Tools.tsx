@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { JSX } from "react";
-import { Tool } from "../../interfaces";
 import { StackIcon } from "../other";
 import { stackIcon } from "../../data/stack-icons.ts";
 
-const Tools = ({ tools }: { tools?: Tool[] }): JSX.Element[] | null => {
+const Tools = ({ tools }: { tools?: (keyof typeof stackIcon)[] }): JSX.Element[] | null => {
     return tools?.length
         ? tools.map((tool, index) => (
               <div key={index} className="flex items-center gap-1">
-                  {tool.icon && <StackIcon icon={stackIcon[tool.icon] || stackIcon.NoIcon} size="18px"></StackIcon>}
-                  <div>{tool.name}</div>
+                  {<StackIcon icon={stackIcon[tool]?.icon || stackIcon.NPM.icon} size="18px"></StackIcon>}
+                  <div>{stackIcon[tool]?.label || tool}</div>
               </div>
           ))
         : null;

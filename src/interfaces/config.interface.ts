@@ -3,7 +3,7 @@ import { UploadedFile } from "./firebase.interfaces.ts";
 export interface Config {
     title?: string;
     subtitle?: string;
-    profileImage?: UploadedFile;
+    profileImage?: File | UploadedFile | null;
 }
 export interface ConfigDto {
     key: keyof Config;

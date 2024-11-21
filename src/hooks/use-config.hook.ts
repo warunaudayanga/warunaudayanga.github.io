@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Config } from "../interfaces/config.interface.ts";
+import { Config } from "../interfaces";
 import { getConfigItems } from "../utils/firestore/getConfigItems.ts";
 
 export const useConfig = (): {

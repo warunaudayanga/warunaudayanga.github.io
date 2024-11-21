@@ -1,19 +1,17 @@
 import { ProjectDocument } from "../interfaces";
-import { Dispatch, SetStateAction } from "react";
 import { deleteCollectionItem, updateCollectionItem } from "./firestore";
 import { Collection, firestore } from "../config/firebase.ts";
 import { toast } from "react-toastify";
 
 export const handleProjectOrder = async (
     projects: ProjectDocument[],
-    setItems: Dispatch<SetStateAction<ProjectDocument[]>>,
     id: string,
     decrease?: boolean,
-): Promise<void> => {
+): Promise<ProjectDocument[]> => {
     const index = projects.findIndex(p => p.id === id);
     const newIndex = decrease ? index - 1 : index + 1;
 
-    if (newIndex < 0 || newIndex >= projects.length) return;
+    if (newIndex < 0 || newIndex >= projects.length) return projects;
 
     // Save the original state for rollback
     const originalProjects = [...projects];
@@ -31,34 +29,29 @@ export const handleProjectOrder = async (
     const [removed] = reorderedProjects.splice(index, 1);
     reorderedProjects.splice(newIndex, 0, removed);
 
-    // Update the state optimistically
-    setItems(reorderedProjects);
-
     try {
         // Update items in the backend
         for await (const swappedItem of swappedItems) {
             await updateCollectionItem(firestore, Collection.PROJECTS, swappedItem.id, {
                 order: swappedItem.index,
             });
+            reorderedProjects.find(project => project.id === swappedItem.id)!.order = swappedItem.index;
         }
+        return reorderedProjects;
     } catch (error) {
         // Revert the state on error
-        setItems(originalProjects);
+        return originalProjects;
     }
 };
 
-export const handleProjectDelete = async (
-    projects: ProjectDocument[],
-    setItems: Dispatch<SetStateAction<ProjectDocument[]>>,
-    id: string,
-): Promise<void> => {
+export const handleProjectDelete = async (projects: ProjectDocument[], id: string): Promise<ProjectDocument[]> => {
     // Save the original state for rollback
     const originalProjects = [...projects];
 
     // Find the index of the item to be deleted
     const index = projects.findIndex(p => p.id === id);
 
-    if (index === -1) return; // Item not found
+    if (index === -1) return projects; // Item not found
 
     // Remove the item from the list
     const updatedProjects = [...projects];
@@ -69,9 +62,6 @@ export const handleProjectDelete = async (
         id: item.id,
         index: index + i, // Update index after the deleted item
     }));
-
-    // Update the state optimistically
-    setItems(updatedProjects);
 
     try {
         // Delete the item from the backend
@@ -85,8 +75,10 @@ export const handleProjectDelete = async (
                 order: changedItem.index,
             });
         }
+
+        return updatedProjects;
     } catch {
         // Revert the state on error
-        setItems(originalProjects);
+        return originalProjects;
     }
 };
