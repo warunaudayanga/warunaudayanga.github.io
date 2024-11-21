@@ -202,13 +202,13 @@ const Home = (): JSX.Element => {
                     </div>
                     <div className="flex-grow flex gap-10 justify-center items-center pb-10 fredoka-one text-[40px]">
                         <a href="/#" onClick={() => scrollIntoElement(Route.ABOUT)}>
-                            <div className="glass text-accent-dark fredoka-one p-5 border-8 border-accent rounded-[45px] w-[300px] text-center">
+                            <div className="glass text-accent fredoka-one p-5 border-8 border-accent-darker rounded-[45px] w-[300px] text-center">
                                 About Me
                             </div>
                         </a>
                         <div className="text-accent text-[60px]">|</div>
                         <a href="/#" onClick={() => scrollIntoElement(Route.WORK_PROJECTS)}>
-                            <div className="glass text-accent-dark fredoka-one p-5 border-8 border-accent rounded-[45px] w-[300px] text-center">
+                            <div className="glass text-accent fredoka-one p-5 border-8 border-accent-darker rounded-[45px] w-[300px] text-center">
                                 My Projects
                             </div>
                         </a>
