@@ -5,6 +5,7 @@ import { Route } from "../../enums";
 
 import { Nbsp, Section, StackIcon } from "../index.ts";
 import { stackIcon } from "../../data/stack-icons.ts";
+import StackItem from "../dialogs/StackItem.tsx";
 
 const AboutMe = (): JSX.Element => {
     return (
@@ -119,47 +120,46 @@ const AboutMe = (): JSX.Element => {
                     and continuously improving my skills to stay at the forefront of the industry.
                 </p>
                 <p className="pb-5">
-                    <Nbsp count={16} />
-                    My primary technology stack includes <StackIcon
-                        icon={stackIcon.Angular.icon}
-                        size="30px"
-                        inline
-                    />{" "}
-                    Angular, <StackIcon icon={stackIcon.ReactJs.icon} inline /> React,{" "}
-                    <StackIcon icon={stackIcon.NestJs.icon} inline /> Nest.js,{" "}
-                    <StackIcon icon={stackIcon.NextJs.icon} inline /> Next.js,{" "}
-                    <StackIcon icon={stackIcon.Spring.icon} inline /> Spring Boot, coupled with databases such as{" "}
-                    <StackIcon icon={stackIcon.MongoDB.icon} inline /> MongoDB,{" "}
-                    <StackIcon icon={stackIcon.MySQL.icon} inline /> MySQL, and{" "}
-                    <StackIcon icon={stackIcon.PostgreSQL.icon} inline /> PostgreSQL. In the realm of web applications,
-                    I specialize in designing front-end interfaces using{" "}
-                    <StackIcon icon={stackIcon.Angular.icon} size="30px" inline /> Angular,{" "}
-                    <StackIcon icon={stackIcon.ReactJs.icon} size="30px" inline /> React,{" "}
-                    <StackIcon icon={stackIcon.NextJs.icon} size="30px" inline /> Next.js, or plain{" "}
-                    <StackIcon icon={stackIcon.HTML5.icon} inline /> HTML,{" "}
-                    <StackIcon icon={stackIcon.CSS3.icon} inline /> CSS, and{" "}
-                    <StackIcon icon={stackIcon.Bootstrap.icon} inline /> Bootstrap. I build interactive websites with{" "}
-                    <StackIcon icon={stackIcon.JavaScript.icon} inline /> JavaScript,{" "}
-                    <StackIcon icon={stackIcon.TypeScript.icon} inline /> TypeScript, and{" "}
-                    <StackIcon icon={stackIcon.jQuery.icon} inline /> jQuery, while implementing robust back-end
-                    solutions with <StackIcon icon={stackIcon.NodeJs.icon} inline /> Node.js,{" "}
-                    <StackIcon icon={stackIcon.ExpressJs.icon} inline /> Express,{" "}
-                    <StackIcon icon={stackIcon.NestJs.icon} inline /> NestJS, or{" "}
-                    <StackIcon icon={stackIcon.Java.icon} inline /> Java{" "}
-                    <StackIcon icon={stackIcon.Spring.icon} inline /> Spring Boot.
+                    <Nbsp count={16} /> My primary stack includes{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Angular} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.ReactJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NestJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NextJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Spring} /> coupled with
+                    databases such as <StackItem className="relative font-bold top-[6px]" tool={stackIcon.MongoDB} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.MySQL} />, and{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.PostgreSQL} />. In the realm of
+                    web applications, I adeptly design front-ends using{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Angular} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.ReactJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NextJs} /> or plain{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.HTML5} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CSS3} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Bootstrap} /> websites with{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.JavaScript} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.TypeScript} />, and{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.jQuery} /> While implementing
+                    robust back-ends with <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NodeJs} />{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.ExpressJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NestJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NextJs} /> or{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Java} />
+                    &nbsp;&nbsp;
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Spring} />.
                 </p>
                 <p className="pb-5">
-                    <Nbsp count={16} />
-                    Expanding beyond web applications, I specialize in designing desktop applications using various
-                    technologies. This includes integrating web applications with ElectronJS as well as developing
-                    standalone applications in <StackIcon icon={stackIcon.CSharp.icon} inline /> C#, and{" "}
-                    <StackIcon icon={stackIcon.DotNET.icon} inline /> .NET. Additionally, I have a foundational
-                    understanding of <StackIcon icon={stackIcon.AWS.icon} inline /> AWS and{" "}
-                    <StackIcon icon={stackIcon.GoogleCloud.icon} inline /> Google Cloud services and can proficiently
-                    manage a VPS for web hosting. I also have experience working with{" "}
-                    <StackIcon icon={stackIcon.PHP.icon} inline /> PHP, <StackIcon icon={stackIcon.CPP.icon} inline />{" "}
-                    C++, and <StackIcon icon={stackIcon.CSharp.icon} inline /> C#, rounding out my skill set and
-                    enabling me to tackle a diverse range of projects with expertise.
+                    <Nbsp count={16} /> Expanding beyond web applications, I specialize in designing desktop
+                    applications through various technologies. This includes integration of web applications with
+                    ElectronJS, as well as standalone applications developed{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CSharp} />, and{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.DotNET} />. Moreover, I possess
+                    basic knowledge of <StackItem className="relative font-bold top-[6px]" tool={stackIcon.AWS} /> and{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.GoogleCloud} /> services and can
+                    proficiently manage a VPS for web hosting. Additionally, I have experience with{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.PHP} /> and{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CPP} /> and{" "}
+                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CSharp} />, rounding out my
+                    skill set and enabling me to tackle a diverse range of projects with expertise.
                 </p>
             </div>
         </Section>

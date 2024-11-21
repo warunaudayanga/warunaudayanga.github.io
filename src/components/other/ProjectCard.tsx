@@ -117,7 +117,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         {project.techStack && (
                             <div className="flex gap-1 ms-3">
                                 {project.techStack.map(icon => (
-                                    <StackIcon key={icon} icon={stackIcon[icon].icon} size="20px" inline />
+                                    <StackIcon key={icon} icon={stackIcon[icon].icon} size="20px" />
                                 ))}
                             </div>
                         )}

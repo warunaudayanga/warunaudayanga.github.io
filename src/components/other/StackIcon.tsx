@@ -1,13 +1,16 @@
 import { JSX } from "react";
-import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
-const StackIcon = ({ icon, size = "25px", inline }: { icon: string; size?: string; inline?: boolean }): JSX.Element => {
+interface Props {
+    icon: string;
+    size?: string;
+    className?: string;
+}
+
+const StackIcon = ({ icon, size = "25px", className }: Props): JSX.Element => {
     return (
         <span
-            className={classNames({
-                "inline-block": true,
-                "relative top-[3px]": inline,
-            })}
+            className={twMerge("inline-block", className)}
             style={{
                 backgroundImage: `url(${icon})`,
                 height: size,

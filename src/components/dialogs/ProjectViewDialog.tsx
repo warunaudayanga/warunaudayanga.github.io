@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import { ProjectDocument, PropsWithCloseAndData, UploadedFile } from "../../interfaces";
 import ToolSection from "./ToolSection.tsx";
-import Tools from "./Tools.tsx";
+import StackItems from "./StackItems.tsx";
 import { DialogBodySection, DialogButtonSection } from "../layout";
 import { Button } from "../other";
 import { stackIcon } from "../../data/stack-icons.ts";
@@ -24,7 +24,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
     const addTools = (category: string, tools?: (keyof typeof stackIcon)[], isSub?: boolean): JSX.Element | null =>
         tools?.length ? (
             <ToolSection category={category} isSub={isSub}>
-                <Tools tools={tools}></Tools>
+                <StackItems tools={tools}></StackItems>
             </ToolSection>
         ) : null;
 
@@ -45,7 +45,11 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                     )}
                     <div className="flex gap-5 justify-center mb-5">
                         {data?.techStack && (
-                            <Tools tools={data.techStack} size="30px" className="fredoka-one text-xl"></Tools>
+                            <StackItems
+                                tools={data.techStack}
+                                size="30px"
+                                labelClassName="fredoka-one text-xl"
+                            ></StackItems>
                         )}
                     </div>
                     {data?.cover && (

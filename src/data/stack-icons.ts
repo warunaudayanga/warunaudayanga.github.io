@@ -1,10 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-// export interface StackIcon {
-//     name: string;
-//     label: string;
-//     icon: string;
-// }
+export interface StackIconType {
+    name: string;
+    label: string;
+    icon: string;
+}
 
 export const stackIcon = {
     AArch64: { name: "AArch64", label: "AArch64", icon: "/assets/stack/AArch64.svg" },

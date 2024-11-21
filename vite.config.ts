@@ -28,7 +28,6 @@ export default defineConfig({
         include: [
             "react",
             "react-dom",
-            // "firebase",
             "zustand",
             // Add any other libraries you want to optimize
         ],
