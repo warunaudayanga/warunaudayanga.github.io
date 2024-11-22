@@ -9,7 +9,6 @@ import { innerHTML } from "../../utils";
 import githubLogo from "../../assets/images/logos/github.png";
 import npmLogo from "../../assets/images/logos/npm.png";
 import npmCover from "../../assets/svg/npm.svg";
-import classNames from "classnames";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
 
 const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, ProjectDocument>): JSX.Element => {
@@ -32,23 +31,14 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
         <>
             <DialogBodySection full={true} noHeader>
                 <div className="view-container h-full px-3">
-                    {data?.name && (
-                        <div
-                            className={classNames({
-                                "fredoka-one text-center font-bold line-hei": true,
-                                "text-4xl mb-10": data.cover || data.category === ProjectCategory.NPM,
-                                "text-6xl mt-5 mb-3": !data.cover && data.category !== ProjectCategory.NPM,
-                            })}
-                        >
-                            {data.name}
-                        </div>
-                    )}
+                    {data?.name && <div className="text-center font-bold line-hei text-4xl my-5">{data.name}</div>}
                     <div className="flex gap-5 justify-center mb-5">
                         {data?.techStack && (
                             <StackItems
                                 tools={data.techStack}
                                 size="30px"
-                                labelClassName="fredoka-one text-xl"
+                                className="m-3"
+                                labelClassName="text-xl font-bold"
                             ></StackItems>
                         )}
                     </div>
@@ -63,6 +53,45 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                         </div>
                     )}
                     <div className="max-w-screen-lg m-auto">
+                        <table className="mb-5">
+                            <tbody>
+                                {data?.projectType && (
+                                    <tr className="info text-gray-600">
+                                        <td className="font-bold mb-3">Type</td>
+                                        <td className="font-bold mb-3 px-3">—</td>
+                                        <td className="mb-3">{data.projectType}</td>
+                                    </tr>
+                                )}
+                                {data?.company && (
+                                    <tr className="info text-gray-600">
+                                        <td className="font-bold mb-3">Company</td>
+                                        <td className="font-bold mb-3 px-3">—</td>
+                                        <td className="mb-3">{data.company}</td>
+                                    </tr>
+                                )}
+                                {data?.client && (
+                                    <tr className="info text-gray-600">
+                                        <td className="font-bold mb-3">{data.clientType || "Client"}</td>
+                                        <td className="font-bold mb-3 px-3">—</td>
+                                        <td className="mb-3">{data.client}</td>
+                                    </tr>
+                                )}
+                                {data?.position && (
+                                    <tr className="info text-gray-600">
+                                        <td className="font-bold mb-3">Position</td>
+                                        <td className="font-bold mb-3 px-3">—</td>
+                                        <td className="mb-3">{data.position}</td>
+                                    </tr>
+                                )}
+                                {data?.role && (
+                                    <tr className="info text-gray-600">
+                                        <td className="font-bold mb-3">Role</td>
+                                        <td className="font-bold mb-3 px-3">—</td>
+                                        <td className="mb-3">{data.role}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                         {data?.description && (
                             <div className="info mb-10">
                                 <div
@@ -72,25 +101,33 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                             </div>
                         )}
 
-                        <div className="tools flex flex-col mb-10 gap-10">
-                            {data?.languages && addTools("Languages", data.languages)}
-                            {data?.databases && addTools("Database", data.databases)}
-                            {data?.deployment && addTools("Deployment", data.deployment)}
-                            {data?.services && addTools("Services", data.services)}
-                            {libraries && (
-                                <ToolSection category="Frameworks and Libraries">
-                                    <div className="mb-2 flex flex-col gap-5 mt-5">
-                                        {data.coreLibs && addTools("Core Libraries / Frameworks", data.coreLibs, true)}
-                                        {data.uiLibs && addTools("UI Libraries / Frameworks", data.uiLibs, true)}
-                                        {data.stateManageLibs &&
-                                            addTools("State Management Libraries", data.stateManageLibs, true)}
-                                        {data.backendLibs &&
-                                            addTools("Backend Libraries / Frameworks", data.backendLibs, true)}
-                                        {data.databaseLibs && addTools("Database Libraries", data.databaseLibs, true)}
-                                        {data.otherLibs && addTools("Other Tools", data.otherLibs, true)}
-                                    </div>
-                                </ToolSection>
-                            )}
+                        <div className="flex">
+                            <div className="tools flex w-1/2 flex-col mb-10 gap-10 p-5">
+                                <div className="card-shadow rounded-lg p-5 h-full">
+                                    {data?.languages && addTools("Languages", data.languages)}
+                                    {data?.databases && addTools("Database", data.databases)}
+                                    {data?.deployment && addTools("Deployment", data.deployment)}
+                                    {data?.services && addTools("Services", data.services)}
+                                    {data?.otherLibs && addTools("Other Tools", data.otherLibs)}
+                                </div>
+                            </div>
+                            <div className="tools flex w-1/2 flex-col mb-10 gap-10 p-5">
+                                <div className="card-shadow rounded-lg p-5 h-full">
+                                    {libraries &&
+                                        data.coreLibs &&
+                                        addTools("Core Libraries / Frameworks", data.coreLibs)}
+                                    {libraries && data.uiLibs && addTools("UI Libraries / Frameworks", data.uiLibs)}
+                                    {libraries &&
+                                        data.stateManageLibs &&
+                                        addTools("State Management Libraries", data.stateManageLibs)}
+                                    {libraries &&
+                                        data.backendLibs &&
+                                        addTools("Backend Libraries / Frameworks", data.backendLibs)}
+                                    {libraries &&
+                                        data.databaseLibs &&
+                                        addTools("Database Libraries", data.databaseLibs)}
+                                </div>
+                            </div>
                         </div>
                         {(data?.frontendGit || data?.backendGit || data?.githubUrl || data?.npmUrl) && (
                             <div className="sources mb-10">
@@ -169,7 +206,9 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                 </div>
                             </div>
                         )}
-                        {data?.screenshots?.length && <div className="text-lg font-bold mb-5">Screenshots</div>}
+                        {data?.screenshots?.length && (
+                            <div className="text-xl font-bold mb-5 text-center">Screenshots</div>
+                        )}
                     </div>
                     {data?.screenshots?.length && (
                         <div className="screenshots h-full">

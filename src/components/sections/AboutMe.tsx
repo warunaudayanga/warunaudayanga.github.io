@@ -121,45 +121,49 @@ const AboutMe = (): JSX.Element => {
                 </p>
                 <p className="pb-5">
                     <Nbsp count={16} /> My primary stack includes{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Angular} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.ReactJs} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NestJs} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NextJs} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Spring} /> coupled with
-                    databases such as <StackItem className="relative font-bold top-[6px]" tool={stackIcon.MongoDB} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.MySQL} />, and{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.PostgreSQL} />. In the realm of
-                    web applications, I adeptly design front-ends using{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Angular} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.ReactJs} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NextJs} /> or plain{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.HTML5} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CSS3} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Bootstrap} /> websites with{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.JavaScript} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.TypeScript} />, and{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.jQuery} /> While implementing
-                    robust back-ends with <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NodeJs} />{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.ExpressJs} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NestJs} />,{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.NextJs} /> or{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Java} />
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.Angular} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.ReactJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.NestJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.NextJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.Spring} /> &nbsp;coupled
+                    with databases such as{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.MongoDB} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.MySQL} /> &nbsp;and{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.PostgreSQL} />. &nbsp;In
+                    the realm of web applications, I adeptly design front-ends using{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.Angular} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.ReactJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.NextJs} /> &nbsp;or plain{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.HTML5} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.CSS3} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.Bootstrap} />{" "}
+                    &nbsp;websites with{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.JavaScript} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.TypeScript} /> &nbsp;and{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.jQuery} /> &nbsp;While
+                    implementing robust back-ends with{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.NodeJs} />{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.ExpressJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.NestJs} />,{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.NextJs} /> &nbsp;or{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.Java} />
                     &nbsp;&nbsp;
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.Spring} />.
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.Spring} />.
                 </p>
                 <p className="pb-5">
                     <Nbsp count={16} /> Expanding beyond web applications, I specialize in designing desktop
                     applications through various technologies. This includes integration of web applications with
                     ElectronJS, as well as standalone applications developed{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CSharp} />, and{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.DotNET} />. Moreover, I possess
-                    basic knowledge of <StackItem className="relative font-bold top-[6px]" tool={stackIcon.AWS} /> and{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.GoogleCloud} /> services and can
-                    proficiently manage a VPS for web hosting. Additionally, I have experience with{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.PHP} /> and{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CPP} /> and{" "}
-                    <StackItem className="relative font-bold top-[6px]" tool={stackIcon.CSharp} />, rounding out my
-                    skill set and enabling me to tackle a diverse range of projects with expertise.
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.CSharp} /> &nbsp;and{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.DotNET} />. &nbsp;Moreover,
+                    I possess basic knowledge of{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.AWS} /> &nbsp;and{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.GoogleCloud} />{" "}
+                    &nbsp;services and can proficiently manage a VPS for web hosting. Additionally, I have experience
+                    with <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.PHP} /> &nbsp;and{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.CPP} /> &nbsp;and{" "}
+                    <StackItem className="relative font-bold top-[6px] ps-2" tool={stackIcon.CSharp} /> &nbsp;rounding
+                    out my skill set and enabling me to tackle a diverse range of projects with expertise.
                 </p>
             </div>
         </Section>

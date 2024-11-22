@@ -24,7 +24,12 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
 
     const values: ProjectDto = {
         name: data?.name || "",
+        projectType: data?.projectType || "",
+        company: data?.company || "",
         client: data?.client || "",
+        clientType: data?.clientType || "",
+        position: data?.position || "",
+        role: data?.role || "",
         order: data?.order || 0,
         category: data?.category || ProjectCategory.WORK,
         cover: data?.cover || null,
@@ -177,11 +182,18 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         name="category"
                         title="Category"
                         required
-                        className="w-1/2"
+                        className="w-3/12"
                         onSelected={value => setSelectedCategory(value as ProjectCategory)}
                     />
                     <FormControl control={control} name="name" title="Name" required className="w-1/2" />
-                    <FormControl control={control} name="client" title="Company / Client" className="w-1/2" />
+                    <FormControl control={control} name="projectType" title="Project Type" className="w-1/2" />
+                    <FormControl control={control} name="company" title="Company" className="w-1/2" />
+                    <div className="w-1/2">
+                        <FormControl control={control} name="client" title="Client" className="w-8/12" />
+                        <FormControl control={control} name="clientType" title="Client Type" className="w-4/12" />
+                    </div>
+                    <FormControl control={control} name="position" title="Position" className="w-1/2" />
+                    <FormControl control={control} name="role" title="Role" className="w-1/2" />
                     <FileUpload
                         control={control}
                         name="cover"

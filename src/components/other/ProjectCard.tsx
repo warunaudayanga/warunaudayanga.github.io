@@ -107,7 +107,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                             className="bg-primary-darker w-full flex items-center justify-center"
                             style={{ aspectRatio: "16/9" }}
                         >
-                            <h2 className="text-6xl fredoka-one text-accent text-center">{currentProject.name}</h2>
+                            <h2 className="text-6xl text-accent text-center">{currentProject.name}</h2>
                         </div>
                     )}
                 </div>
@@ -124,7 +124,15 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                     </div>
                     <p className="mb-3 flex-grow text-gray-600">{project.info}</p>
 
-                    <p className="mb-3 text-gray-600 font-bold">{project.client}</p>
+                    {project.projectType && <p className="mb-3 text-gray-600 font-bold">{project.projectType}</p>}
+
+                    {project.company && <p className="mb-3 text-gray-600 font-bold">Company — {project.company}</p>}
+
+                    {project.client && (
+                        <p className="mb-3 text-gray-600 font-bold">
+                            {project.clientType || "Client"} — {project.client}
+                        </p>
+                    )}
 
                     {project.category !== ProjectCategory.NPM && (
                         <div className="flex gap-4 mb-3">

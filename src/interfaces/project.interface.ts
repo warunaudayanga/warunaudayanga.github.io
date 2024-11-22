@@ -6,7 +6,12 @@ export type ProjectStatus = "draft" | "published";
 
 export interface ProjectDto {
     name: string;
+    projectType: string;
+    company: string;
     client: string;
+    clientType: string;
+    position: string;
+    role: string;
     // cover?: UploadedFile;
     // thumbnail?: UploadedFile;
     cover: File | UploadedFile | null;
@@ -35,7 +40,6 @@ export interface ProjectDto {
     screenshots: (File | UploadedFile)[] | null;
     status: ProjectStatus;
 }
-
 export interface ProjectDocument extends Omit<ProjectDto, "cover" | "thumbnail" | "screenshots">, FirestoreDocument {
     cover?: UploadedFile;
     thumbnail?: UploadedFile;
