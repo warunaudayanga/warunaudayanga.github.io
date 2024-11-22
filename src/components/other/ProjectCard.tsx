@@ -104,10 +104,44 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         <img src={npmCover} className="w-1/2 m-auto" alt="card-image" />
                     ) : (
                         <div
-                            className="bg-primary-darker w-full flex items-center justify-center"
+                            className="bg-primary-darker w-full flex items-center justify-center relative"
                             style={{ aspectRatio: "16/9" }}
                         >
-                            <h2 className="text-6xl text-accent text-center font-bold">{currentProject.name}</h2>
+                            <h2 className="text-5xl text-white text-center font-bold relative z-10">
+                                {currentProject.name}
+                            </h2>
+                            <div
+                                className="h-full w-full absolute overflow-hidden z-0"
+                                style={{
+                                    background:
+                                        "transparent linear-gradient(225deg, var(--primary) 0,var(--primary-darker) 100%) 0 0 no-repeat padding-box",
+                                }}
+                            >
+                                <svg
+                                    className="absolute bottom-[-40px] right-[-50px] opacity-70 fill-primary-darker"
+                                    height="200"
+                                    width="200"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle r="100" cx="100" cy="100" />
+                                </svg>
+                                <svg
+                                    className="absolute top-[-50px] left-[50%] opacity-70 fill-primary-dark"
+                                    height="80"
+                                    width="80"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle r="40" cx="40" cy="40" />
+                                </svg>
+                                <svg
+                                    className="absolute top-[-80px] left-[-30px] opacity-70 fill-primary"
+                                    height="150"
+                                    width="150"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle r="75" cx="75" cy="75" />
+                                </svg>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -128,7 +162,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
 
                     {project.company && <p className="mb-3 text-gray-600 font-bold">Company — {project.company}</p>}
 
-                    {project.client && (
+                    {!project.company && project.client && (
                         <p className="mb-3 text-gray-600 font-bold">
                             {project.clientType || "Client"} — {project.client}
                         </p>

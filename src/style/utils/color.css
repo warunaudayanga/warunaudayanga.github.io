@@ -4,6 +4,14 @@
     .bg-primary-dark { background-color: var(--primary-dark); }
     .bg-primary-darker { background-color: var(--primary-darker); }
 
+    .fill-primary { fill: var(--primary); }
+    .fill-primary-dark { fill: var(--primary-dark); }
+    .fill-primary-darker { fill: var(--primary-darker); }
+
+    .stroke-primary { stroke: var(--primary); }
+    .stroke-primary-dark { stroke: var(--primary-dark); }
+    .stroke-primary-darker { stroke: var(--primary-darker); }
+
     .text-primary { color: var(--primary); }
     .text-primary-dark { color: var(--primary-dark); }
     .text-primary-darker { color: var(--primary-darker); }
@@ -17,6 +25,14 @@
     .bg-secondary-dark { background-color: var(--secondary-dark); }
     .bg-secondary-darker { background-color: var(--secondary-darker); }
 
+    .fill-secondary { fill: var(--secondary); }
+    .fill-secondary-dark { fill: var(--secondary-dark); }
+    .fill-secondary-darker { fill: var(--secondary-darker); }
+
+    .stroke-secondary { stroke: var(--secondary); }
+    .stroke-secondary-dark { stroke: var(--secondary-dark); }
+    .stroke-secondary-darker { stroke: var(--secondary-darker); }
+
     .text-secondary { color: var(--secondary); }
     .text-secondary-dark { color: var(--secondary-dark); }
     .text-secondary-darker { color: var(--secondary-darker); }
@@ -29,6 +45,14 @@
     .bg-accent { background-color: var(--accent); }
     .bg-accent-dark { background-color: var(--accent-dark); }
     .bg-accent-darker { background-color: var(--accent-darker); }
+
+    .fill-accent { fill: var(--accent); }
+    .fill-accent-dark { fill: var(--accent-dark); }
+    .fill-accent-darker { fill: var(--accent-darker); }
+
+    .stroke-accent { stroke: var(--accent); }
+    .stroke-accent-dark { stroke: var(--accent-dark); }
+    .stroke-accent-darker { stroke: var(--accent-darker); }
 
     .text-accent { color: var(--accent); }
     .text-accent-dark { color: var(--accent-dark); }
