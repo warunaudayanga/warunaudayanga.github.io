@@ -14,8 +14,12 @@ import { NpmProjects, Projects } from "../sections";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
 import { useProjectState } from "../../hooks/use-project-state.ts";
 import { groupBy } from "hichchi-utils";
+import { useLocation } from "react-router-dom";
+import { ProjectViewDialog } from "../dialogs";
 
 function Layout(): JSX.Element {
+    const location = useLocation();
+
     const [scrolled, setScrolled] = useState<boolean>(false);
     const [menuItems, setMenuItems] = useState<MenuItem[]>([
         {
@@ -61,6 +65,7 @@ function Layout(): JSX.Element {
             hidden: false,
         },
     ]);
+    const [initialized, setInitialized] = useState<boolean>(false);
 
     const { user, logout } = useAuth();
     const { openDialog } = useDialog();
@@ -145,6 +150,29 @@ function Layout(): JSX.Element {
         setMenuItems(changedMenuItems);
     }, [getProjects()]);
 
+    useEffect(() => {
+        if (!initialized) {
+            const projects = getProjects();
+            if (projects.length) {
+                setInitialized(true);
+            }
+            const queryParams = new URLSearchParams(location.hash.split("?")[1]);
+            const projectCode = queryParams.get("project");
+            if (projectCode) {
+                // const newHash = location.hash.split("?")[0];
+                // window.history.replaceState({}, "", `${location.pathname}${newHash}`);
+                const project: ProjectDocument | undefined = getProjects().find(p => p.codeName === projectCode);
+                if (project) {
+                    openDialog(ProjectViewDialog, {
+                        full: true,
+                        width: "90vw",
+                        data: project,
+                    });
+                }
+            }
+        }
+    }, [location, getProjects()]);
+
     const handleAuth = async (): Promise<void> => {
         if (user) {
             await logout();
@@ -167,9 +195,13 @@ function Layout(): JSX.Element {
                 <Home />
                 <Page>
                     <AboutMe />
-                    <Projects category={ProjectCategory.WORK} route={Route.WORK_PROJECTS} />
+                    <Projects category={ProjectCategory.WORK} route={Route.WORK_PROJECTS} bgSecondary />
                     <Projects category={ProjectCategory.PERSONAL} route={Route.PERSONAL_PROJECTS} />
-                    <Projects category={ProjectCategory.COLLABORATION} route={Route.COLLABORATION_PROJECTS} />
+                    <Projects
+                        category={ProjectCategory.COLLABORATION}
+                        route={Route.COLLABORATION_PROJECTS}
+                        bgSecondary
+                    />
                     <Projects category={ProjectCategory.NPM} route={Route.NPM_PROJECTS} description={<NpmProjects />} />
                 </Page>
             </Content>

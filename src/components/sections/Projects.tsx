@@ -15,9 +15,10 @@ interface Props {
     category: ProjectCategory;
     route: Route;
     description?: ReactNode;
+    bgSecondary?: boolean;
 }
 
-const Projects = ({ category, route, description }: Props): JSX.Element | null => {
+const Projects = ({ category, route, description, bgSecondary }: Props): JSX.Element | null => {
     const { getProjects, dispatch } = useProjectState();
 
     const projects = getProjects(category);
@@ -44,6 +45,7 @@ const Projects = ({ category, route, description }: Props): JSX.Element | null =
         <Section
             title={category === ProjectCategory.NPM ? "NPM Libraries" : `${toFirstCase(category)} Projects`}
             route={route}
+            className={bgSecondary ? "bg-gray-175" : "bg-gray-100"}
         >
             {description}
             <div className="flex flex-wrap mx-3">

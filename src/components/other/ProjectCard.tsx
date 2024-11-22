@@ -168,6 +168,8 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         </p>
                     )}
 
+                    {project.remarks && <p className="mb-3 text-gray-600 font-bold">{project.remarks}</p>}
+
                     {project.category !== ProjectCategory.NPM && (
                         <div className="flex gap-4 mb-3">
                             {project.frontendGit && (
@@ -207,8 +209,8 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                             {project.npmUrl && (
                                 <div className="flex gap-2 items-center mb-3">
                                     <img alt="logo" className="w-[20px]" src={npmLogo} />
-                                    <a className="underline" href={project.githubUrl} target="_blank" rel="noreferrer">
-                                        {project.githubUrl.split("/").pop()}
+                                    <a className="underline" href={project.npmUrl} target="_blank" rel="noreferrer">
+                                        {project.npmUrl.split("/").pop()}
                                     </a>
                                 </div>
                             )}

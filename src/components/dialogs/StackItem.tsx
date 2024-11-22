@@ -15,7 +15,7 @@ const StackItem = ({ tool, size = "25px", className, labelClassName }: Props): J
     return (
         <span
             className={classNames({
-                "inline-flex items-center gap-1": true,
+                "inline-flex items-center gap-2": true,
                 [`${className}`]: true,
             })}
         >

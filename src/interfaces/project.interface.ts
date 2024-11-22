@@ -6,6 +6,7 @@ export type ProjectStatus = "draft" | "published";
 
 export interface ProjectDto {
     name: string;
+    codeName: string;
     projectType: string;
     company: string;
     client: string;
@@ -32,6 +33,7 @@ export interface ProjectDto {
     databaseLibs: (keyof typeof stackIcon)[] | null;
     otherLibs: (keyof typeof stackIcon)[] | null;
     extra: string | null;
+    remarks: string;
     projectUrl: string;
     githubUrl: string;
     frontendGit: string;

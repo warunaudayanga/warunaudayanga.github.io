@@ -8,7 +8,7 @@ interface Props {
 
 const Content = ({ onContentScroll, children }: Props): JSX.Element => {
     return (
-        <ScrollPane className="bg-gray-100" maxHeight="100vh" full onScrollCapture={onContentScroll}>
+        <ScrollPane className="bg-gray-50" maxHeight="100vh" full onScrollCapture={onContentScroll}>
             {children}
         </ScrollPane>
     );

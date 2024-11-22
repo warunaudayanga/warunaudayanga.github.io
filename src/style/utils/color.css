@@ -166,4 +166,23 @@
     .border-gray-dark { border-color: var(--gray-dark); }
     .border-gray-darker { border-color: var(--gray-darker); }
 
+    .bg-gray-100 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+    }
+
+    .bg-gray-150 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(236 237 241 / var(--tw-bg-opacity));
+    }
+
+    .bg-gray-175 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(232 234 238 / var(--tw-bg-opacity));
+    }
+
+    .bg-gray-200 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+    }
 }

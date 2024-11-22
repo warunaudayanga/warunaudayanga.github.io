@@ -92,6 +92,9 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                 )}
                             </tbody>
                         </table>
+
+                        {data?.remarks && <p className="text-gray-600 mb-3 font-bold">{data.remarks}</p>}
+
                         {data?.description && (
                             <div className="info mb-10">
                                 <div

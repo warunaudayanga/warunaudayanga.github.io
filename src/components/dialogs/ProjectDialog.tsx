@@ -24,6 +24,7 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
 
     const values: ProjectDto = {
         name: data?.name || "",
+        codeName: data?.codeName || "",
         projectType: data?.projectType || "",
         company: data?.company || "",
         client: data?.client || "",
@@ -48,6 +49,7 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
         databaseLibs: data?.databaseLibs || [],
         otherLibs: data?.otherLibs || [],
         extra: data?.extra || "",
+        remarks: data?.remarks || "",
         screenshots: data?.screenshots || null,
         projectUrl: data?.projectUrl || "",
         githubUrl: data?.githubUrl || "",
@@ -186,6 +188,7 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         onSelected={value => setSelectedCategory(value as ProjectCategory)}
                     />
                     <FormControl control={control} name="name" title="Name" required className="w-1/2" />
+                    <FormControl control={control} name="codeName" title="Code Name" required className="w-1/2" />
                     <FormControl control={control} name="projectType" title="Project Type" className="w-1/2" />
                     <FormControl control={control} name="company" title="Company" className="w-1/2" />
                     <div className="w-1/2">
@@ -294,6 +297,7 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                         fullWidth
                         value={values.otherLibs}
                     />
+                    <FormControl control={control} name="remarks" title="Remarks" className="w-1/2" />
                     {selectedCategory === ProjectCategory.NPM && (
                         <>
                             <FormControl control={control} name="githubUrl" title="Github URL" className="w-1/2" />
