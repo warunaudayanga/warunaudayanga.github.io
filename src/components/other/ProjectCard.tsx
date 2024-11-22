@@ -107,7 +107,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                             className="bg-primary-darker w-full flex items-center justify-center"
                             style={{ aspectRatio: "16/9" }}
                         >
-                            <h2 className="text-6xl text-accent text-center">{currentProject.name}</h2>
+                            <h2 className="text-6xl text-accent text-center font-bold">{currentProject.name}</h2>
                         </div>
                     )}
                 </div>
