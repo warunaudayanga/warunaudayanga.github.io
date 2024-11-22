@@ -156,18 +156,19 @@ function Layout(): JSX.Element {
             if (projects.length) {
                 setInitialized(true);
             }
-            const queryParams = new URLSearchParams(location.hash.split("?")[1]);
-            const projectCode = queryParams.get("project");
-            if (projectCode) {
-                // const newHash = location.hash.split("?")[0];
-                // window.history.replaceState({}, "", `${location.pathname}${newHash}`);
-                const project: ProjectDocument | undefined = getProjects().find(p => p.codeName === projectCode);
-                if (project) {
-                    openDialog(ProjectViewDialog, {
-                        full: true,
-                        width: "90vw",
-                        data: project,
-                    });
+
+            const hash = location.hash;
+            if (hash) {
+                const projectCode = hash.substring(1);
+                if (projectCode) {
+                    const project: ProjectDocument | undefined = getProjects().find(p => p.codeName === projectCode);
+                    if (project) {
+                        openDialog(ProjectViewDialog, {
+                            full: true,
+                            width: "90vw",
+                            data: project,
+                        });
+                    }
                 }
             }
         }
