@@ -64,7 +64,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
     };
 
     return (
-        <div className="w-full lg:w-1/2 px-3 pb-6">
+        <div className="w-full px-3 pb-6 md:w-[430px]">
             <div
                 className={clsx({
                     "relative rounded-xl h-full flex flex-col overflow-hidden transition-all group": true,
@@ -128,7 +128,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                 <div className="rounded-lg overflow-hidden">
                                     <img
                                         src={currentProject.thumbnail.url}
-                                        className="h-48 sm:h-60 md:h-72 lg:h-80 w-auto object-cover transition-transform rounded-lg"
+                                        className="h-full max-h-48 sm:max-h-64 w-auto object-contain transition-transform rounded-lg"
                                         alt={`${currentProject.name} thumbnail`}
                                     />
                                 </div>
@@ -136,7 +136,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         </div>
                     ) : project.category === ProjectCategory.NPM ? (
                         <div className="p-4">
-                            <div className="w-full h-32 sm:h-60 md:h-44 lg:h-48 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
+                            <div className="w-full h-32 lg:h-48 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
                                 <FaNpm
                                     size={120}
                                     className="sm:text-[140px] md:text-[160px] lg:text-[180px]"
@@ -146,7 +146,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         </div>
                     ) : (
                         <div className="p-4">
-                            <div className="bg-primary-darker rounded-lg w-full h-48 sm:h-60 md:h-72 lg:h-80 flex items-center justify-center relative overflow-hidden">
+                            <div className="bg-primary-darker rounded-lg w-full h-64 sm:max-h-64 flex items-center justify-center relative overflow-hidden">
                                 <h2 className="text-3xl md:text-4xl text-white text-center font-bold relative z-10 px-4">
                                     {currentProject.name}
                                 </h2>
@@ -252,6 +252,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         color="github"
                                         link={project.frontendGit}
                                         icon={<FaGithub className="w-4 h-4 me-2" />}
+                                        className="flex-grow"
                                     >
                                         Frontend
                                     </Button>
@@ -263,6 +264,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         color="github"
                                         link={project.backendGit}
                                         icon={<FaGithub className="w-4 h-4 me-2" />}
+                                        className="flex-grow"
                                     >
                                         Backend
                                     </Button>
@@ -279,6 +281,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         color="github"
                                         link={project.githubUrl}
                                         icon={<FaGithub className="w-4 h-4 me-2" />}
+                                        className="flex-grow"
                                     >
                                         {project.githubName || "Repository"}
                                     </Button>
@@ -290,6 +293,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         color="npm"
                                         link={project.npmUrl}
                                         icon={<FaNpm className="w-4 h-4 me-2" />}
+                                        className="flex-grow"
                                     >
                                         {project.npmName || "Package"}
                                     </Button>

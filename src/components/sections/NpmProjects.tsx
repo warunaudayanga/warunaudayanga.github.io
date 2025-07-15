@@ -13,7 +13,7 @@ const NpmProjects = (): JSX.Element => {
                 personal use, I’ve published them on npm for convenience and reusability. I release them under the brand
                 hichchi, while I refer to myself in this context as Hichchi Dev—my developer persona behind the work.
             </p>
-            <div className="flex gap-4 mb-6 flex-wrap">
+            <div className="flex gap-4 mb-6 flex-wrap justify-center">
                 <div className="flex gap-2 items-center">
                     <img alt="logo" className="w-[30px]" src={githubLogo} />
                     <a className="underline" href="https://github.com/hichchidev" target="_blank" rel="noreferrer">

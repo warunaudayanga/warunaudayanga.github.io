@@ -51,7 +51,7 @@ const Projects = ({ category, route, description, bgSecondary }: Props): JSX.Ele
             className={bgSecondary ? "bg-gray-175" : "bg-gray-100"}
         >
             {description}
-            <div className="flex flex-wrap mx-3">
+            <div className="flex flex-wrap mx-3 justify-center">
                 {projects
                     .filter(p => user || p.status === "published")
                     .map(project => (

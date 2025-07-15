@@ -65,7 +65,7 @@ const Button = ({
             case "action":
                 return twMerge(
                     baseClasses,
-                    "flex-1 gap-2 py-3 px-4 rounded-lg font-medium",
+                    "flex-1 gap-2 py-2 px-4 rounded-lg text-sm",
                     color === "primary"
                         ? "bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500"
                         : color === "success"

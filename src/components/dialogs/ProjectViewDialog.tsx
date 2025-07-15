@@ -50,8 +50,12 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                         )}
                     </div>
                     {data?.cover && (
-                        <div className="h-[65%] w-full bg-no-repeat bg-center bg-contain mb-10 flex justify-center">
-                            <img src={data.cover.url} alt="cover" className="border-2 rounded-lg h-full" />
+                        <div className="md:h-[65%] w-full bg-no-repeat bg-center bg-contain md:mb-10 flex justify-center">
+                            <img
+                                src={data.cover.url}
+                                alt="cover"
+                                className="border-2 rounded-lg h-full object-contain"
+                            />
                         </div>
                     )}
                     {!data?.cover && data?.category === ProjectCategory.NPM && (
