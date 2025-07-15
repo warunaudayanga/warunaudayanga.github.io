@@ -178,7 +178,7 @@ function Layout(): JSX.Element {
         if (user) {
             await logout();
         } else {
-            openDialog(LoginDialog, { heading: "Login", width: "400px" });
+            openDialog(LoginDialog, { heading: "Login", width: "min(90vw, 400px)" });
         }
     };
 

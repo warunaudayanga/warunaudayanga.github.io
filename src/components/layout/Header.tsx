@@ -11,7 +11,7 @@ const Header = ({ show, children }: PropsWithChildren<{ show?: boolean }>): JSX.
             })}
             style={{ transition: "height 0.3s" }}
         >
-            <div className="h-full w-full max-w-screen-xl m-auto px-10 flex justify-between items-center gap-5">
+            <div className="h-full w-full max-w-screen-xl m-auto px-4 sm:px-6 md:px-10 flex justify-between items-center gap-5">
                 {children}
             </div>
         </div>

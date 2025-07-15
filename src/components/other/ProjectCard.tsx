@@ -64,7 +64,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
     };
 
     return (
-        <div className="w-full md:w-1/2 px-3 pb-6">
+        <div className="w-full lg:w-1/2 px-3 pb-6">
             <div
                 className={clsx({
                     "relative rounded-xl h-full flex flex-col overflow-hidden transition-all group": true,
@@ -128,7 +128,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                 <div className="rounded-lg overflow-hidden">
                                     <img
                                         src={currentProject.thumbnail.url}
-                                        className="h-80 w-auto object-cover transition-transform rounded-lg"
+                                        className="h-48 sm:h-60 md:h-72 lg:h-80 w-auto object-cover transition-transform rounded-lg"
                                         alt={`${currentProject.name} thumbnail`}
                                     />
                                 </div>
@@ -136,13 +136,17 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         </div>
                     ) : project.category === ProjectCategory.NPM ? (
                         <div className="p-4">
-                            <div className="w-full h-60 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
-                                <FaNpm size={180} color="white"></FaNpm>
+                            <div className="w-full h-48 sm:h-60 md:h-72 lg:h-80 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
+                                <FaNpm
+                                    size={120}
+                                    className="sm:text-[140px] md:text-[160px] lg:text-[180px]"
+                                    color="white"
+                                ></FaNpm>
                             </div>
                         </div>
                     ) : (
                         <div className="p-4">
-                            <div className="bg-primary-darker rounded-lg w-full h-80 flex items-center justify-center relative overflow-hidden">
+                            <div className="bg-primary-darker rounded-lg w-full h-48 sm:h-60 md:h-72 lg:h-80 flex items-center justify-center relative overflow-hidden">
                                 <h2 className="text-3xl md:text-4xl text-white text-center font-bold relative z-10 px-4">
                                     {currentProject.name}
                                 </h2>

@@ -21,7 +21,6 @@ body {
 }
 
 .page-section {
-    @apply p-5;
     min-height: calc(100vh - var(--header) + 20px);
     padding-bottom: 60px;
 }

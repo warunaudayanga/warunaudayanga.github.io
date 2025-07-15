@@ -123,10 +123,10 @@ const AboutMe = (): JSX.Element => {
 
     return (
         <Section title="About Me" route={Route.ABOUT}>
-            <div className="flex gap-10">
+            <div className="flex gap-10 px-5 md:px-0">
                 <div
-                    className="text-lg text-[17px] text-justify"
-                    style={{ lineHeight: "30px", width: "calc(100% - 130px)" }}
+                    className="text-lg text-[17px] text-justify lg:w-[calc(100%-130px)]"
+                    style={{ lineHeight: "30px" }}
                 >
                     <p className="pb-5">
                         With over <span className="font-bold">6 years</span> of experience in the software industry, I
@@ -164,7 +164,7 @@ const AboutMe = (): JSX.Element => {
                         range of projects with expertise.
                     </p>
                 </div>
-                <div className="overflow-hidden w-[125px] h-[450px]">
+                <div className="overflow-hidden w-[125px] h-[450px] hidden lg:block">
                     <div
                         className="flex flex-wrap gap-5 transition-opacity duration-1000"
                         style={{
