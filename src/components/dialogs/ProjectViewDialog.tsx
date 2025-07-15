@@ -6,10 +6,9 @@ import { DialogBodySection, DialogButtonSection } from "../layout";
 import { Button } from "../other";
 import { stackIcon } from "../../data/stack-icons.ts";
 import { innerHTML } from "../../utils";
-import githubLogo from "../../assets/images/logos/github.png";
-import npmLogo from "../../assets/images/logos/npm.png";
 import npmCover from "../../assets/svg/npm.svg";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
+import { FaCode, FaCog, FaDatabase, FaExternalLinkAlt, FaGithub, FaInfoCircle, FaNpm } from "react-icons/fa";
 
 const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, ProjectDocument>): JSX.Element => {
     const libraries =
@@ -53,60 +52,91 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                         </div>
                     )}
                     <div className="max-w-screen-lg m-auto">
-                        <table className="mb-5">
-                            <tbody>
-                                {data?.projectType && (
-                                    <tr className="info text-gray-600">
-                                        <td className="font-bold mb-3">Type</td>
-                                        <td className="font-bold mb-3 px-3">—</td>
-                                        <td className="mb-3">{data.projectType}</td>
-                                    </tr>
-                                )}
-                                {data?.company && (
-                                    <tr className="info text-gray-600">
-                                        <td className="font-bold mb-3">Company</td>
-                                        <td className="font-bold mb-3 px-3">—</td>
-                                        <td className="mb-3">{data.company}</td>
-                                    </tr>
-                                )}
-                                {data?.client && (
-                                    <tr className="info text-gray-600">
-                                        <td className="font-bold mb-3">{data.clientType || "Client"}</td>
-                                        <td className="font-bold mb-3 px-3">—</td>
-                                        <td className="mb-3">{data.client}</td>
-                                    </tr>
-                                )}
-                                {data?.position && (
-                                    <tr className="info text-gray-600">
-                                        <td className="font-bold mb-3">Position</td>
-                                        <td className="font-bold mb-3 px-3">—</td>
-                                        <td className="mb-3">{data.position}</td>
-                                    </tr>
-                                )}
-                                {data?.role && (
-                                    <tr className="info text-gray-600">
-                                        <td className="font-bold mb-3">Role</td>
-                                        <td className="font-bold mb-3 px-3">—</td>
-                                        <td className="mb-3">{data.role}</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
+                        {/* Project Information Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                            {data?.projectType && (
+                                <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <FaInfoCircle className="text-blue-600" />
+                                        <span className="font-semibold text-blue-800">Type</span>
+                                    </div>
+                                    <span className="text-blue-700 font-medium">{data.projectType}</span>
+                                </div>
+                            )}
+                            {data?.company && (
+                                <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <FaCog className="text-green-600" />
+                                        <span className="font-semibold text-green-800">Company</span>
+                                    </div>
+                                    <span className="text-green-700 font-medium">{data.company}</span>
+                                </div>
+                            )}
+                            {data?.client && (
+                                <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <FaInfoCircle className="text-purple-600" />
+                                        <span className="font-semibold text-purple-800">
+                                            {data.clientType || "Client"}
+                                        </span>
+                                    </div>
+                                    <span className="text-purple-700 font-medium">{data.client}</span>
+                                </div>
+                            )}
+                            {data?.position && (
+                                <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <FaInfoCircle className="text-orange-600" />
+                                        <span className="font-semibold text-orange-800">Position</span>
+                                    </div>
+                                    <span className="text-orange-700 font-medium">{data.position}</span>
+                                </div>
+                            )}
+                            {data?.role && (
+                                <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg p-4 border border-indigo-200">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <FaInfoCircle className="text-indigo-600" />
+                                        <span className="font-semibold text-indigo-800">Role</span>
+                                    </div>
+                                    <span className="text-indigo-700 font-medium">{data.role}</span>
+                                </div>
+                            )}
+                        </div>
 
-                        {data?.remarks && <p className="text-gray-600 mb-3 font-bold">{data.remarks}</p>}
+                        {/* Remarks Section */}
+                        {data?.remarks && (
+                            <div className="mb-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <FaInfoCircle className="text-yellow-600" />
+                                    <span className="font-semibold text-yellow-800">Important Note</span>
+                                </div>
+                                <p className="text-yellow-800 font-medium">{data.remarks}</p>
+                            </div>
+                        )}
 
+                        {/* Description Section */}
                         {data?.description && (
-                            <div className="info mb-10">
+                            <div className="mb-10 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <FaInfoCircle className="text-blue-600" />
+                                    Project Description
+                                </h3>
                                 <div
-                                    className="text-justify text-gray-600 text-l"
+                                    className="text-justify text-gray-700 text-base leading-relaxed prose prose-blue max-w-none"
                                     dangerouslySetInnerHTML={innerHTML(data.description)}
                                 ></div>
                             </div>
                         )}
 
-                        <div className="flex">
-                            <div className="tools flex w-1/2 flex-col mb-10 gap-10 p-5">
-                                <div className="card-shadow rounded-lg p-5 h-full">
+                        {/* Technologies & Tools Section */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                            {/* Core Technologies */}
+                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                    <FaCode className="text-blue-600" />
+                                    Core Technologies
+                                </h3>
+                                <div className="space-y-6">
                                     {data?.languages && addTools("Languages", data.languages)}
                                     {data?.databases && addTools("Database", data.databases)}
                                     {data?.deployment && addTools("Deployment", data.deployment)}
@@ -114,128 +144,160 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                     {data?.otherLibs && addTools("Other Tools", data.otherLibs)}
                                 </div>
                             </div>
-                            <div className="tools flex w-1/2 flex-col mb-10 gap-10 p-5">
-                                <div className="card-shadow rounded-lg p-5 h-full">
-                                    {libraries &&
-                                        data.coreLibs &&
-                                        addTools("Core Libraries / Frameworks", data.coreLibs)}
-                                    {libraries && data.uiLibs && addTools("UI Libraries / Frameworks", data.uiLibs)}
-                                    {libraries &&
-                                        data.stateManageLibs &&
-                                        addTools("State Management Libraries", data.stateManageLibs)}
-                                    {libraries &&
-                                        data.backendLibs &&
-                                        addTools("Backend Libraries / Frameworks", data.backendLibs)}
-                                    {libraries &&
-                                        data.databaseLibs &&
-                                        addTools("Database Libraries", data.databaseLibs)}
+
+                            {/* Libraries & Frameworks */}
+                            {libraries && (
+                                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                        <FaDatabase className="text-green-600" />
+                                        Libraries & Frameworks
+                                    </h3>
+                                    <div className="space-y-6">
+                                        {data.coreLibs && addTools("Core Libraries / Frameworks", data.coreLibs)}
+                                        {data.uiLibs && addTools("UI Libraries / Frameworks", data.uiLibs)}
+                                        {data.stateManageLibs &&
+                                            addTools("State Management Libraries", data.stateManageLibs)}
+                                        {data.backendLibs &&
+                                            addTools("Backend Libraries / Frameworks", data.backendLibs)}
+                                        {data.databaseLibs && addTools("Database Libraries", data.databaseLibs)}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
+                        {/* Sources Section */}
                         {(data?.frontendGit || data?.backendGit || data?.githubUrl || data?.npmUrl) && (
-                            <div className="sources mb-10">
-                                <div className="text-lg font-bold mb-2">Sources</div>
-                                <div className="ml-6">
+                            <div className="mb-10 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                    <FaCode className="text-gray-600 me-2" />
+                                    Source Code & Repositories
+                                </h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {data.frontendGit && (
-                                        <div className="flex gap-2 items-center mb-3">
-                                            <img alt="logo" className="w-[20px]" src={githubLogo} />
-                                            <a
-                                                className="underline"
-                                                href={data.frontendGit}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                {data.frontendGit.split("/").pop()}
-                                            </a>
-                                        </div>
+                                        <Button
+                                            type="link"
+                                            variant="link-button"
+                                            color="github"
+                                            link={data.frontendGit}
+                                            icon={<FaGithub className="w-4 h-4 me-2" />}
+                                            className="w-full justify-center"
+                                        >
+                                            Frontend Repository
+                                        </Button>
                                     )}
                                     {data.backendGit && (
-                                        <div className="flex gap-2 items-center mb-3">
-                                            <img alt="logo" className="w-[20px]" src={githubLogo} />
-                                            <a
-                                                className="underline"
-                                                href={data.backendGit}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                {data.backendGit.split("/").pop()}
-                                            </a>
-                                        </div>
+                                        <Button
+                                            type="link"
+                                            variant="link-button"
+                                            color="github"
+                                            link={data.backendGit}
+                                            icon={<FaGithub className="w-4 h-4 me-2" />}
+                                            className="w-full justify-center"
+                                        >
+                                            Backend Repository
+                                        </Button>
                                     )}
                                     {data.githubUrl && (
-                                        <div className="flex gap-2 items-center mb-3">
-                                            <img alt="logo" className="w-[20px]" src={githubLogo} />
-                                            <a
-                                                className="underline"
-                                                href={data.githubUrl}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                {data.githubName || data.githubUrl.split("/").pop()}
-                                            </a>
-                                        </div>
+                                        <Button
+                                            type="link"
+                                            variant="link-button"
+                                            color="github"
+                                            link={data.githubUrl}
+                                            icon={<FaGithub className="w-4 h-4 me-2" />}
+                                            className="w-full justify-center"
+                                        >
+                                            {data.githubName || "Repository"}
+                                        </Button>
                                     )}
                                     {data.npmUrl && (
-                                        <div className="flex gap-2 items-center mb-3">
-                                            <img alt="logo" className="w-[20px]" src={npmLogo} />
-                                            <a
-                                                className="underline"
-                                                href={data.npmUrl}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                {data.npmName || data.npmUrl.split("/").pop()}
-                                            </a>
-                                        </div>
+                                        <Button
+                                            type="link"
+                                            variant="link-button"
+                                            color="npm"
+                                            link={data.npmUrl}
+                                            icon={<FaNpm className="w-4 h-4 me-2" />}
+                                            className="w-full justify-center"
+                                        >
+                                            {data.npmName || "NPM Package"}
+                                        </Button>
                                     )}
                                 </div>
                             </div>
                         )}
+                        {/* Project URL Section */}
                         {data?.projectUrl && (
-                            <div className="project mb-10">
-                                <div className="text-lg font-bold mb-2">Project URL</div>
-                                <div className="ml-6">
-                                    <a className="underline" href={data.projectUrl} target="_blank" rel="noreferrer">
-                                        {data.projectUrl}
-                                    </a>
+                            <div className="mb-10 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                    <FaExternalLinkAlt className="text-green-600" />
+                                    Live Project
+                                </h3>
+                                <div className="flex justify-center">
+                                    <Button
+                                        type="link"
+                                        variant="action"
+                                        color="success"
+                                        link={data.projectUrl}
+                                        icon={<FaExternalLinkAlt className="w-4 h-4" />}
+                                        className="px-8 py-3"
+                                    >
+                                        Visit Live Project
+                                    </Button>
                                 </div>
                             </div>
                         )}
+
+                        {/* Extra Information Section */}
                         {data?.extra && (
-                            <div className="extra mb-10">
-                                <div className="text-lg font-bold mb-2">Extra</div>
-                                <div className="ml-6">
-                                    <div className="mb-3" dangerouslySetInnerHTML={innerHTML(data.extra)} />
-                                </div>
+                            <div className="mb-10 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                    <FaInfoCircle className="text-purple-600" />
+                                    Additional Information
+                                </h3>
+                                <div
+                                    className="text-gray-700 prose prose-purple max-w-none"
+                                    dangerouslySetInnerHTML={innerHTML(data.extra)}
+                                />
                             </div>
                         )}
+                        {/* Screenshots Section */}
                         {data?.screenshots?.length && (
-                            <div className="text-xl font-bold mb-5 text-center">Screenshots</div>
+                            <div className="mb-10">
+                                <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center gap-2">
+                                    <FaInfoCircle className="text-blue-600" />
+                                    Project Screenshots
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {data.screenshots.map((screenshot, index) => (
+                                        <div
+                                            key={index}
+                                            className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow"
+                                        >
+                                            <div className="aspect-video bg-gray-50 rounded-lg overflow-hidden">
+                                                <img
+                                                    src={(screenshot as UploadedFile).url}
+                                                    alt={`Screenshot ${index + 1}`}
+                                                    className="w-full h-full object-contain transition-all duration-300 cursor-pointer"
+                                                    onClick={() =>
+                                                        window.open((screenshot as UploadedFile).url, "_blank")
+                                                    }
+                                                />
+                                            </div>
+                                            <p className="text-sm text-gray-600 text-center mt-2">
+                                                Screenshot {index + 1} - Click to view full size
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         )}
                     </div>
-                    {data?.screenshots?.length && (
-                        <div className="screenshots h-full">
-                            {data.screenshots.map((screenshot, index) => (
-                                <div
-                                    key={index}
-                                    className="h-full w-full bg-no-repeat bg-center bg-contain mb-10 flex justify-center"
-                                >
-                                    <img
-                                        src={(screenshot as UploadedFile).url}
-                                        alt="screenshot"
-                                        className="border-2 rounded-lg h-full"
-                                        style={{ maxWidth: "90%", maxHeight: "90%" }}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </DialogBodySection>
             <DialogButtonSection>
-                <Button className="btn-small" color="gray" onClick={() => close()}>
-                    Close
-                </Button>
+                <div className="flex justify-center">
+                    <Button variant="outline" size="large" onClick={() => close()} className="px-8 py-3 min-w-32">
+                        Close
+                    </Button>
+                </div>
             </DialogButtonSection>
         </>
     );

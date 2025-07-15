@@ -80,7 +80,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                 {user && (
                     <div
                         className={clsx({
-                            "absolute top-3 right-3 flex gap-1 z-10 transition-opacity duration-200": true,
+                            "absolute top-5 right-5 flex gap-1 z-10 transition-opacity duration-200": true,
                             "opacity-0 group-hover:opacity-100": !isHovered,
                             "opacity-100": isHovered,
                         })}
