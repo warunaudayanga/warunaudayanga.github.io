@@ -1,7 +1,7 @@
 :root {
     --header: 60px;
     --dialog-padding: 20px;
-    --dialog-max-height: calc(100vh - 1.25rem * 3);
+    --dialog-max-height: calc(100vh - 1.25rem * 2);
     --dialog-max-width: 95vw;
     --dialog-header: 50px;
     --dialog-footer: 60px;
@@ -63,4 +63,10 @@
     --gray-dark: hsl(0, 0%, 80%);
     --gray-darker: hsl(0, 0%, 70%);
     --gray-shadow: hsl(0, 0%, 90%);
+}
+
+@media (max-width: 768px) {
+    :root {
+        --dialog-max-height: calc(100vh - 1.25rem * 4);
+    }
 }
