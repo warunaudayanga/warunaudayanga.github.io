@@ -171,7 +171,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                                 target="_blank"
                                                 rel="noreferrer"
                                             >
-                                                {data.githubUrl.split("/").pop()}
+                                                {data.githubName || data.githubUrl.split("/").pop()}
                                             </a>
                                         </div>
                                     )}
@@ -184,7 +184,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                                 target="_blank"
                                                 rel="noreferrer"
                                             >
-                                                {data.npmUrl.split("/").pop()}
+                                                {data.npmName || data.npmUrl.split("/").pop()}
                                             </a>
                                         </div>
                                     )}
