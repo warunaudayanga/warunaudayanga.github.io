@@ -242,14 +242,13 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                     <FaExternalLinkAlt className="text-green-600" />
                                     Live Project
                                 </h3>
-                                <div className="flex justify-center">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                     <Button
                                         type="link"
                                         variant="action"
                                         color="success"
                                         link={data.projectUrl}
                                         icon={<FaExternalLinkAlt className="w-4 h-4" />}
-                                        className="px-8 py-3"
                                     >
                                         Visit Live Project
                                     </Button>
