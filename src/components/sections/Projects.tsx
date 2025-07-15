@@ -10,6 +10,7 @@ import { handleProjectOrder } from "../../utils";
 import { handleProjectDelete } from "../../utils/project-utils.ts";
 import { useProjectState } from "../../hooks/use-project-state.ts";
 import { ProjectActionType } from "../../reducers";
+import { useAuth } from "../../hooks";
 
 interface Props {
     category: ProjectCategory;
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const Projects = ({ category, route, description, bgSecondary }: Props): JSX.Element | null => {
+    const { user } = useAuth();
+
     const { getProjects, dispatch } = useProjectState();
 
     const projects = getProjects(category);
@@ -49,14 +52,16 @@ const Projects = ({ category, route, description, bgSecondary }: Props): JSX.Ele
         >
             {description}
             <div className="flex flex-wrap mx-3">
-                {projects.map(project => (
-                    <ProjectCard
-                        key={project.id}
-                        project={project}
-                        onChangeOrder={handleOrder}
-                        onDeleted={handleDelete}
-                    ></ProjectCard>
-                ))}
+                {projects
+                    .filter(p => user || p.status === "published")
+                    .map(project => (
+                        <ProjectCard
+                            key={project.id}
+                            project={project}
+                            onChangeOrder={handleOrder}
+                            onDeleted={handleDelete}
+                        ></ProjectCard>
+                    ))}
             </div>
         </Section>
     );

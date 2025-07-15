@@ -16,6 +16,7 @@ import classNames from "classnames";
 import StackIcon from "./StackIcon.tsx";
 import { stackIcon } from "../../data/stack-icons.ts";
 import npmCover from "../../assets/svg/npm.svg";
+import { clsx } from "clsx";
 
 interface Props {
     project: ProjectDocument;
@@ -67,7 +68,13 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
 
     return (
         <div className="w-1/2 odd:pr-6 even:pl-6 pb-12">
-            <div className="p-8 bg-white shadow-xl relative rounded-lg h-full flex flex-col">
+            <div
+                className={clsx({
+                    "p-8 shadow-xl relative rounded-lg h-full flex flex-col": true,
+                    "bg-white": !user,
+                    "bg-amber-100": user && project.status === "draft",
+                })}
+            >
                 {user && (
                     <div className="flex gap-2 absolute top-[-10px] right-[-10px]">
                         <Button
