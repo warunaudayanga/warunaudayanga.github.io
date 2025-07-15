@@ -5,14 +5,14 @@ import { Route } from "../../enums";
 import avatar from "../../assets/images/avatar.jpg";
 import { innerHTML, scrollIntoElement } from "../../utils";
 import { useAuth, useFirebaseUpload } from "../../hooks";
-import { FaCamera, FaCheck, FaPen } from "react-icons/fa6";
+import { FaCamera, FaCheck, FaCode, FaPen, FaUser } from "react-icons/fa6";
 import FileUpload from "../other/FileUpload.tsx";
 import { useForm } from "react-hook-form";
 import { Config, ProjectDocument, UploadedFile } from "../../interfaces";
 import Button from "../other/Button.tsx";
 import { setConfigItem } from "../../utils/firestore/setConfigItem.ts";
 import { useConfig } from "../../hooks/use-config.hook.ts";
-import { FormControl, Spinner } from "../other";
+import { FormControl } from "../other";
 import { useQueryCollection } from "../../hooks/use-query-collection.hook.ts";
 import { Collection } from "../../config/firebase.ts";
 import { ProjectActionType } from "../../reducers";
@@ -29,12 +29,19 @@ const Home = (): JSX.Element => {
     const [loading, setLoading] = useState(false);
     const [titleEdit, setTitleEdit] = useState<boolean>(false);
     const [subTitleEdit, setSubTitleEdit] = useState<boolean>(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const { items, loading: projectsLoading } = useQueryCollection<ProjectDocument>(Collection.PROJECTS);
 
     useEffect(() => {
         dispatch({ type: ProjectActionType.SET_PROJECTS, projects: items });
     }, [items]);
+
+    useEffect(() => {
+        // Trigger entrance animation
+        const timer = setTimeout(() => setIsVisible(true), 100);
+        return (): void => clearTimeout(timer);
+    }, []);
 
     const { control, setValue, clearErrors, getValues } = useForm<Config>({
         values: {
@@ -89,127 +96,205 @@ const Home = (): JSX.Element => {
         setLoading(false);
     };
 
+    // Loading skeleton component
+    const ProfileSkeleton = (): JSX.Element => (
+        <div className="animate-pulse">
+            <div className="w-52 h-52 bg-gray-300 rounded-full mx-auto mb-6"></div>
+            <div className="h-16 bg-gray-300 rounded-lg mb-4 w-3/4 mx-auto"></div>
+            <div className="h-8 bg-gray-300 rounded-lg mb-8 w-1/2 mx-auto"></div>
+        </div>
+    );
+
+    const NavigationSkeleton = (): JSX.Element => (
+        <div className="flex gap-10 justify-center items-center animate-pulse">
+            <div className="h-20 w-80 bg-gray-300 rounded-3xl"></div>
+            <div className="h-16 w-4 bg-gray-300"></div>
+            <div className="h-20 w-80 bg-gray-300 rounded-3xl"></div>
+        </div>
+    );
+
     return (
         <BackgroundArt changeType="random" onHueChange={handleHueChange}>
             {(configLoading || projectsLoading || loading) && (
-                <div className="h-full flex flex-col items-center justify-center">
-                    <Spinner className="h-60 w-60 border-accent-darker" />
+                <div className="h-full flex flex-col items-center justify-center space-y-8">
+                    <ProfileSkeleton />
+                    <NavigationSkeleton />
                 </div>
             )}
             {!configLoading && !projectsLoading && !loading && (
-                <div className="h-full flex flex-col">
-                    <div id={Route.HOME} className="h-[450px] flex flex-col items-center justify-center">
-                        <div
-                            className="bg-no-repeat bg-cover bg-center border-8 rounded-full border-accent"
-                            style={{
-                                backgroundImage: `url(${(config.profileImage as UploadedFile).url || avatar})`,
-                                height: "200px",
-                                width: "200px",
-                            }}
-                        >
-                            {user && (
-                                <FileUpload
-                                    // className="hidden"
-                                    control={control}
-                                    name="profileImage"
-                                    image
-                                    onFileSelect={handleFileSelect()}
-                                    overlay={
-                                        <div className="flex justify-center h-full rounded-full hover:bg-black/50">
-                                            <FaCamera
-                                                style={{ height: "auto", position: "relative" }}
-                                                size={35}
-                                                className="text-white"
-                                            />
-                                        </div>
-                                    }
-                                    // required
-                                />
-                            )}
+                <div className="h-full flex flex-col justify-center space-y-8">
+                    <div
+                        id={Route.HOME}
+                        className={classNames("min-h-[450px] flex flex-col items-center justify-center px-4", {
+                            "opacity-100 translate-y-0": isVisible,
+                            "opacity-0 translate-y-8": !isVisible,
+                        })}
+                    >
+                        {/* Enhanced Profile Section */}
+                        <div className="relative group mb-8">
+                            <div
+                                className="bg-gradient-to-r from-accent to-accent-darker p-1 rounded-full shadow-2xl hover:shadow-accent/50"
+                                style={{
+                                    height: "220px",
+                                    width: "220px",
+                                }}
+                            >
+                                <div
+                                    className="bg-no-repeat bg-cover bg-center rounded-full w-full h-full relative overflow-hidden"
+                                    style={{
+                                        backgroundImage: `url(${(config.profileImage as UploadedFile).url || avatar})`,
+                                    }}
+                                >
+                                    {user && (
+                                        <FileUpload
+                                            control={control}
+                                            name="profileImage"
+                                            image
+                                            onFileSelect={handleFileSelect()}
+                                            overlay={
+                                                <div className="flex justify-center items-center h-full rounded-full bg-black/0 hover:bg-black/60 transition-all duration-300 group-hover:backdrop-blur-sm">
+                                                    <FaCamera
+                                                        size={40}
+                                                        className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg"
+                                                    />
+                                                </div>
+                                            }
+                                        />
+                                    )}
+                                </div>
+                            </div>
                         </div>
+
+                        {/* Enhanced Title Section */}
                         <div
                             className={classNames({
-                                "flex items-center justify-center gap-4 w-10/12 max-w-screen-lg mt-5": true,
-                                "ml-10": user,
+                                "flex items-center justify-center gap-4 w-full max-w-4xl mb-4 group": true,
+                                "ml-12": user && !titleEdit,
                             })}
                         >
                             {!titleEdit && (
-                                <h2
-                                    className="text-[60px] fredoka-one text-accent "
+                                <h1
+                                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl fredoka-one text-accent text-center leading-tight tracking-wide drop-shadow-lg"
                                     dangerouslySetInnerHTML={innerHTML(config.title || "Set Your Title")}
-                                ></h2>
+                                    style={{
+                                        textShadow: "0 4px 8px rgba(0,0,0,0.3)",
+                                    }}
+                                ></h1>
                             )}
                             {titleEdit && (
                                 <FormControl
                                     control={control}
                                     name="title"
-                                    inputClassName="text-[40px] fredoka-one text-center !h-[80px]"
+                                    inputClassName="text-2xl sm:text-3xl md:text-4xl fredoka-one text-center !h-auto py-4 bg-white/90 backdrop-blur-sm border-2 border-accent focus:border-accent-darker transition-all duration-300"
                                     fullWidth={true}
                                 />
                             )}
                             {user && (
                                 <Button
-                                    icon={titleEdit ? <FaCheck size={20} /> : <FaPen size={20} />}
+                                    icon={titleEdit ? <FaCheck size={18} /> : <FaPen size={18} />}
                                     rounded
-                                    className="w-10 h-10"
-                                    color="black"
+                                    className={classNames(
+                                        "w-12 h-12 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm",
+                                        {
+                                            "group-hover:opacity-100": !titleEdit,
+                                            "bg-green-500 hover:bg-green-600": titleEdit,
+                                            "bg-accent hover:bg-accent-darker": !titleEdit,
+                                        },
+                                    )}
+                                    color="white"
                                     onClick={async () => {
                                         setTitleEdit(!titleEdit);
                                         if (titleEdit) {
                                             await handleEditTitle();
                                         }
                                     }}
-                                ></Button>
+                                    title={titleEdit ? "Save title" : "Edit title"}
+                                />
                             )}
                         </div>
+
+                        {/* Enhanced Subtitle Section */}
                         <div
                             className={classNames({
-                                "flex items-center justify-center gap-4 w-10/12 max-w-screen-lg": true,
-                                "ml-10": user,
+                                "flex items-center justify-center gap-4 w-full max-w-3xl mb-12 relative group": true,
+                                "ml-12": user && !subTitleEdit,
                             })}
                         >
                             {!subTitleEdit && (
-                                <h4
-                                    className="text-[30px] fredoka-one text-center text-accent-darker"
+                                <h2
+                                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl fredoka-one text-center text-accent-darker leading-relaxed tracking-wide opacity-90 hover:opacity-100 transition-opacity duration-300"
                                     dangerouslySetInnerHTML={innerHTML(config.subtitle || "Set Your Subtitle")}
-                                ></h4>
+                                    style={{
+                                        textShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                                    }}
+                                ></h2>
                             )}
                             {subTitleEdit && (
                                 <FormControl
                                     control={control}
                                     name="subtitle"
                                     type="textarea"
-                                    rows={2}
+                                    rows={3}
                                     fullWidth={true}
-                                    inputClassName="text-[25px] fredoka-one text-center"
+                                    inputClassName="text-lg sm:text-xl fredoka-one text-center bg-white/90 backdrop-blur-sm border-2 border-accent focus:border-accent-darker transition-all duration-300"
                                 />
                             )}
                             {user && (
                                 <Button
-                                    icon={subTitleEdit ? <FaCheck size={20} /> : <FaPen size={20} />}
+                                    icon={subTitleEdit ? <FaCheck size={18} /> : <FaPen size={18} />}
                                     rounded
-                                    className="w-10 h-10"
-                                    color="black"
+                                    className={classNames(
+                                        "w-12 h-12 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm",
+                                        {
+                                            "group-hover:opacity-100": !subTitleEdit,
+                                            "bg-green-500 hover:bg-green-600": subTitleEdit,
+                                            "bg-accent hover:bg-accent-darker": !subTitleEdit,
+                                        },
+                                    )}
+                                    color="white"
                                     onClick={async () => {
                                         setSubTitleEdit(!subTitleEdit);
                                         if (subTitleEdit) {
                                             await handleEditSubTitle();
                                         }
                                     }}
-                                ></Button>
+                                    title={subTitleEdit ? "Save subtitle" : "Edit subtitle"}
+                                />
                             )}
                         </div>
                     </div>
-                    <div className="flex-grow flex gap-10 justify-center items-center pb-10 fredoka-one text-[40px]">
-                        <a href="/#" onClick={() => scrollIntoElement(Route.ABOUT)}>
-                            <div className="glass text-accent fredoka-one p-5 border-8 border-accent-darker rounded-[45px] w-[300px] text-center">
-                                About Me
+
+                    {/* Enhanced Navigation Section */}
+                    <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 justify-center items-center pb-10 px-4">
+                        <a
+                            href="/#"
+                            onClick={() => scrollIntoElement(Route.ABOUT)}
+                            className="group"
+                            aria-label="Navigate to About Me section"
+                        >
+                            <div className="glass text-accent fredoka-one p-6 sm:p-8 border-4 border-accent-darker rounded-3xl w-full sm:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
+                                <FaUser className="mx-auto mb-3 text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300" />
+                                <span className="text-xl sm:text-2xl font-bold lg:text-3xl block group-hover:text-accent-darker transition-colors duration-300">
+                                    About Me
+                                </span>
+                                <div className="w-0 group-hover:w-full h-0.5 bg-accent-darker mx-auto mt-2 transition-all duration-300"></div>
                             </div>
                         </a>
-                        <div className="text-accent text-[60px]">|</div>
-                        <a href="/#" onClick={() => scrollIntoElement(Route.WORK_PROJECTS)}>
-                            <div className="glass text-accent fredoka-one p-5 border-8 border-accent-darker rounded-[45px] w-[300px] text-center">
-                                My Projects
+
+                        <div className="text-accent text-3xl sm:text-4xl lg:text-6xl opacity-50 hidden sm:block">|</div>
+
+                        <a
+                            href="/#"
+                            onClick={() => scrollIntoElement(Route.WORK_PROJECTS)}
+                            className="group"
+                            aria-label="Navigate to My Projects section"
+                        >
+                            <div className="glass text-accent fredoka-one p-6 sm:p-8 border-4 border-accent-darker rounded-3xl w-full sm:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
+                                <FaCode className="mx-auto mb-3 text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300" />
+                                <span className="text-xl sm:text-2xl font-bold lg:text-3xl block group-hover:text-accent-darker transition-colors duration-300">
+                                    My Projects
+                                </span>
+                                <div className="w-0 group-hover:w-full h-0.5 bg-accent-darker mx-auto mt-2 transition-all duration-300"></div>
                             </div>
                         </a>
                     </div>
