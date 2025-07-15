@@ -30,7 +30,7 @@ const NpmProjects = (): JSX.Element => {
                     <img alt="logo" className="w-[30px]" src={facebookLogo} />
                     <a
                         className="underline"
-                        href="https://web.facebook.com/hichchidev"
+                        href="https://web.facebook.com/hichchid3v"
                         target="_blank"
                         rel="noreferrer"
                     >
