@@ -251,7 +251,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         variant="link-button"
                                         color="github"
                                         link={project.frontendGit}
-                                        icon={<FaGithub className="w-4 h-4 me-2" />}
+                                        icon={<FaGithub className="w-4 h-4" />}
                                         className="flex-grow"
                                     >
                                         Frontend
@@ -263,7 +263,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         variant="link-button"
                                         color="github"
                                         link={project.backendGit}
-                                        icon={<FaGithub className="w-4 h-4 me-2" />}
+                                        icon={<FaGithub className="w-4 h-4" />}
                                         className="flex-grow"
                                     >
                                         Backend
@@ -280,7 +280,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         variant="link-button"
                                         color="github"
                                         link={project.githubUrl}
-                                        icon={<FaGithub className="w-4 h-4 me-2" />}
+                                        icon={<FaGithub className="w-4 h-4" />}
                                         className="flex-grow"
                                     >
                                         {project.githubName || "Repository"}
@@ -292,7 +292,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         variant="link-button"
                                         color="npm"
                                         link={project.npmUrl}
-                                        icon={<FaNpm className="w-4 h-4 me-2" />}
+                                        icon={<FaNpm className="w-4 h-4" />}
                                         className="flex-grow"
                                     >
                                         {project.npmName || "Package"}
@@ -308,6 +308,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                             color="primary"
                             onClick={handleView}
                             icon={<FaEye className="w-4 h-4" />}
+                            className="flex-grow"
                         >
                             View Details
                         </Button>

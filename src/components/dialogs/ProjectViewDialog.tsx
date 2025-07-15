@@ -50,7 +50,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                         )}
                     </div>
                     {data?.cover && (
-                        <div className="md:h-[65%] w-full bg-no-repeat bg-center bg-contain md:mb-10 flex justify-center">
+                        <div className="md:h-[65%] w-full bg-no-repeat bg-center bg-contain mb-8 flex justify-center">
                             <img
                                 src={data.cover.url}
                                 alt="cover"
@@ -59,61 +59,63 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                         </div>
                     )}
                     {!data?.cover && data?.category === ProjectCategory.NPM && (
-                        <div className="h-[25%] w-full bg-no-repeat bg-center bg-contain mb-10 flex justify-center">
-                            <img src={npmCover} alt="cover" className="h-full" />
+                        <div className="h-[25%] w-full bg-no-repeat bg-center bg-contain mb-8 flex justify-center">
+                            <img src={npmCover} alt="cover" className="h-full rounded-lg" />
                         </div>
                     )}
                     <div className="max-w-screen-lg m-auto">
                         {/* Project Information Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                            {data?.projectType && (
-                                <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <FaInfoCircle className="text-blue-600" />
-                                        <span className="font-semibold text-blue-800">Type</span>
+                        {(data?.projectType || data?.company || data?.client || data?.position || data?.role) && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                                {data.projectType && (
+                                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FaInfoCircle className="text-blue-600" />
+                                            <span className="font-semibold text-blue-800">Type</span>
+                                        </div>
+                                        <span className="text-blue-700 font-medium">{data.projectType}</span>
                                     </div>
-                                    <span className="text-blue-700 font-medium">{data.projectType}</span>
-                                </div>
-                            )}
-                            {data?.company && (
-                                <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <FaCog className="text-green-600" />
-                                        <span className="font-semibold text-green-800">Company</span>
+                                )}
+                                {data.company && (
+                                    <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FaCog className="text-green-600" />
+                                            <span className="font-semibold text-green-800">Company</span>
+                                        </div>
+                                        <span className="text-green-700 font-medium">{data.company}</span>
                                     </div>
-                                    <span className="text-green-700 font-medium">{data.company}</span>
-                                </div>
-                            )}
-                            {data?.client && (
-                                <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <FaInfoCircle className="text-purple-600" />
-                                        <span className="font-semibold text-purple-800">
-                                            {data.clientType || "Client"}
-                                        </span>
+                                )}
+                                {data.client && (
+                                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FaInfoCircle className="text-purple-600" />
+                                            <span className="font-semibold text-purple-800">
+                                                {data.clientType || "Client"}
+                                            </span>
+                                        </div>
+                                        <span className="text-purple-700 font-medium">{data.client}</span>
                                     </div>
-                                    <span className="text-purple-700 font-medium">{data.client}</span>
-                                </div>
-                            )}
-                            {data?.position && (
-                                <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <FaInfoCircle className="text-orange-600" />
-                                        <span className="font-semibold text-orange-800">Position</span>
+                                )}
+                                {data.position && (
+                                    <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FaInfoCircle className="text-orange-600" />
+                                            <span className="font-semibold text-orange-800">Position</span>
+                                        </div>
+                                        <span className="text-orange-700 font-medium">{data.position}</span>
                                     </div>
-                                    <span className="text-orange-700 font-medium">{data.position}</span>
-                                </div>
-                            )}
-                            {data?.role && (
-                                <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg p-4 border border-indigo-200">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <FaInfoCircle className="text-indigo-600" />
-                                        <span className="font-semibold text-indigo-800">Role</span>
+                                )}
+                                {data.role && (
+                                    <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg p-4 border border-indigo-200">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FaInfoCircle className="text-indigo-600" />
+                                            <span className="font-semibold text-indigo-800">Role</span>
+                                        </div>
+                                        <span className="text-indigo-700 font-medium">{data.role}</span>
                                     </div>
-                                    <span className="text-indigo-700 font-medium">{data.role}</span>
-                                </div>
-                            )}
-                        </div>
+                                )}
+                            </div>
+                        )}
 
                         {/* Remarks Section */}
                         {data?.remarks && (

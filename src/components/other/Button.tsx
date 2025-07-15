@@ -53,7 +53,7 @@ const Button = ({
             case "link-button":
                 return twMerge(
                     baseClasses,
-                    "flex-1 gap-2 py-2 px-4 rounded-lg text-sm",
+                    "gap-2 py-2 px-4 rounded-lg text-sm",
                     color === "github"
                         ? "bg-gray-900 hover:bg-gray-800 text-white"
                         : color === "npm"
@@ -65,7 +65,7 @@ const Button = ({
             case "action":
                 return twMerge(
                     baseClasses,
-                    "flex-1 gap-2 py-2 px-4 rounded-lg text-sm",
+                    "gap-2 py-2 px-4 rounded-lg text-sm",
                     color === "primary"
                         ? "bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500"
                         : color === "success"
@@ -76,7 +76,7 @@ const Button = ({
             case "outline":
                 return twMerge(
                     baseClasses,
-                    "border-2 bg-transparent hover:bg-gray-50 flex-1 gap-2 py-2 px-4 rounded-lg text-sm",
+                    "border-2 bg-transparent hover:bg-gray-50 gap-2 py-2 px-4 rounded-lg text-sm",
                     color === "danger"
                         ? "border-red-500 text-red-500 hover:bg-red-50 focus:ring-red-500"
                         : "border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500",
