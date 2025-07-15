@@ -37,9 +37,9 @@ const Menu = ({ items, className, scrolled }: Props): JSX.Element => {
 
     return (
         <div ref={menuRef} className={twMerge("h-full flex items-center", className)}>
-            {/* Desktop Menu - Hidden on mobile */}
+            {/* Desktop Menu - Hidden on mobile and tab */}
             {scrolled && (
-                <div className="hidden md:flex items-center gap-5">
+                <div className="hidden lg:flex items-center gap-5">
                     {items?.map((item, i) =>
                         item.hidden ? null : (
                             <a key={i} href={item.url} onClick={() => handleMenuItemClick(item)}>
@@ -59,8 +59,8 @@ const Menu = ({ items, className, scrolled }: Props): JSX.Element => {
                 </div>
             )}
 
-            {/* Mobile Hamburger Menu - Visible only on mobile */}
-            <div className="md:hidden">
+            {/* Mobile Hamburger Menu - Visible only on mobile and tab */}
+            <div className="lg:hidden">
                 {/* Hamburger Button */}
                 {scrolled && (
                     <button

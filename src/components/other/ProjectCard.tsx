@@ -136,7 +136,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                         </div>
                     ) : project.category === ProjectCategory.NPM ? (
                         <div className="p-4">
-                            <div className="w-full h-48 sm:h-60 md:h-72 lg:h-80 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
+                            <div className="w-full h-32 sm:h-60 md:h-44 lg:h-48 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
                                 <FaNpm
                                     size={120}
                                     className="sm:text-[140px] md:text-[160px] lg:text-[180px]"
