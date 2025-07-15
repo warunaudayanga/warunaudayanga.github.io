@@ -193,7 +193,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                             icon={<FaGithub className="w-4 h-4 me-2" />}
                                             className="w-full justify-center"
                                         >
-                                            Backend Repository
+                                            Backend Repository .{" "}
                                         </Button>
                                     )}
                                     {data.githubUrl && (

@@ -17,6 +17,7 @@ interface Props {
     className?: string;
     required?: boolean;
     overlay?: ReactNode;
+    fullPreview?: boolean;
 }
 
 const FileUpload = ({
@@ -29,6 +30,7 @@ const FileUpload = ({
     className,
     required,
     overlay,
+    fullPreview,
 }: Props): JSX.Element => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [files, setFiles] = useState<(File | UploadedFile)[]>([]);
@@ -37,8 +39,8 @@ const FileUpload = ({
     return (
         <div
             className={classNames({
-                "w-full h-full": overlay,
-                "w-full md:w-2/3 lg:w-1/2 px-3": !overlay,
+                "w-full h-full": overlay || fullPreview,
+                "w-full md:w-2/3 lg:w-1/2 px-3": !overlay && !fullPreview,
             })}
         >
             {title && <div className="font-bold mb-2">{title}</div>}
@@ -190,13 +192,16 @@ const FileUpload = ({
                                     ) : (
                                         <div>
                                             {files.map((file, i) => (
-                                                <div key={i} className="inline-flex items-center mt-5 relative">
+                                                <div
+                                                    key={i}
+                                                    className="inline-flex items-center mt-5 relative rounded-lg"
+                                                >
                                                     <img
                                                         src={
                                                             file instanceof File ? URL.createObjectURL(file) : file.url
                                                         }
                                                         alt="file"
-                                                        className="h-80 rounded-lg"
+                                                        className="h-auto rounded-lg object-contain"
                                                         onLoad={() => handleImageLoad(i)}
                                                     />
                                                     {loadedImages.includes(i) && (
