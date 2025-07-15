@@ -15,7 +15,7 @@ const StackItem = ({ tool, size = "25px", className, labelClassName }: Props): J
     return (
         <span
             className={classNames({
-                "inline-flex items-center gap-2": true,
+                "inline-flex items-center gap-1 md:gap-2": true,
                 [`${className}`]: true,
             })}
         >
@@ -25,7 +25,7 @@ const StackItem = ({ tool, size = "25px", className, labelClassName }: Props): J
                     size={size}
                 ></StackIcon>
             }
-            <span className={labelClassName}>
+            <span className={labelClassName} style={{ fontSize: `calc(${size} - 10px)` }}>
                 {typeof tool === "object" ? tool.label : stackIcon[tool]?.label || tool}
             </span>
         </span>

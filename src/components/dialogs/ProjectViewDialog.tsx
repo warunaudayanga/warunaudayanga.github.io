@@ -31,14 +31,22 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
             <DialogBodySection full={true} noHeader>
                 <div className="view-container h-full px-3">
                     {data?.name && <div className="text-center font-bold line-hei text-4xl my-5">{data.name}</div>}
-                    <div className="flex gap-5 justify-center mb-5">
+                    <div className="flex flex-wrap md:gap-5 justify-center mb-5">
                         {data?.techStack && (
-                            <StackItems
-                                tools={data.techStack}
-                                size="30px"
-                                className="m-3"
-                                labelClassName="text-xl font-bold"
-                            ></StackItems>
+                            <>
+                                <StackItems
+                                    tools={data.techStack}
+                                    size="30px"
+                                    className="mx-3 hidden md:inline-flex"
+                                    labelClassName="text-xl font-bold"
+                                ></StackItems>
+                                <StackItems
+                                    tools={data.techStack}
+                                    size="20px"
+                                    className="mx-2 md:hidden"
+                                    labelClassName="text-xl font-bold"
+                                ></StackItems>
+                            </>
                         )}
                     </div>
                     {data?.cover && (
