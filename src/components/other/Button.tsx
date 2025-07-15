@@ -53,7 +53,7 @@ const Button = ({
             case "link-button":
                 return twMerge(
                     baseClasses,
-                    "px-3 py-2 text-sm rounded-lg",
+                    "flex-1 gap-2 py-2 px-4 rounded-lg text-sm",
                     color === "github"
                         ? "bg-gray-900 hover:bg-gray-800 text-white"
                         : color === "npm"
@@ -76,11 +76,10 @@ const Button = ({
             case "outline":
                 return twMerge(
                     baseClasses,
-                    "border-2 bg-transparent hover:bg-gray-50",
+                    "border-2 bg-transparent hover:bg-gray-50 flex-1 gap-2 py-2 px-4 rounded-lg text-sm",
                     color === "danger"
                         ? "border-red-500 text-red-500 hover:bg-red-50 focus:ring-red-500"
                         : "border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500",
-                    size === "small" ? "px-2 py-1 text-sm" : "px-4 py-2",
                     rounded ? "rounded-full" : "rounded-md",
                 );
 

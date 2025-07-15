@@ -305,7 +305,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
             </DialogBodySection>
             <DialogButtonSection>
                 <div className="flex justify-center">
-                    <Button variant="outline" size="large" onClick={() => close()} className="px-8 py-3 min-w-32">
+                    <Button variant="outline" onClick={() => close()} className="text-sm min-w-32">
                         Close
                     </Button>
                 </div>

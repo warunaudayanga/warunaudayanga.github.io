@@ -501,22 +501,15 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
             </DialogBodySection>
             <DialogButtonSection>
                 <div className="flex justify-center gap-4">
-                    <Button
-                        disabled={isSubmitting}
-                        variant="outline"
-                        size="large"
-                        onClick={() => close()}
-                        className="px-8 py-3 min-w-32"
-                    >
+                    <Button disabled={isSubmitting} variant="outline" onClick={() => close()} className="min-w-32">
                         Cancel
                     </Button>
                     <Button
                         disabled={isSubmitting}
                         variant="action"
                         color="primary"
-                        size="large"
                         onClick={handleSave}
-                        className="px-8 py-3 min-w-32"
+                        className="min-w-32"
                     >
                         {isSubmitting ? "Saving..." : "Save Project"}
                         {isSubmitting && <Spinner className="ml-2 border-white" />}
