@@ -185,12 +185,13 @@ function Layout(): JSX.Element {
     return (
         <>
             <Header show={scrolled}>
-                <Menu items={menuItems} className="text-white" />
-                {user ? (
-                    <PopupMenu items={popupMenuItems} title={user.email!} />
-                ) : (
-                    <Button icon={<FaSignInAlt />} className="h-10 w-10" rounded onClick={handleAuth} />
-                )}
+                <Menu scrolled={scrolled} items={menuItems} className="text-white" />
+                {scrolled &&
+                    (user ? (
+                        <PopupMenu items={popupMenuItems} title={user.email!} />
+                    ) : (
+                        <Button icon={<FaSignInAlt />} className="h-10 w-10" rounded onClick={handleAuth} />
+                    ))}
             </Header>
             <Content onContentScroll={handleScroll}>
                 <Home />

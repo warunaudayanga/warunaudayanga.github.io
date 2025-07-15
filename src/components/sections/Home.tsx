@@ -122,9 +122,8 @@ const Home = (): JSX.Element => {
                 </div>
             )}
             {!configLoading && !projectsLoading && !loading && (
-                <div className="h-full flex flex-col justify-center space-y-6 sm:space-y-8">
+                <div className="h-full flex flex-col justify-center space-y-6 sm:space-y-8" id={Route.HOME}>
                     <div
-                        id={Route.HOME}
                         className={classNames(
                             "min-h-[350px] sm:min-h-[400px] md:min-h-[450px] flex flex-col items-center justify-center px-4 sm:px-6 md:px-8",
                             {
@@ -172,7 +171,7 @@ const Home = (): JSX.Element => {
                         >
                             {!titleEdit && (
                                 <h1
-                                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl fredoka-one text-accent text-center leading-tight tracking-wide drop-shadow-lg px-2"
+                                    className="text-4xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl fredoka-one text-accent text-center leading-tight tracking-wide drop-shadow-lg px-2"
                                     dangerouslySetInnerHTML={innerHTML(config.title || "Set Your Title")}
                                     style={{
                                         textShadow: "0 4px 8px rgba(0,0,0,0.3)",
@@ -221,7 +220,7 @@ const Home = (): JSX.Element => {
                         >
                             {!subTitleEdit && (
                                 <h2
-                                    className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl fredoka-one text-center text-accent-darker leading-relaxed tracking-wide opacity-90 hover:opacity-100 transition-opacity duration-300 px-2"
+                                    className="text-lg md:text-xl lg:text-2xl xl:text-3xl fredoka-one text-center text-accent-darker leading-relaxed tracking-wide opacity-90 hover:opacity-100 transition-opacity duration-300 px-2"
                                     dangerouslySetInnerHTML={innerHTML(config.subtitle || "Set Your Subtitle")}
                                     style={{
                                         textShadow: "0 2px 4px rgba(0,0,0,0.2)",
@@ -264,7 +263,7 @@ const Home = (): JSX.Element => {
                     </div>
 
                     {/* Enhanced Navigation Section */}
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-center items-center pb-8 sm:pb-10 px-4 sm:px-6 md:px-8">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-center items-center pb-8 sm:pb-10 sm:px-6 md:px-8 px-10">
                         <a
                             href="/#"
                             onClick={() => scrollIntoElement(Route.ABOUT)}
