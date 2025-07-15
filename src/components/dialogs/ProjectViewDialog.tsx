@@ -267,14 +267,14 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                             </div>
                         )}
                         {/* Screenshots Section */}
-                        {data?.screenshots?.length && (
+                        {Boolean(data?.screenshots?.length) && (
                             <div className="mb-10">
                                 <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center gap-2">
                                     <FaInfoCircle className="text-blue-600" />
                                     Project Screenshots
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {data.screenshots.map((screenshot, index) => (
+                                    {data!.screenshots!.map((screenshot, index) => (
                                         <div
                                             key={index}
                                             className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow"
