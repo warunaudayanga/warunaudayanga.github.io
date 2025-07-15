@@ -99,46 +99,43 @@ const Home = (): JSX.Element => {
     // Loading skeleton component
     const ProfileSkeleton = (): JSX.Element => (
         <div className="animate-pulse">
-            <div className="w-52 h-52 bg-gray-300 rounded-full mx-auto mb-6"></div>
-            <div className="h-16 bg-gray-300 rounded-lg mb-4 w-3/4 mx-auto"></div>
-            <div className="h-8 bg-gray-300 rounded-lg mb-8 w-1/2 mx-auto"></div>
+            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 bg-gray-300 rounded-full mx-auto mb-4 sm:mb-6"></div>
+            <div className="h-8 sm:h-12 md:h-14 lg:h-16 bg-gray-300 rounded-lg mb-3 sm:mb-4 w-4/5 sm:w-3/4 mx-auto"></div>
+            <div className="h-6 sm:h-7 md:h-8 bg-gray-300 rounded-lg mb-6 sm:mb-8 w-3/5 sm:w-1/2 mx-auto"></div>
         </div>
     );
 
     const NavigationSkeleton = (): JSX.Element => (
-        <div className="flex gap-10 justify-center items-center animate-pulse">
-            <div className="h-20 w-80 bg-gray-300 rounded-3xl"></div>
-            <div className="h-16 w-4 bg-gray-300"></div>
-            <div className="h-20 w-80 bg-gray-300 rounded-3xl"></div>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-center items-center animate-pulse px-4">
+            <div className="h-16 sm:h-18 md:h-20 w-full sm:w-64 md:w-72 lg:w-80 bg-gray-300 rounded-3xl"></div>
+            <div className="h-8 sm:h-12 md:h-16 w-1 sm:w-4 bg-gray-300 hidden sm:block"></div>
+            <div className="h-16 sm:h-18 md:h-20 w-full sm:w-64 md:w-72 lg:w-80 bg-gray-300 rounded-3xl"></div>
         </div>
     );
 
     return (
         <BackgroundArt changeType="random" onHueChange={handleHueChange}>
             {(configLoading || projectsLoading || loading) && (
-                <div className="h-full flex flex-col items-center justify-center space-y-8">
+                <div className="h-full flex flex-col items-center justify-center space-y-6 sm:space-y-8 px-4">
                     <ProfileSkeleton />
                     <NavigationSkeleton />
                 </div>
             )}
             {!configLoading && !projectsLoading && !loading && (
-                <div className="h-full flex flex-col justify-center space-y-8">
+                <div className="h-full flex flex-col justify-center space-y-6 sm:space-y-8">
                     <div
                         id={Route.HOME}
-                        className={classNames("min-h-[450px] flex flex-col items-center justify-center px-4", {
-                            "opacity-100 translate-y-0": isVisible,
-                            "opacity-0 translate-y-8": !isVisible,
-                        })}
+                        className={classNames(
+                            "min-h-[350px] sm:min-h-[400px] md:min-h-[450px] flex flex-col items-center justify-center px-4 sm:px-6 md:px-8",
+                            {
+                                "opacity-100 translate-y-0": isVisible,
+                                "opacity-0 translate-y-8": !isVisible,
+                            },
+                        )}
                     >
                         {/* Enhanced Profile Section */}
-                        <div className="relative group mb-8">
-                            <div
-                                className="bg-gradient-to-r from-accent to-accent-darker p-1 rounded-full shadow-2xl hover:shadow-accent/50"
-                                style={{
-                                    height: "220px",
-                                    width: "220px",
-                                }}
-                            >
+                        <div className="relative group mb-6 sm:mb-8">
+                            <div className="bg-gradient-to-r from-accent to-accent-darker p-1 rounded-full shadow-2xl hover:shadow-accent/50 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 xl:w-56 xl:h-56">
                                 <div
                                     className="bg-no-repeat bg-cover bg-center rounded-full w-full h-full relative overflow-hidden"
                                     style={{
@@ -168,13 +165,14 @@ const Home = (): JSX.Element => {
                         {/* Enhanced Title Section */}
                         <div
                             className={classNames({
-                                "flex items-center justify-center gap-4 w-full max-w-4xl mb-4 group": true,
-                                "ml-12": user && !titleEdit,
+                                "flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full max-w-4xl mb-3 sm:mb-4 group":
+                                    true,
+                                "sm:ml-12": user && !titleEdit,
                             })}
                         >
                             {!titleEdit && (
                                 <h1
-                                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl fredoka-one text-accent text-center leading-tight tracking-wide drop-shadow-lg"
+                                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl fredoka-one text-accent text-center leading-tight tracking-wide drop-shadow-lg px-2"
                                     dangerouslySetInnerHTML={innerHTML(config.title || "Set Your Title")}
                                     style={{
                                         textShadow: "0 4px 8px rgba(0,0,0,0.3)",
@@ -185,16 +183,16 @@ const Home = (): JSX.Element => {
                                 <FormControl
                                     control={control}
                                     name="title"
-                                    inputClassName="text-2xl sm:text-3xl md:text-4xl fredoka-one text-center !h-auto py-4 bg-white/90 backdrop-blur-sm border-2 border-accent focus:border-accent-darker transition-all duration-300"
+                                    inputClassName="text-xl sm:text-2xl md:text-3xl lg:text-4xl fredoka-one text-center !h-auto py-3 sm:py-4 bg-white/90 backdrop-blur-sm border-2 border-accent focus:border-accent-darker transition-all duration-300"
                                     fullWidth={true}
                                 />
                             )}
                             {user && (
                                 <Button
-                                    icon={titleEdit ? <FaCheck size={18} /> : <FaPen size={18} />}
+                                    icon={titleEdit ? <FaCheck size={16} /> : <FaPen size={16} />}
                                     rounded
                                     className={classNames(
-                                        "w-12 h-12 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm",
+                                        "w-10 h-10 sm:w-12 sm:h-12 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm flex-shrink-0",
                                         {
                                             "group-hover:opacity-100": !titleEdit,
                                             "bg-green-500 hover:bg-green-600": titleEdit,
@@ -216,13 +214,14 @@ const Home = (): JSX.Element => {
                         {/* Enhanced Subtitle Section */}
                         <div
                             className={classNames({
-                                "flex items-center justify-center gap-4 w-full max-w-3xl mb-12 relative group": true,
-                                "ml-12": user && !subTitleEdit,
+                                "flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full max-w-3xl mb-0 sm:mb-10 md:mb-12 relative group":
+                                    true,
+                                "sm:ml-12": user && !subTitleEdit,
                             })}
                         >
                             {!subTitleEdit && (
                                 <h2
-                                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl fredoka-one text-center text-accent-darker leading-relaxed tracking-wide opacity-90 hover:opacity-100 transition-opacity duration-300"
+                                    className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl fredoka-one text-center text-accent-darker leading-relaxed tracking-wide opacity-90 hover:opacity-100 transition-opacity duration-300 px-2"
                                     dangerouslySetInnerHTML={innerHTML(config.subtitle || "Set Your Subtitle")}
                                     style={{
                                         textShadow: "0 2px 4px rgba(0,0,0,0.2)",
@@ -236,15 +235,15 @@ const Home = (): JSX.Element => {
                                     type="textarea"
                                     rows={3}
                                     fullWidth={true}
-                                    inputClassName="text-lg sm:text-xl fredoka-one text-center bg-white/90 backdrop-blur-sm border-2 border-accent focus:border-accent-darker transition-all duration-300"
+                                    inputClassName="text-sm sm:text-base md:text-lg lg:text-xl fredoka-one text-center bg-white/90 backdrop-blur-sm border-2 border-accent focus:border-accent-darker transition-all duration-300"
                                 />
                             )}
                             {user && (
                                 <Button
-                                    icon={subTitleEdit ? <FaCheck size={18} /> : <FaPen size={18} />}
+                                    icon={subTitleEdit ? <FaCheck size={16} /> : <FaPen size={16} />}
                                     rounded
                                     className={classNames(
-                                        "w-12 h-12 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm",
+                                        "w-10 h-10 sm:w-12 sm:h-12 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm flex-shrink-0",
                                         {
                                             "group-hover:opacity-100": !subTitleEdit,
                                             "bg-green-500 hover:bg-green-600": subTitleEdit,
@@ -265,36 +264,42 @@ const Home = (): JSX.Element => {
                     </div>
 
                     {/* Enhanced Navigation Section */}
-                    <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 justify-center items-center pb-10 px-4">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-center items-center pb-8 sm:pb-10 px-4 sm:px-6 md:px-8">
                         <a
                             href="/#"
                             onClick={() => scrollIntoElement(Route.ABOUT)}
-                            className="group"
+                            className="group w-full sm:w-auto"
                             aria-label="Navigate to About Me section"
                         >
-                            <div className="glass text-accent fredoka-one p-6 sm:p-8 border-4 border-accent-darker rounded-3xl w-full sm:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
-                                <FaUser className="mx-auto mb-3 text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300" />
-                                <span className="text-xl sm:text-2xl font-bold lg:text-3xl block group-hover:text-accent-darker transition-colors duration-300">
-                                    About Me
-                                </span>
-                                <div className="w-0 group-hover:w-full h-0.5 bg-accent-darker mx-auto mt-2 transition-all duration-300"></div>
+                            <div className="glass relative text-accent fredoka-one p-5 border-2 sm:border-3 md:border-4 border-accent-darker rounded-2xl sm:rounded-3xl w-full sm:w-64 md:w-72 lg:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
+                                <div className="flex items-center justify-center">
+                                    <FaUser className="me-3 text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300" />
+                                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold block group-hover:text-accent-darker transition-colors duration-300">
+                                        About Me
+                                    </span>
+                                </div>
+                                <div className="hidden md:block absolute bottom-3 left-[50%] translate-x-[-50%] w-0 group-hover:w-[90%] h-0.5 bg-accent-darker mx-auto mt-1 sm:mt-2 transition-all duration-300"></div>
                             </div>
                         </a>
 
-                        <div className="text-accent text-3xl sm:text-4xl lg:text-6xl opacity-50 hidden sm:block">|</div>
+                        <div className="text-accent text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl opacity-50 hidden sm:block">
+                            |
+                        </div>
 
                         <a
                             href="/#"
                             onClick={() => scrollIntoElement(Route.WORK_PROJECTS)}
-                            className="group"
+                            className="group w-full sm:w-auto"
                             aria-label="Navigate to My Projects section"
                         >
-                            <div className="glass text-accent fredoka-one p-6 sm:p-8 border-4 border-accent-darker rounded-3xl w-full sm:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
-                                <FaCode className="mx-auto mb-3 text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300" />
-                                <span className="text-xl sm:text-2xl font-bold lg:text-3xl block group-hover:text-accent-darker transition-colors duration-300">
-                                    My Projects
-                                </span>
-                                <div className="w-0 group-hover:w-full h-0.5 bg-accent-darker mx-auto mt-2 transition-all duration-300"></div>
+                            <div className="glass relative text-accent fredoka-one p-5 border-2 sm:border-3 md:border-4 border-accent-darker rounded-2xl sm:rounded-3xl w-full sm:w-64 md:w-72 lg:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
+                                <div className="flex items-center justify-center">
+                                    <FaCode className="me-3 text-xl sm:text-2xl md:text-3xl group-hover:scale-110 transition-transform duration-300" />
+                                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold block group-hover:text-accent-darker transition-colors duration-300">
+                                        My Projects
+                                    </span>
+                                </div>
+                                <div className="hidden md:block absolute bottom-3 left-[50%] translate-x-[-50%] w-0 group-hover:w-[90%] h-0.5 bg-accent-darker mx-auto mt-1 sm:mt-2 transition-all duration-300"></div>
                             </div>
                         </a>
                     </div>
