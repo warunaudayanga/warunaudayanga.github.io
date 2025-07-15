@@ -99,17 +99,39 @@ const Home = (): JSX.Element => {
     // Loading skeleton component
     const ProfileSkeleton = (): JSX.Element => (
         <div className="animate-pulse">
-            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 bg-gray-300 rounded-full mx-auto mb-4 sm:mb-6"></div>
-            <div className="h-8 sm:h-12 md:h-14 lg:h-16 bg-gray-300 rounded-lg mb-3 sm:mb-4 w-4/5 sm:w-3/4 mx-auto"></div>
-            <div className="h-6 sm:h-7 md:h-8 bg-gray-300 rounded-lg mb-6 sm:mb-8 w-3/5 sm:w-1/2 mx-auto"></div>
+            {/* Profile Image Skeleton - matches actual profile section sizing */}
+            <div className="relative group mb-6 sm:mb-8">
+                <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52 xl:w-56 xl:h-56 bg-gray-300 rounded-full mx-auto shadow-2xl"></div>
+            </div>
+
+            {/* Title Skeleton - matches actual title section */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-[50vw] max-w-[50vw] m-auto mb-3 sm:mb-4">
+                <div className="h-12 sm:h-10 md:h-12 lg:h-16 xl:h-20 bg-gray-300 rounded-lg w-4/5 sm:w-3/4 mx-auto"></div>
+            </div>
+
+            {/* Subtitle Skeleton - matches actual subtitle section */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-[60vw] max-w-[60vw] m-auto mb-0 sm:mb-10 md:mb-12">
+                <div className="h-6 sm:h-6 md:h-7 lg:h-8 xl:h-10 bg-gray-300 rounded-lg w-3/5 sm:w-1/2 mx-auto"></div>
+            </div>
         </div>
     );
 
     const NavigationSkeleton = (): JSX.Element => (
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-center items-center animate-pulse px-4">
-            <div className="h-16 sm:h-18 md:h-20 w-full sm:w-64 md:w-72 lg:w-80 bg-gray-300 rounded-3xl"></div>
-            <div className="h-8 sm:h-12 md:h-16 w-1 sm:w-4 bg-gray-300 hidden sm:block"></div>
-            <div className="h-16 sm:h-18 md:h-20 w-full sm:w-64 md:w-72 lg:w-80 bg-gray-300 rounded-3xl"></div>
+        <div className="flex flex-col w-full sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 justify-center items-center pb-8 sm:pb-10 sm:px-6 md:px-8 px-10 animate-pulse">
+            {/* About Me Button Skeleton */}
+            <div className="w-full sm:w-auto">
+                <div className="h-16 sm:h-16 md:h-20 lg:h-20 w-full sm:w-64 md:w-72 lg:w-80 bg-gray-300 rounded-2xl sm:rounded-3xl shadow-lg"></div>
+            </div>
+
+            {/* Separator Skeleton */}
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl opacity-50 hidden sm:block">
+                <div className="w-2 h-8 sm:h-10 md:h-12 lg:h-16 xl:h-20 bg-gray-300 rounded"></div>
+            </div>
+
+            {/* My Projects Button Skeleton */}
+            <div className="w-full sm:w-auto">
+                <div className="h-16 sm:h-16 md:h-20 lg:h-20 w-full sm:w-64 md:w-72 lg:w-80 bg-gray-300 rounded-2xl sm:rounded-3xl shadow-lg"></div>
+            </div>
         </div>
     );
 
