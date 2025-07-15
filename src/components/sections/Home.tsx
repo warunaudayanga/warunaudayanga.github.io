@@ -292,10 +292,10 @@ const Home = (): JSX.Element => {
                             className="group w-full sm:w-auto"
                             aria-label="Navigate to About Me section"
                         >
-                            <div className="glass relative text-accent fredoka-one p-5 border-2 sm:border-3 md:border-4 border-accent-darker rounded-2xl sm:rounded-3xl w-full sm:w-64 md:w-72 lg:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
+                            <div className="glass relative text-accent hover:text-accent-darker fredoka-one p-5 border-2 sm:border-3 md:border-4 border-accent rounded-2xl sm:rounded-3xl w-full sm:w-64 md:w-72 lg:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent-darker group-focus:border-accent">
                                 <div className="flex items-center justify-center">
                                     <FaUser className="me-3 text-xl sm:text-2xl group-hover:scale-110 transition-transform duration-300" />
-                                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold block group-hover:text-accent-darker transition-colors duration-300">
+                                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold block transition-colors duration-300">
                                         About Me
                                     </span>
                                 </div>
@@ -313,10 +313,10 @@ const Home = (): JSX.Element => {
                             className="group w-full sm:w-auto"
                             aria-label="Navigate to My Projects section"
                         >
-                            <div className="glass relative text-accent fredoka-one p-5 border-2 sm:border-3 md:border-4 border-accent-darker rounded-2xl sm:rounded-3xl w-full sm:w-64 md:w-72 lg:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent group-focus:border-accent">
+                            <div className="glass relative text-accent hover:text-accent-darker fredoka-one p-5 border-2 sm:border-3 md:border-4 border-accent rounded-2xl sm:rounded-3xl w-full sm:w-64 md:w-72 lg:w-80 text-center hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 backdrop-blur-md group-hover:border-accent-darker group-focus:border-accent">
                                 <div className="flex items-center justify-center">
                                     <FaCode className="me-3 text-xl sm:text-2xl md:text-3xl group-hover:scale-110 transition-transform duration-300" />
-                                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold block group-hover:text-accent-darker transition-colors duration-300">
+                                    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold block transition-colors duration-300">
                                         My Projects
                                     </span>
                                 </div>
