@@ -34,10 +34,13 @@ export interface ProjectDto {
     otherLibs: (keyof typeof stackIcon)[] | null;
     extra: string | null;
     remarks: string;
+    projectName?: string;
     projectUrl: string;
+    githubName?: string;
     githubUrl: string;
     frontendGit: string;
     backendGit: string;
+    npmName?: string;
     npmUrl: string;
     screenshots: (File | UploadedFile)[] | null;
     status: ProjectStatus;

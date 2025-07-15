@@ -209,7 +209,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                 <div className="flex gap-2 items-center mb-3">
                                     <img alt="logo" className="w-[20px]" src={githubLogo} />
                                     <a className="underline" href={project.githubUrl} target="_blank" rel="noreferrer">
-                                        {project.githubUrl.split("/").pop()}
+                                        {project.githubName || project.githubUrl.split("/").pop()}
                                     </a>
                                 </div>
                             )}
@@ -217,7 +217,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                 <div className="flex gap-2 items-center mb-3">
                                     <img alt="logo" className="w-[20px]" src={npmLogo} />
                                     <a className="underline" href={project.npmUrl} target="_blank" rel="noreferrer">
-                                        {project.npmUrl.split("/").pop()}
+                                        {project.npmName || project.npmUrl.split("/").pop()}
                                     </a>
                                 </div>
                             )}

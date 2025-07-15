@@ -51,10 +51,13 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
         extra: data?.extra || "",
         remarks: data?.remarks || "",
         screenshots: data?.screenshots || null,
+        projectName: data?.projectName || "",
         projectUrl: data?.projectUrl || "",
+        githubName: data?.githubName || "",
         githubUrl: data?.githubUrl || "",
         frontendGit: data?.frontendGit || "",
         backendGit: data?.backendGit || "",
+        npmName: data?.npmName || "",
         npmUrl: data?.npmUrl || "",
         status: data?.status || "draft",
     };
@@ -300,7 +303,9 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                     <FormControl control={control} name="remarks" title="Remarks" className="w-1/2" />
                     {selectedCategory === ProjectCategory.NPM && (
                         <>
+                            <FormControl control={control} name="githubName" title="Github Name" className="w-1/2" />
                             <FormControl control={control} name="githubUrl" title="Github URL" className="w-1/2" />
+                            <FormControl control={control} name="npmName" title="NPM Name" className="w-1/2" />
                             <FormControl control={control} name="npmUrl" title="NPM URL" className="w-1/2" />
                         </>
                     )}
