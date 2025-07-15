@@ -1,21 +1,17 @@
 // noinspection JSIgnoredPromiseFromCall
 
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import { useAuth, useDialog } from "../../hooks";
 import { ProjectDialog, ProjectViewDialog } from "../dialogs";
 import { ProjectDocument } from "../../interfaces";
 import Button from "./Button.tsx";
-import { FaChevronLeft, FaChevronRight, FaPen } from "react-icons/fa6";
-import { FaTimes } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaEye, FaPen } from "react-icons/fa6";
+import { FaExternalLinkAlt, FaGithub, FaNpm, FaTimes } from "react-icons/fa";
 import { useProjectState } from "../../hooks/use-project-state.ts";
 import { ProjectActionType } from "../../reducers";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
-import githubLogo from "../../assets/images/logos/github.png";
-import npmLogo from "../../assets/images/logos/npm.png";
-import classNames from "classnames";
 import StackIcon from "./StackIcon.tsx";
 import { stackIcon } from "../../data/stack-icons.ts";
-import npmCover from "../../assets/svg/npm.svg";
 import { clsx } from "clsx";
 
 interface Props {
@@ -28,6 +24,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
     const { user } = useAuth();
     const { openDialog, confirmDialog } = useDialog();
     const { getProject, dispatch } = useProjectState();
+    const [isHovered, setIsHovered] = useState(false);
 
     const currentProject = getProject(project.id) || project;
 
@@ -67,180 +64,252 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
     };
 
     return (
-        <div className="w-1/2 odd:pr-6 even:pl-6 pb-12">
+        <div className="w-full md:w-1/2 px-3 pb-6">
             <div
                 className={clsx({
-                    "p-8 shadow-xl relative rounded-lg h-full flex flex-col": true,
-                    "bg-white": !user,
-                    "bg-amber-100": user && project.status === "draft",
+                    "relative rounded-xl h-full flex flex-col overflow-hidden transition-all group": true,
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                    "bg-white shadow-lg hover:shadow-2xl": !user || (user && project.status === "published"),
+                    "bg-amber-50 shadow-lg hover:shadow-2xl border-2 border-amber-200":
+                        user && project.status === "draft",
                 })}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
             >
+                {/* Admin Controls */}
                 {user && (
-                    <div className="flex gap-2 absolute top-[-10px] right-[-10px]">
+                    <div
+                        className={clsx({
+                            "absolute top-3 right-3 flex gap-1 z-10 transition-opacity duration-200": true,
+                            "opacity-0 group-hover:opacity-100": !isHovered,
+                            "opacity-100": isHovered,
+                        })}
+                    >
                         <Button
                             icon={<FaChevronLeft />}
+                            variant="admin"
+                            size="icon"
                             rounded
-                            className="w-7 h-7"
-                            color="accent-darker"
                             onClick={() => onChangeOrder?.(currentProject.id, true)}
-                        ></Button>
+                            title="Move Left"
+                        />
                         <Button
                             icon={<FaChevronRight />}
+                            variant="admin"
+                            size="icon"
                             rounded
-                            className="w-7 h-7"
-                            color="accent-darker"
                             onClick={() => onChangeOrder?.(currentProject.id)}
-                        ></Button>
-                        <Button icon={<FaPen />} rounded className="w-7 h-7" onClick={() => handleEdit()}></Button>
+                            title="Move Right"
+                        />
+                        <Button
+                            icon={<FaPen />}
+                            variant="admin"
+                            size="icon"
+                            rounded
+                            onClick={() => handleEdit()}
+                            title="Edit Project"
+                        />
                         <Button
                             icon={<FaTimes />}
+                            variant="admin"
+                            size="icon"
                             rounded
-                            className="w-7 h-7"
                             color="danger"
                             onClick={handleDelete}
-                        ></Button>
+                            title="Delete Project"
+                        />
                     </div>
                 )}
-                <div
-                    className="flex flex-col gap-3 mb-5"
-                    style={{ backgroundColor: currentProject.category === ProjectCategory.NPM ? "#c73636" : "" }}
-                >
+                {/* Project Image/Thumbnail */}
+                <div className="relative">
                     {currentProject.thumbnail?.url ? (
-                        <img src={currentProject.thumbnail.url} className="rounded" alt="card-image" />
+                        <div className="flex justify-center">
+                            <div className="p-4">
+                                <div className="rounded-lg overflow-hidden">
+                                    <img
+                                        src={currentProject.thumbnail.url}
+                                        className="h-80 w-auto object-cover transition-transform rounded-lg"
+                                        alt={`${currentProject.name} thumbnail`}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     ) : project.category === ProjectCategory.NPM ? (
-                        <img src={npmCover} className="w-1/2 m-auto" alt="card-image" />
+                        <div className="p-4">
+                            <div className="w-full h-60 rounded-lg bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
+                                <FaNpm size={180} color="white"></FaNpm>
+                            </div>
+                        </div>
                     ) : (
-                        <div
-                            className="bg-primary-darker w-full flex items-center justify-center relative"
-                            style={{ aspectRatio: "16/9" }}
-                        >
-                            <h2 className="text-5xl text-white text-center font-bold relative z-10">
-                                {currentProject.name}
-                            </h2>
-                            <div
-                                className="h-full w-full absolute overflow-hidden z-0"
-                                style={{
-                                    background:
-                                        "transparent linear-gradient(225deg, var(--primary) 0,var(--primary-darker) 100%) 0 0 no-repeat padding-box",
-                                }}
-                            >
-                                <svg
-                                    className="absolute bottom-[-40px] right-[-50px] opacity-70 fill-primary-darker"
-                                    height="200"
-                                    width="200"
-                                    xmlns="http://www.w3.org/2000/svg"
+                        <div className="p-4">
+                            <div className="bg-primary-darker rounded-lg w-full h-80 flex items-center justify-center relative overflow-hidden">
+                                <h2 className="text-3xl md:text-4xl text-white text-center font-bold relative z-10 px-4">
+                                    {currentProject.name}
+                                </h2>
+                                <div
+                                    className="h-full w-full absolute overflow-hidden z-0"
+                                    style={{
+                                        background:
+                                            "transparent linear-gradient(225deg, var(--primary) 0,var(--primary-darker) 100%) 0 0 no-repeat padding-box",
+                                    }}
                                 >
-                                    <circle r="100" cx="100" cy="100" />
-                                </svg>
-                                <svg
-                                    className="absolute top-[-50px] left-[50%] opacity-70 fill-primary-dark"
-                                    height="80"
-                                    width="80"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <circle r="40" cx="40" cy="40" />
-                                </svg>
-                                <svg
-                                    className="absolute top-[-80px] left-[-30px] opacity-70 fill-primary"
-                                    height="150"
-                                    width="150"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <circle r="75" cx="75" cy="75" />
-                                </svg>
+                                    <svg
+                                        className="absolute bottom-[-40px] right-[-50px] opacity-70 fill-primary-darker"
+                                        height="200"
+                                        width="200"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle r="100" cx="100" cy="100" />
+                                    </svg>
+                                    <svg
+                                        className="absolute top-[-50px] left-[50%] opacity-70 fill-primary-dark"
+                                        height="80"
+                                        width="80"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle r="40" cx="40" cy="40" />
+                                    </svg>
+                                    <svg
+                                        className="absolute top-[-80px] left-[-30px] opacity-70 fill-primary"
+                                        height="150"
+                                        width="150"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle r="75" cx="75" cy="75" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     )}
                 </div>
-                <div className="flex-grow flex flex-col">
-                    <div className="text-xl font-bold flex justify-between">
-                        <div>{project.name}</div>
-                        {project.techStack && (
-                            <div className="flex gap-1 ms-3">
-                                {project.techStack.map(icon => (
-                                    <StackIcon key={icon} icon={stackIcon[icon].icon} size="20px" />
+                {/* Main Content */}
+                <div className="flex-grow flex flex-col p-6">
+                    {/* Project Header */}
+                    <div className="mb-4">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{project.name}</h3>
+
+                        {/* Project Type and Company/Client Info */}
+                        <div className="flex flex-wrap gap-2 mb-3">
+                            {project.projectType && (
+                                <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-full">
+                                    {project.projectType}
+                                </span>
+                            )}
+                            {project.company && (
+                                <span className="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+                                    {project.company}
+                                </span>
+                            )}
+                            {!project.company && project.client && (
+                                <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">
+                                    {project.clientType || "Client"}: {project.client}
+                                </span>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Project Description */}
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">{project.info}</p>
+
+                    {/* Tech Stack */}
+                    {project.techStack && project.techStack.length > 0 && (
+                        <div className="mb-4">
+                            <h4 className="text-sm font-semibold text-gray-700 mb-2">Tech Stack</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {project.techStack.map(tech => (
+                                    <div
+                                        key={tech}
+                                        className="flex items-center gap-1 px-2 py-1 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors"
+                                        title={stackIcon[tech].label || tech}
+                                    >
+                                        <StackIcon icon={stackIcon[tech].icon} size="16px" />
+                                        <span className="text-xs text-gray-600">{stackIcon[tech].label || tech}</span>
+                                    </div>
                                 ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Remarks */}
+                    {project.remarks && (
+                        <div className="mb-4 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded-r">
+                            <p className="text-sm text-yellow-800 font-medium">{project.remarks}</p>
+                        </div>
+                    )}
+
+                    {/* Project Links */}
+                    <div className="mb-6">
+                        {project.category !== ProjectCategory.NPM && (
+                            <div className="flex flex-wrap gap-3">
+                                {project.frontendGit && (
+                                    <Button
+                                        type="link"
+                                        variant="link-button"
+                                        color="github"
+                                        link={project.frontendGit}
+                                        icon={<FaGithub className="w-4 h-4 me-2" />}
+                                    >
+                                        Frontend
+                                    </Button>
+                                )}
+                                {project.backendGit && (
+                                    <Button
+                                        type="link"
+                                        variant="link-button"
+                                        color="github"
+                                        link={project.backendGit}
+                                        icon={<FaGithub className="w-4 h-4 me-2" />}
+                                    >
+                                        Backend
+                                    </Button>
+                                )}
+                            </div>
+                        )}
+
+                        {project.category === ProjectCategory.NPM && (
+                            <div className="flex flex-wrap gap-3">
+                                {project.githubUrl && (
+                                    <Button
+                                        type="link"
+                                        variant="link-button"
+                                        color="github"
+                                        link={project.githubUrl}
+                                        icon={<FaGithub className="w-4 h-4 me-2" />}
+                                    >
+                                        {project.githubName || "Repository"}
+                                    </Button>
+                                )}
+                                {project.npmUrl && (
+                                    <Button
+                                        type="link"
+                                        variant="link-button"
+                                        color="npm"
+                                        link={project.npmUrl}
+                                        icon={<FaNpm className="w-4 h-4 me-2" />}
+                                    >
+                                        {project.npmName || "Package"}
+                                    </Button>
+                                )}
                             </div>
                         )}
                     </div>
-                    <p className="mb-3 flex-grow text-gray-600">{project.info}</p>
-
-                    {project.projectType && <p className="mb-3 text-gray-600 font-bold">{project.projectType}</p>}
-
-                    {project.company && <p className="mb-3 text-gray-600 font-bold">Company — {project.company}</p>}
-
-                    {!project.company && project.client && (
-                        <p className="mb-3 text-gray-600 font-bold">
-                            {project.clientType || "Client"} — {project.client}
-                        </p>
-                    )}
-
-                    {project.remarks && <p className="mb-3 text-gray-600 font-bold">{project.remarks}</p>}
-
-                    {project.category !== ProjectCategory.NPM && (
-                        <div className="flex gap-4 mb-3">
-                            {project.frontendGit && (
-                                <div className="flex gap-2 items-center mb-3">
-                                    <img alt="logo" className="w-[20px]" src={githubLogo} />
-                                    <a
-                                        className="underline"
-                                        href={project.frontendGit}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        {project.frontendGit.split("/").pop()}
-                                    </a>
-                                </div>
-                            )}
-                            {project.backendGit && (
-                                <div className="flex gap-2 items-center mb-3">
-                                    <img alt="logo" className="w-[20px]" src={githubLogo} />
-                                    <a className="underline" href={project.backendGit} target="_blank" rel="noreferrer">
-                                        {project.backendGit.split("/").pop()}
-                                    </a>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {project.category === ProjectCategory.NPM && (
-                        <div className="flex gap-4 mb-3">
-                            {project.githubUrl && (
-                                <div className="flex gap-2 items-center mb-3">
-                                    <img alt="logo" className="w-[20px]" src={githubLogo} />
-                                    <a className="underline" href={project.githubUrl} target="_blank" rel="noreferrer">
-                                        {project.githubName || project.githubUrl.split("/").pop()}
-                                    </a>
-                                </div>
-                            )}
-                            {project.npmUrl && (
-                                <div className="flex gap-2 items-center mb-3">
-                                    <img alt="logo" className="w-[20px]" src={npmLogo} />
-                                    <a className="underline" href={project.npmUrl} target="_blank" rel="noreferrer">
-                                        {project.npmName || project.npmUrl.split("/").pop()}
-                                    </a>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                    <div className="flex gap-8">
+                    {/* Action Buttons */}
+                    <div className="flex gap-3 mt-auto">
                         <Button
-                            color="primary-dark"
-                            className={classNames({
-                                "justify-center": true,
-                                "w-1/2": project.npmUrl || project.projectUrl,
-                                "w-full": !project.npmUrl && !project.projectUrl,
-                            })}
+                            variant="action"
+                            color="primary"
                             onClick={handleView}
+                            icon={<FaEye className="w-4 h-4" />}
                         >
                             View Details
                         </Button>
-                        {(project.npmUrl || project.projectUrl) && (
+                        {project.projectUrl && (
                             <Button
-                                color="primary-dark"
                                 type="link"
-                                className="w-1/2 justify-center"
+                                variant="action"
+                                color="success"
                                 link={project.category === ProjectCategory.NPM ? project.npmUrl : project.projectUrl}
+                                icon={<FaExternalLinkAlt className="w-4 h-4" />}
                             >
                                 Open App
                             </Button>

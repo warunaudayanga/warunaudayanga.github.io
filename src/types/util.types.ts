@@ -8,4 +8,6 @@ export type Color =
     | "primary-darker"
     | "black"
     | "white"
-    | "gray";
+    | "gray"
+    | "github"
+    | "npm";
