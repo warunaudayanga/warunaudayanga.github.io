@@ -8,10 +8,10 @@ const NpmProjects = (): JSX.Element => {
     return (
         <>
             <p className="text-xl mb-3">
-                As a hobby, I have started creating some npm packages to support the development of my projects.
-                Currently, these packages are intended for personal use, as they are still under active development.
-                However, I have decided to publish them on npm for convenience. I have created a brand for my packages
-                called Hichchi Dev.
+                As a hobby, I’ve started developing a collection of npm packages to support and accelerate the
+                development of my own projects. While these packages are still evolving and primarily intended for
+                personal use, I’ve published them on npm for convenience and reusability. I release them under the brand
+                hichchi, while I refer to myself in this context as Hichchi Dev—my developer persona behind the work.
             </p>
             <div className="flex gap-4 mb-3">
                 <div className="flex gap-2 items-center mb-3">
@@ -44,10 +44,6 @@ const NpmProjects = (): JSX.Element => {
                     </a>
                 </div>
             </div>
-            <p className="text-xl mb-10">
-                Below are my ongoing npm projects. Please note that documentation may not yet be available, as these
-                projects are still in progress.
-            </p>
         </>
     );
 };
