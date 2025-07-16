@@ -51,17 +51,17 @@ function Layout(): JSX.Element {
             hidden: false,
         },
         {
-            label: "Collaboration",
-            icon: <VscGithubProject />,
-            url: "#",
-            elementId: Route.COLLABORATION_PROJECTS,
-            hidden: false,
-        },
-        {
             label: "NPM Libraries",
             icon: <GrProjects />,
             url: "#",
             elementId: Route.NPM_PROJECTS,
+            hidden: false,
+        },
+        {
+            label: "Collaboration",
+            icon: <VscGithubProject />,
+            url: "#",
+            elementId: Route.COLLABORATION_PROJECTS,
             hidden: false,
         },
     ]);
@@ -199,12 +199,12 @@ function Layout(): JSX.Element {
                     <AboutMe />
                     <Projects category={ProjectCategory.WORK} route={Route.WORK_PROJECTS} bgSecondary />
                     <Projects category={ProjectCategory.PERSONAL} route={Route.PERSONAL_PROJECTS} />
+                    <Projects category={ProjectCategory.NPM} route={Route.NPM_PROJECTS} description={<NpmProjects />} />
                     <Projects
                         category={ProjectCategory.COLLABORATION}
                         route={Route.COLLABORATION_PROJECTS}
                         bgSecondary
                     />
-                    <Projects category={ProjectCategory.NPM} route={Route.NPM_PROJECTS} description={<NpmProjects />} />
                 </Page>
             </Content>
             <ToastContainer theme="colored" />
