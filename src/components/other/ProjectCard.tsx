@@ -46,7 +46,10 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
 
         const result = await dialogRef.result;
         if (result) {
-            dispatch({ type: ProjectActionType.UPDATE_PROJECT, project: result });
+            dispatch({
+                type: ProjectActionType.UPDATE_PROJECT,
+                project: result,
+            });
         }
     };
 
@@ -254,7 +257,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         icon={<FaGithub className="w-4 h-4" />}
                                         className="flex-grow"
                                     >
-                                        Frontend
+                                        {project.backendGit ? "Frontend" : "Repository"}
                                     </Button>
                                 )}
                                 {project.backendGit && (
@@ -266,7 +269,7 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                                         icon={<FaGithub className="w-4 h-4" />}
                                         className="flex-grow"
                                     >
-                                        Backend
+                                        {project.frontendGit ? "Backend" : "Repository"}
                                     </Button>
                                 )}
                             </div>
