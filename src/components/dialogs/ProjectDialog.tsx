@@ -384,7 +384,7 @@ const ProjectDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocument, P
                                     <ToolSelector
                                         control={control}
                                         name="uiLibs"
-                                        title="UI Libraries / Frameworks"
+                                        title="Frontend Libraries / Frameworks"
                                         fullWidth
                                         value={values.uiLibs}
                                     />

@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 import { NpmProjects, Projects } from "../sections";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
 import { useProjectState } from "../../hooks/use-project-state.ts";
-import { groupBy } from "hichchi-utils";
+import { groupBy } from "@hichchi/utils";
 import { useLocation } from "react-router-dom";
 import { ProjectViewDialog } from "../dialogs";
 

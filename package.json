@@ -10,11 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hichchi/utils": "^0.0.1-beta.2",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "dompurify": "^3.2.0",
     "firebase": "^10.13.0",
-    "hichchi-utils": "^1.0.8",
     "overlayscrollbars-react": "^0.5.6",
     "primeicons": "^7.0.0",
     "react": "^18.3.1",

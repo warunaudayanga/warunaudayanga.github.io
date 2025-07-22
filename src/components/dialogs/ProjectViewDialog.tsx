@@ -168,7 +168,7 @@ const ProjectViewDialog = ({ close, data }: PropsWithCloseAndData<ProjectDocumen
                                     </h3>
                                     <div className="space-y-6">
                                         {data.coreLibs && addTools("Core Libraries / Frameworks", data.coreLibs)}
-                                        {data.uiLibs && addTools("UI Libraries / Frameworks", data.uiLibs)}
+                                        {data.uiLibs && addTools("Frontend Libraries / Frameworks", data.uiLibs)}
                                         {data.stateManageLibs &&
                                             addTools("State Management Libraries", data.stateManageLibs)}
                                         {data.backendLibs &&

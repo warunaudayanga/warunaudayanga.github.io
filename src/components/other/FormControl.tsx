@@ -4,7 +4,7 @@ import { Control, Controller, RegisterOptions } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
 import { FormControlSelectOptions } from "../../interfaces";
-import { toTitleCase } from "hichchi-utils";
+import { toTitleCase } from "@hichchi/utils";
 
 interface Props {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

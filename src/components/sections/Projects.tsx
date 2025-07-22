@@ -5,7 +5,7 @@ import { Route } from "../../enums";
 import { Section } from "../index.ts";
 import { ProjectCard } from "../other";
 import { ProjectCategory } from "../../enums/project-category.enum.ts";
-import { toFirstCase } from "hichchi-utils";
+import { toFirstCase } from "@hichchi/utils";
 import { handleProjectOrder } from "../../utils";
 import { handleProjectDelete } from "../../utils/project-utils.ts";
 import { useProjectState } from "../../hooks/use-project-state.ts";

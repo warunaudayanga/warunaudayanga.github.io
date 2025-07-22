@@ -216,7 +216,9 @@ const ProjectCard = ({ project, onChangeOrder, onDeleted }: Props): JSX.Element 
                     </div>
 
                     {/* Project Description */}
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3">{project.info}</p>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow line-clamp-3 max-h-[70px]">
+                        {project.info}
+                    </p>
 
                     {/* Tech Stack */}
                     {project.techStack && project.techStack.length > 0 && (
